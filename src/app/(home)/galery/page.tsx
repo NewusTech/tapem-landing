@@ -1,13 +1,11 @@
 import React from "react";
-import { Button } from "../ui/button";
-import Link from "next/link";
 
-export default function GaleriLanding() {
+export default function Galery() {
   return (
-    <div className="w-full flex flex-col gap-4 container mt-6">
-      <p className="text-2xl font-bold text-primary-main">Galeri</p>
+    <section className="py-10">
+        <h1 className="text-primary-main text-3xl font-semibold ml-10">Galery</h1>
       <div className="w-full flex flex-wrap gap-4 justify-center">
-        {Array.from({ length: 3 }).map((_, index) => (
+        {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index + "galeri"}
             className="w-[25rem] h-[15rem] relative flex flex-col bg-[url('/assets/images/dummy_1.png')] bg-cover overflow-hidden rounded-xl bg"
@@ -19,11 +17,6 @@ export default function GaleriLanding() {
           </div>
         ))}
       </div>
-      <Link href={"/galery"} className="ml-auto">
-        <Button className="bg-primary-main hover:bg-primary-soft w-fit rounded-full text-white">
-          Lihat Selengkapnya..
-        </Button>
-      </Link>
-    </div>
+    </section>
   );
 }
