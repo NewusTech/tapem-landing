@@ -15,6 +15,7 @@ import {
   CarouselItem,
 } from "../ui/carousel";
 import CardBerita from "../berita/cardBerita";
+import Link from "next/link";
 
 export default function BeritaLanding() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
@@ -45,9 +46,11 @@ export default function BeritaLanding() {
               Berita Terkait Tentang Tata Pemerintahan Lampung Utara
             </p>
           </div>
-          <Button className="w-fit bg-white text-black rounded-full mt-10">
-            Lihat Selengkeapnya..
-          </Button>
+          <Link href={"/news/"}>
+            <Button className="w-fit bg-white text-black rounded-full mt-10">
+              Lihat Selengkeapnya..
+            </Button>
+          </Link>
         </div>
         <div className=" h-full w-[65%] lg:w-[75%] absolute right-0 flex items-center">
           <Carousel

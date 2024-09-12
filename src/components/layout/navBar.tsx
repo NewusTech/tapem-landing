@@ -1,43 +1,23 @@
+import { navLink } from "@/constants";
+import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function NavBar() {
-  const navLink = [
-    {
-      title: "home",
-      link: "/",
-    },
-    {
-      title: "profile",
-      link: "/",
-    },
-    {
-      title: "informasi",
-      link: "/",
-    },
-    {
-      title: "galery",
-      link: "/",
-    },
-    {
-      title: "aplikasi kontak",
-      link: "/",
-    },
-    {
-      title: "galery",
-      link: "/",
-    },
-  ];
-
+  const pathname = usePathname();
   return (
-    <div className="w-full border-b border-primary-main shadow-sm">
+    <div className="w-full border-b bg-white border-primary-main shadow-sm">
       <div className="w-full container flex flex-row gap-12 items-center justify-between py-4 text-base lg:text-xl font-medium text-primary-main duration-150">
         {navLink.map((data) => (
           <Link
             key={data.link}
             href={data.link}
-            className="uppercase hover:font-bold"
+            className={cn([
+              "uppercase hover:font-bold",
+              pathname === data.link && "font-bold", // Apply text-black when the path matches
+            ])}
           >
             {data.title}
           </Link>

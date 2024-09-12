@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/pagination";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function News() {
@@ -56,9 +57,11 @@ export default function News() {
           </p>
         </div>
       </div>
-      <div className="grid items-center justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4 mt-10">
+      <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4 mt-10">
         {Array.from({ length: 16 }).map((_, index) => (
-          <CardBerita key={index + "berita"} />
+          <Link href={"/news/test"} key={index + "berita"}>
+            <CardBerita />
+          </Link>
         ))}
       </div>
       <div className="mt-8">
