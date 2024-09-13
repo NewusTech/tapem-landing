@@ -17,7 +17,7 @@ export default function HeaderSection() {
             className="object-contain w-full h-full"
           />
         </div>
-        <div className="flex flex-col gap-2 justify-center text-white items-start ml-10">
+        <div className="flex flex-col gap-2 justify-center text-white items-start ml-4 md:ml-10">
           <p className="text-xl md:text-3xl font-bold">TATA PEMERINTAHAN</p>
           <p className="text-base md:text-xl">KABUPATEN LAMPUNG UTARA</p>
         </div>

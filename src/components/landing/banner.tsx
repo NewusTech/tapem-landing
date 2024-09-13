@@ -45,7 +45,7 @@ export default function BannerLanding() {
             ))}
           </CarouselContent>
         </Carousel>
-        <div className="w-full flex flex-row justify-between px-8 absolute top-0 h-full items-center pointer-events-none">
+        <div className="w-full flex flex-row justify-between px-2 absolute top-0 h-full items-center pointer-events-none">
           <Button
             onClick={handlePrevious}
             className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
