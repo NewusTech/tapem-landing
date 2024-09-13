@@ -18,8 +18,8 @@ import React from "react";
 export default function News() {
   return (
     <section className="w-full container pb-10">
-      <h1 className="text-primary-main text-3xl font-semibold">Berita Utama</h1>
-      <div className="w-full h-[17rem] bg-white rounded-xl overflow-hidden shadow-lg flex flex-row">
+      <h1 className="text-primary-main text-xl sm:text-3xl font-semibold">Berita Utama</h1>
+      <div className="w-full h-[17rem] bg-white rounded-xl overflow-hidden shadow-lg hidden sm:flex sm:flex-row">
         <div className="w-[40%] h-full] bg-gray-400">
           <Image
             src={"/assets/images/dummy_2.png"}

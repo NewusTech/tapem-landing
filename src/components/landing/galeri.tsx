@@ -10,7 +10,7 @@ export default function GaleriLanding() {
         {Array.from({ length: 3 }).map((_, index) => (
           <div
             key={index + "galeri"}
-            className="w-[25rem] h-[15rem] relative flex flex-col bg-[url('/assets/images/dummy_1.png')] bg-cover overflow-hidden rounded-xl bg"
+            className="w-[25rem] h-[13rem] sm:h-[15rem] relative flex flex-col bg-[url('/assets/images/dummy_1.png')] bg-cover overflow-hidden rounded-xl bg"
           >
             <div className="bg-gradient-to-b from-primary-main/30 to-primary-soft/60 w-full h-full absolute" />
             <p className="font-semibold mt-auto text-center text-white z-[2] mb-4">

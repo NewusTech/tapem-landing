@@ -32,7 +32,7 @@ export default function FooterLanding() {
       <div className="w-full bg-primary-main p-4 text-white font-normal">
         <div className="flex flex-col md:flex-row gap-y-6 container items-center">
           <p className="text-sm">Copyright ©️ 2024 All rights reserved.</p>
-          <div className="flex flex-row">
+          <div className="flex flex-row ml-auto">
             <Link
               href={"/"}
               className="flex flex-row items-center ml-auto gap-2"

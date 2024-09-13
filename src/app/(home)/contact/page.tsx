@@ -4,7 +4,7 @@ export default function Contact() {
   return (
     <section className="container py-10">
       <h1 className="text-2xl font-bold w-[65%] md:w-[35%]">Kontak</h1>
-      <div className="flex flex-col mt-6 gap-2">
+      <div className="hidden md:flex flex-col mt-6 gap-2">
         <div className="flex flex-row">
           <div className="flex flex-col gap-2 w-[10%] justify-evenly">
             <p className="font-semibold">Lokasi</p>
@@ -20,6 +20,24 @@ export default function Contact() {
             <p className="">: mpplampungtimur@gmail.com</p>
             <p className="">: 086374620177</p>
           </div>
+        </div>
+      </div>
+      <div className=" flex flex-col md:hidden gap-4">
+        <div className="flex flex-col">
+          <p className="font-semibold">Lokasi :</p>
+          <p className="">
+            Lorem ipsum dolor sit amet consectetur. Dui eu sollicitudin egestas
+            ut elit pretium etiam. Erat condimentum nunc commodo amet lacus
+            arcu.
+          </p>
+        </div>
+        <div className="flex flex-col">
+          <p className="font-semibold">Email :</p>
+          <p className="">mpplampungtimur@gmail.com</p>
+        </div>
+        <div className="flex flex-col">
+          <p className="font-semibold">Lokasi :</p>
+          <p className="">086374620177</p>
         </div>
       </div>
       <div className="mt-6">
