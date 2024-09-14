@@ -13,9 +13,9 @@ export default function MapLanding() {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="flex flex-col justify-center gap-4 w-[100%] text-base md:text-xl lg:text-2xl">
-        <p className="font-bold">Lorem ipsum dolor sit amet consectetur.</p>
-        <p className="text-justify">
+      <div className="flex flex-col justify-center gap-4 w-full md:w-[140%]">
+        <p className="font-bold  text-base md:text-lg lg:text-xl">Lorem ipsum dolor sit amet consectetur.</p>
+        <p className="text-justify  text-sm md:text-base lg:text-lg">
           Lorem ipsum dolor sit amet consectetur. Tellus ut venenatis nec a orci
           morbi viverra. Aliquam sit mi tellus ultrices odio sit eu odio et.
           Consectetur lectus commodo faucibus maecenas sagittis adipiscing

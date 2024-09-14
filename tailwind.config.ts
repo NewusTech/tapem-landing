@@ -21,7 +21,9 @@ const config = {
   		colors: {
   			primary: {
   				'main': '#0F67B1',
-  				'soft': '#3FA2F6'
+  				'soft': '#3FA2F6',
+				'700' : '#1D3A6C',
+				'800' : '#101F39',
   			}
   		},
   		borderRadius: {

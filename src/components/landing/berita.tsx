@@ -19,19 +19,34 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function BeritaLanding() {
-  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const [caroselApiWeb, setCaroselApiWeb] = useState<CarouselApi | null>(null);
+  const [caroselApiMobile, setCaroselApiMobile] = useState<CarouselApi | null>(
+    null
+  );
 
   // Fungsi untuk next slide
-  const handleNext = () => {
-    if (carouselApi) {
-      carouselApi.scrollNext();
+  const handleNextWeb = () => {
+    if (caroselApiWeb) {
+      caroselApiWeb.scrollNext();
+    }
+  };
+  // Fungsi untuk prev slide
+  const handlePreviousWeb = () => {
+    if (caroselApiWeb) {
+      caroselApiWeb.scrollPrev();
     }
   };
 
+  // Fungsi untuk next slide
+  const handleNextMobile = () => {
+    if (caroselApiMobile) {
+      caroselApiMobile.scrollNext();
+    }
+  };
   // Fungsi untuk prev slide
-  const handlePrevious = () => {
-    if (carouselApi) {
-      carouselApi.scrollPrev();
+  const handlePreviousMobile = () => {
+    if (caroselApiMobile) {
+      caroselApiMobile.scrollPrev();
     }
   };
   return (
@@ -49,24 +64,24 @@ export default function BeritaLanding() {
               </p>
             </div>
             <Link href={"/news/"}>
-              <Button className="w-fit bg-white text-black rounded-full mt-10">
+              <Button className="w-fit bg-white text-black rounded-full mt-10 duration-150 hover:bg-gray-200 focus:shadow-sm">
                 Lihat Selengkeapnya..
               </Button>
             </Link>
           </div>
-          <div className=" h-full w-[65%] lg:w-[75%] absolute right-0 flex items-center">
+          <div className=" h-full w-[65%] lg:w-[75%] absolute -right-6 flex items-center">
             <Carousel
               opts={{
                 align: "start",
               }}
-              className="w-[100%]"
-              setApi={setCarouselApi}
+              className="w-full md:w-[90%] lg:w-full"
+              setApi={setCaroselApiWeb}
             >
               <CarouselContent>
                 {Array.from({ length: 5 }).map((_, index) => (
                   <CarouselItem
                     key={index + "berita"}
-                    className=" md:basis-[50%] lg:basis-[32%] py-5"
+                    className=" md:basis-[50%] lg:basis-[45%] xl:basis-[32%] py-5"
                   >
                     <CardBerita />
                   </CarouselItem>
@@ -77,13 +92,13 @@ export default function BeritaLanding() {
           <div className="w-[80%] flex flex-row justify-between px-8 absolute bottom-0 h-[40%] right-0 items-center pointer-events-none">
             <Button
               className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
-              onClick={handlePrevious}
+              onClick={handlePreviousWeb}
             >
               <ChevronLeft />
             </Button>
             <Button
               className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
-              onClick={handleNext}
+              onClick={handleNextWeb}
             >
               <ChevronRight />
             </Button>
@@ -100,9 +115,12 @@ export default function BeritaLanding() {
               align: "start",
             }}
             className="w-[90%]"
-            setApi={setCarouselApi}
+            setApi={setCaroselApiMobile}
           >
-            <Carousel className="w-full h-fit z-[2]" setApi={setCarouselApi}>
+            <Carousel
+              className="w-full h-fit z-[2]"
+              setApi={setCaroselApiMobile}
+            >
               <CarouselContent>
                 {Array.from({ length: 5 }).map((_, index) => (
                   <CarouselItem key={index + "banner"} className="py-4">
@@ -145,20 +163,20 @@ export default function BeritaLanding() {
           <div className="w-full flex flex-row justify-between px-1 absolute h-[40%] right-0 items-center pointer-events-none">
             <Button
               className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
-              onClick={handlePrevious}
+              onClick={handlePreviousMobile}
             >
               <ChevronLeft />
             </Button>
             <Button
               className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
-              onClick={handleNext}
+              onClick={handleNextMobile}
             >
               <ChevronRight />
             </Button>
           </div>
         </div>
-        <Link href={"/news/"}>
-          <Button className="w-fit bg-white text-primary-main border border-primary-main rounded-full mt-2">
+        <Link href={"/news/"} className="w-full px-4 mt-2">
+          <Button className="w-full bg-white text-primary-main border border-primary-main rounded-xl py-6 font-semibold duration-150 hover:bg-gray-50">
             Lihat Selengkeapnya..
           </Button>
         </Link>
