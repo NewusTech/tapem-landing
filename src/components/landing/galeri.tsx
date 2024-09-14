@@ -10,7 +10,7 @@ export default function GaleriLanding() {
         {Array.from({ length: 3 }).map((_, index) => (
           <div
             key={index + "galeri"}
-            className="w-[25rem] h-[13rem] sm:h-[15rem] relative flex flex-col bg-[url('/assets/images/dummy_1.png')] bg-cover overflow-hidden rounded-xl bg"
+            className="w-[20rem] sm:w-[18rem] xl:w-[25rem] h-[13rem] sm:h-[12rem] xl:h-[15rem] relative flex flex-col bg-[url('/assets/images/dummy_1.png')] bg-cover overflow-hidden rounded-xl"
           >
             <div className="bg-gradient-to-b from-primary-main/30 to-primary-soft/60 w-full h-full absolute" />
             <p className="font-semibold mt-auto text-center text-white z-[2] mb-4">
@@ -20,7 +20,7 @@ export default function GaleriLanding() {
         ))}
       </div>
       <Link href={"/galery"} className="ml-auto">
-        <Button className="bg-primary-main hover:bg-primary-soft w-fit rounded-full text-white">
+        <Button className="duration-150 bg-primary-main hover:bg-primary-700 focus:bg-primary-800 w-fit rounded-full text-white">
           Lihat Selengkapnya..
         </Button>
       </Link>

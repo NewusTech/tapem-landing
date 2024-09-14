@@ -20,7 +20,7 @@ export default function FooterLanding() {
               {Array.from({ length: 6 }).map((_, index) => (
                 <span
                   key={index + "footer"}
-                  className="bg-white text-primary-main font-semibold rounded-full px-4 py-2 cursor-pointer"
+                  className="bg-white text-primary-main font-semibold rounded-full px-4 py-2 cursor-pointer text-sm sm:text-base"
                 >
                   Lorem Impum
                 </span>
@@ -32,7 +32,7 @@ export default function FooterLanding() {
       <div className="w-full bg-primary-main p-4 text-white font-normal">
         <div className="flex flex-col md:flex-row gap-y-6 container items-center">
           <p className="text-sm">Copyright ©️ 2024 All rights reserved.</p>
-          <div className="flex flex-row ml-auto">
+          <div className="flex flex-row md:ml-auto text-sm sm:text-base">
             <Link
               href={"/"}
               className="flex flex-row items-center ml-auto gap-2"
