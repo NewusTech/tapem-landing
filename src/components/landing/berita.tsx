@@ -17,8 +17,13 @@ import {
 import CardBerita from "../berita/cardBerita";
 import Link from "next/link";
 import Image from "next/image";
+import { newsProps } from "@/api";
+import { formatDate } from "@/lib/utils";
 
-export default function BeritaLanding() {
+type BeritaLandingProps = {
+  newsList: newsProps[];
+};
+export default function BeritaLanding({ newsList }: BeritaLandingProps) {
   const [caroselApiWeb, setCaroselApiWeb] = useState<CarouselApi | null>(null);
   const [caroselApiMobile, setCaroselApiMobile] = useState<CarouselApi | null>(
     null
@@ -78,27 +83,33 @@ export default function BeritaLanding() {
               setApi={setCaroselApiWeb}
             >
               <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <CarouselItem
-                    key={index + "berita"}
-                    className=" md:basis-[50%] lg:basis-[45%] xl:basis-[32%] py-5"
-                  >
-                    <CardBerita />
-                  </CarouselItem>
-                ))}
+                {newsList &&
+                  newsList.length > 0 &&
+                  newsList.slice(0, 4).map((data, index) => (
+                    <CarouselItem
+                      key={index + "berita"}
+                      className=" md:basis-[50%] lg:basis-[45%] xl:basis-[32%] py-5"
+                    >
+                      <CardBerita data={data} />
+                    </CarouselItem>
+                  ))}
               </CarouselContent>
             </Carousel>
           </div>
           <div className="w-[80%] flex flex-row justify-between px-8 absolute bottom-0 h-[40%] right-0 items-center pointer-events-none">
             <Button
-              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
               onClick={handlePreviousWeb}
+              disabled={caroselApiWeb?.selectedScrollSnap() === 0}
             >
               <ChevronLeft />
             </Button>
             <Button
-              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
               onClick={handleNextWeb}
+              disabled={
+                caroselApiWeb?.selectedScrollSnap() === newsList.length - 1
+              }
             >
               <ChevronRight />
             </Button>
@@ -122,13 +133,13 @@ export default function BeritaLanding() {
               setApi={setCaroselApiMobile}
             >
               <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
+                {newsList.slice(0, 4).map((data, index) => (
                   <CarouselItem key={index + "banner"} className="py-4">
                     <Link href={"/news/test"}>
                       <div className="flex flex-col shadow-sm h-[25rem] rounded-xl overflow-hidden pb-4">
                         <div className="w-full h-[60%] bg-gray-400">
                           <Image
-                            src={"/assets/images/dummy_2.png"}
+                            src={data.image}
                             alt="img"
                             width={400}
                             height={400}
@@ -137,21 +148,20 @@ export default function BeritaLanding() {
                         </div>
                         <div className="flex flex-row w-full justify-between items-center px-4 py-2">
                           <p className="bg-primary-main rounded-full p-1 w-full text-sm text-white text-center mr-2">
-                            Kategori
+                            {data.Kategoriartikel.title}
                           </p>
-                          <p className="text-primary-main  w-full">
-                            Januari 13, 2024
+                          <p className="text-primary-main text-right w-full">
+                            {formatDate(new Date(data.createdAt))}
                           </p>
                         </div>
                         <div className="flex flex-row justify-start items-start px-2">
-                          <p className="text-primary-main text-xl font-bold">
-                            Lorem Ipsum Dolor Amet Amit Amon Amin
+                          <p className="text-primary-main text-xl line-clamp-2 font-bold">
+                            {data.title}
                           </p>
                           <ArrowUpRight width={32} height={32} />
                         </div>
                         <p className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
-                          Lörem ipsum astrobel sar direlig. Kronde est konfoni
-                          med kelig. Terabel pov astrobel ?
+                          {data.desc}
                         </p>
                       </div>
                     </Link>
@@ -162,14 +172,18 @@ export default function BeritaLanding() {
           </Carousel>
           <div className="w-full flex flex-row justify-between px-1 absolute h-[40%] right-0 items-center pointer-events-none">
             <Button
-              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
               onClick={handlePreviousMobile}
+              disabled={caroselApiMobile?.selectedScrollSnap() === 0}
             >
               <ChevronLeft />
             </Button>
             <Button
-              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
               onClick={handleNextMobile}
+              disabled={
+                caroselApiMobile?.selectedScrollSnap() === newsList.length - 1
+              }
             >
               <ChevronRight />
             </Button>

@@ -10,9 +10,12 @@ import {
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { AspectRatio } from "../ui/aspect-ratio";
+import { bannerProps } from "@/api";
 
-export default function BannerLanding() {
+type BannerLandingProps = {
+  bannerList: bannerProps[];
+};
+export default function BannerLanding({ bannerList }: BannerLandingProps) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
 
   // Fungsi untuk next slide
@@ -29,36 +32,36 @@ export default function BannerLanding() {
     }
   };
   return (
-      <div className="w-full relative h-fit">
-        <Carousel className="w-full h-fit z-[2]" setApi={setCarouselApi}>
-          <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={index + "banner"}>
-                <Image
-                  src={"/assets/images/banner_landing/banner_tapem1.png"}
-                  alt="image"
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-cover"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-        <div className="w-full flex flex-row justify-between px-2 absolute top-0 h-full items-center pointer-events-none">
-          <Button
-            onClick={handlePrevious}
-            className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
-          >
-            <ChevronLeft />
-          </Button>
-          <Button
-            onClick={handleNext}
-            className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
-          >
-            <ChevronRight />
-          </Button>
-        </div>
+    <div className="w-full relative h-fit">
+      <Carousel className="w-full h-fit z-[2]" setApi={setCarouselApi}>
+        <CarouselContent>
+          {bannerList.map((data, index) => (
+            <CarouselItem key={index + "banner"}>
+              <Image
+                src={data.image}
+                alt="image"
+                width={600}
+                height={600}
+                className="w-full h-full object-cover"
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+      <div className="w-full flex flex-row justify-between px-2 absolute top-0 h-full items-center pointer-events-none">
+        <Button
+          onClick={handlePrevious}
+          className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+        >
+          <ChevronLeft />
+        </Button>
+        <Button
+          onClick={handleNext}
+          className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+        >
+          <ChevronRight />
+        </Button>
       </div>
+    </div>
   );
 }

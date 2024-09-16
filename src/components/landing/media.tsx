@@ -1,29 +1,29 @@
+import { aplikasiProps } from "@/api";
 import Image from "next/image";
 import React from "react";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 
-export default function MediaLanding() {
+type MediaLandingProps = {
+  aplikasiList: aplikasiProps[];
+};
+export default function MediaLanding({ aplikasiList }: MediaLandingProps) {
   return (
     <div className="w-full bg-primary-main flex flex-col p-4 z-[3] pb-16">
-      {/* <div className="flex flex-row gap-4 justify-center sm:relative -top-8 lg:-top-14 w-full overflow-x-auto duration-150">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div
-            key={index + "media"}
-            className="bg-white rounded-xl shadow-sm text-primary-main flex flex-row gap-4 items-center p-4 h-[3rem] md:h-[5rem] w-[19rem] md:w-[20rem] overflow-hidden"
-          >
-            <div className="w-[1.5rem] md:w-[3rem] h-[1.5rem] md:h-[3rem] bg-primary-main rounded-full overflow-hidden"></div>
-            <p className="font-medium text-xl">Nama Aplikasi</p>
-          </div>
-        ))}
-      </div> */}
       <div className="flex flex-row gap-5 justify-start lg:justify-center md:relative -top-8 lg:-top-14 w-full overflow-x-auto px-5">
-        {Array.from({ length: 3 }).map((_, index) => (
+        {aplikasiList.slice(0, 3).map((data, index) => (
           <div
             key={index + "media"}
             className="bg-white rounded-xl shadow-sm text-primary-main flex-none flex flex-row gap-4 items-center p-4 w-[20rem] h-[4rem] overflow-hidden"
           >
-            <div className="w-[1.5rem] md:w-[3rem] h-[1.5rem] md:h-[3rem] bg-primary-main rounded-full overflow-hidden"></div>
-            <p className="font-medium text-xl">Nama Aplikasi</p>
+            <div className="w-[1.5rem] md:w-[3rem] h-[1.5rem] md:h-[3rem] bg-primary-200 rounded-full overflow-hidden">
+              <Image
+                src={data.image}
+                alt="img"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <p className="font-medium text-xl line-clamp-1">{data.name}</p>
           </div>
         ))}
       </div>
