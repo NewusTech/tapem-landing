@@ -1,8 +1,12 @@
+import { categoryProps } from "@/api";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export default function FooterLanding() {
+type FooterLandingProps = {
+  categoryList: categoryProps[];
+};
+export default function FooterLanding({ categoryList }: FooterLandingProps) {
   return (
     <div className="w-full bg-black/80">
       <div className="container flex flex-col py-6">
@@ -17,12 +21,12 @@ export default function FooterLanding() {
           <div className="flex flex-col ml-0 md:ml-10">
             <p className="text-xl font-medium">Kategori</p>
             <div className="flex flex-wrap gap-4 mt-6">
-              {Array.from({ length: 6 }).map((_, index) => (
+              {categoryList.map((data) => (
                 <span
-                  key={index + "footer"}
+                  key={data.title}
                   className="bg-white text-primary-main font-semibold rounded-full px-4 py-2 cursor-pointer text-sm sm:text-base"
                 >
-                  Lorem Impum
+                  {data.title}
                 </span>
               ))}
             </div>

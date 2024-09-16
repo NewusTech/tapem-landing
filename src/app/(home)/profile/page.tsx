@@ -1,9 +1,10 @@
-"use client";
+import { tugasPokokFungsiQuery } from "@/api";
 import { CircleUserRound } from "lucide-react";
-import Image from "next/image";
 import React from "react";
+import parse from "html-react-parser";
 
-export default function Profile() {
+export default async function Profile() {
+  const tupoksi = await tugasPokokFungsiQuery();
   return (
     <section className="pb-10">
       <div className="w-full h-[20rem] flex flex-col items-center justify-center bg-[url('/assets/images/dummy_1.png')] relative bg-cover overflow-hidden">
@@ -11,42 +12,17 @@ export default function Profile() {
         <p className="text-xl md:text-2xl w-fit font-bold pb-2 md:pb-4 border-b-2 border-primary-main z-[2]">
           Tugas Pokok
         </p>
-        <p className="text-base md:text-xl font-semibold w-[90%] md:w-[50%] text-center z-[2] mt-5 md:mt-10">
-          Mengelola administrasi pemerintahan di tingkat kabupaten, termasuk
-          perencanaan, pelaksanaan, dan pengawasan program serta kebijakan
-          pemerintah daerah.
-        </p>
+        <div className="text-base md:text-xl font-semibold w-[90%] md:w-[50%] text-center z-[2] mt-5 md:mt-10">
+          {parse(tupoksi?.tugaspokok || "")}
+        </div>
       </div>
       <div className="bg-gradient-to-t from-primary-main/60 to-primary-soft/60 py-10 px-12 md:px-36 flex flex-col items-center">
         <p className="text-xl font-bold pb-1 border-b-2 border-primary-main">
           Fungsi Utama
         </p>
-        <ul className="list-disc mt-12 text-justify space-y-4">
-          <li>
-            Koordinasi Urusan Pemerintahan: Mengkoordinasikan dan memantau
-            pelaksanaan kebijakan dari pemerintah pusat, provinsi, dan
-            kabupaten.
-          </li>
-          <li>
-            Pengelolaan Administrasi Desa dan Kelurahan: Mengelola administrasi
-            desa, memberikan pembinaan, serta memastikan implementasi kebijakan
-            desa/kelurahan.
-          </li>
-          <li>
-            Pembinaan Wilayah: Melaksanakan pembinaan dan pengawasan terhadap
-            pelaksanaan pemerintahan desa dan kelurahan di wilayah kabupaten.
-          </li>
-          <li>
-            Pelayanan Publik: Memberikan layanan administrasi kepada masyarakat
-            terkait urusan kependudukan, perizinan, dan pelayanan publik
-            lainnya.
-          </li>
-          <li>
-            Koordinasi Keamanan dan Ketertiban: Bersama instansi terkait,
-            menjaga stabilitas keamanan dan ketertiban umum di wilayah
-            kabupaten.
-          </li>
-        </ul>
+        <div className="list-disc mt-12 text-justify space-y-4">
+          {parse(tupoksi?.fungsiutama || "")}
+        </div>
       </div>
       <div className="flex flex-col items-center">
         <p className="text-xl font-bold pb-1 border-b-2 border-primary-main mt-20">

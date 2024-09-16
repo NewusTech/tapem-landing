@@ -7,8 +7,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import { faqProps } from "@/api";
 
-export default function FaqLanding() {
+type FaqLandingProps = {
+  faqList: faqProps[];
+};
+
+export default function FaqLanding({ faqList }: FaqLandingProps) {
   const [openItem, setOpenItem] = useState(null);
 
   const handleToggle = (value: any) => {
@@ -29,28 +34,23 @@ export default function FaqLanding() {
         className="mt-12 space-y-2"
         onValueChange={handleToggle}
       >
-        {Array.from({ length: 4 }).map((_, index) => {
-          const value = `item-${index}`;
+        {faqList.map((faq) => {
+          const value = `faq-${faq.id}`;
           const isOpen = openItem === value;
 
           return (
             <AccordionItem
-              key={index + "faq"}
+              key={faq.question}
               value={value}
-              className={`bg-transparent ${isOpen ? "bg-gray-100" : ""}`} // Contoh perubahan warna saat item terbuka
+              className={`bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
             >
               <AccordionTrigger className="bg-primary-main text-white rounded-xl px-10">
-              <p className="line-clamp-1"> Is it accessible? lorem</p> 
+                <p className="line-clamp-1">{faq.question}</p>
               </AccordionTrigger>
-              <AccordionContent className={`px-4 py-2 bg-transparent ${isOpen?"bg-gray-100":""}`}>
-                Lorem ipsum dolor sit amet consectetur. Diam lectus congue
-                sagittis consequat integer. Magna ipsum leo est duis. Sagittis
-                interdum iaculis amet augue lectus eget eget. Elementum
-                porttitor non diam lorem eget volutpat. At mollis magna nunc
-                diam ornare arcu. Enim malesuada sed vitae ultricies a aliquam
-                donec aliquam facilisis. Phasellus nunc ut in aliquet. In urna
-                dignissim sit mattis vitae. Sagittis nunc vitae malesuada sociis
-                viverra libero.
+              <AccordionContent
+                className={`px-4 py-2 bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
+              >
+               {faq.answer}
               </AccordionContent>
             </AccordionItem>
           );
