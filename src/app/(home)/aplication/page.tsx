@@ -5,11 +5,11 @@ import React from "react";
 export default async function Aplication() {
   const aplicationList = await aplikasiListQuery();
   return (
-    <section className="py-4 md:py-10">
-      <h1 className="text-primary-main text-3xl font-semibold ml-4 sm:ml-10 mb-6">
+    <section className="py-4 md:py-10 container">
+      <h1 className="text-primary-main text-3xl font-semibold mb-6">
         Aplikasi
       </h1>
-      <div className="w-full flex flex-wrap gap-4 justify-center px-4">
+      <div className="w-full flex flex-wrap gap-4 justify-start">
         {aplicationList?.map((data, index) => (
           <Link
             key={index + "aplikasi"}

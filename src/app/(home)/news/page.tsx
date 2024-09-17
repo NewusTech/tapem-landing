@@ -16,7 +16,7 @@ import { formatDate } from "@/lib/utils";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import React, { useMemo, useState } from "react";
 
 export default function News() {
@@ -67,6 +67,8 @@ export default function News() {
 
     return paginationItems;
   };
+
+  if(newsList && newsList.data.length <= 0) return notFound()
 
   return (
     <section className="w-full container pb-10">

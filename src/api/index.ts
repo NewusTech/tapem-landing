@@ -93,7 +93,7 @@ export async function newsListQuery(search?: string) {
     console.error("Error fetching data:", error);
   }
 }
-export async function newsDetailsQuery(slug:string) {
+export async function newsDetailsQuery(slug: string) {
   try {
     const response = await fetch(`${SERVER_URL}/artikel/get/${slug}`, {
       method: "GET",
@@ -204,6 +204,7 @@ export type personilListProps = {
   image: string;
   Jabatan: {
     id: number;
+    lavel:number;
     title: string;
   };
 };
@@ -245,6 +246,53 @@ export async function contactQuery() {
     }
     const data = await response.json();
     return data.data as contactProps;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+export type regionInfoProps = {
+  id: number;
+  image: string;
+  title: string;
+  description: string;
+};
+export async function regionInfoQuery() {
+  try {
+    const response = await fetch(`${SERVER_URL}/regioninfo/get`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch");
+    }
+    const data = await response.json();
+    return data.data as regionInfoProps[];
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+export type mediaBannerProps = {
+  id: number;
+  title: string;
+  subTitle: string;
+  mediaLink: string;
+  description: string;
+};
+export async function mediaBannerQuery() {
+  try {
+    const response = await fetch(`${SERVER_URL}/mediabanner/get`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch");
+    }
+    const data = await response.json();
+    return data.data as mediaBannerProps[];
   } catch (error) {
     console.error("Error fetching data:", error);
   }
