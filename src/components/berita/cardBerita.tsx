@@ -45,7 +45,7 @@ export default function CardBerita({ data }: CardBeritaProps) {
 
 export function CardBeritaSekeleton() {
   return (
-    <div className="w-[20rem] h-[25rem] bg-white rounded-xl overflow-hidden shadow-lg">
+    <div className="w-[14rem] h-[25rem] bg-white rounded-xl overflow-hidden shadow-lg">
       <div className="w-full h-[50%] bg-gray-400 animate-pulse"></div>
       <div className="flex flex-row w-full justify-between items-center px-4 py-2">
         <div className="bg-gray-400 h-4 rounded-full w-full mr-2 animate-pulse" />

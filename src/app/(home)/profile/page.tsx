@@ -1,10 +1,31 @@
-import { tugasPokokFungsiQuery } from "@/api";
+import {
+  personilListProps,
+  personilListQuery,
+  tugasPokokFungsiQuery,
+} from "@/api";
 import { CircleUserRound } from "lucide-react";
 import React from "react";
 import parse from "html-react-parser";
+import Image from "next/image";
 
 export default async function Profile() {
   const tupoksi = await tugasPokokFungsiQuery();
+  const personil = await personilListQuery();
+
+  // Helper function to group personil by Jabatan.level
+  const groupByLevel = (personil: any) => {
+    return personil.reduce((acc: any, person: any) => {
+      const level = person.Jabatan.lavel;
+      if (!acc[level]) {
+        acc[level] = [];
+      }
+      acc[level].push(person);
+      return acc;
+    }, {});
+  };
+  // Group personil by their levels
+  const groupedPersonil = groupByLevel(personil || []);
+
   return (
     <section className="pb-10">
       <div className="w-full h-[20rem] flex flex-col items-center justify-center bg-[url('/assets/images/dummy_1.png')] relative bg-cover overflow-hidden">
@@ -31,7 +52,6 @@ export default async function Profile() {
 
         <div className="w-fit h-fit flex flex-col items-center mt-10">
           <div className="w-[7rem] md:w-[12rem] h-[7rem] md:h-[12rem] overflow-hidden rounded-full text-primary-main">
-            {/* <Image src={"/assets/images/dummy_1.png"} alt="image" width={300} height={300} className="w-full h-full object-cover"/> */}
             <CircleUserRound
               width={24}
               hanging={24}
