@@ -17,9 +17,11 @@ type SidbarItemProps = {
   label: string;
 };
 export default function SidbarItem(props: SidbarItemProps) {
-  const { dataItems, label } = props;
-  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { dataItems, label } = props;
+  const [isOpen, setIsOpen] = useState(() =>
+    dataItems.some((data) => data.link === pathname)
+  );
 
   return (
     <Collapsible className="w-full" open={isOpen} onOpenChange={setIsOpen}>

@@ -33,7 +33,7 @@ export default function MediaLanding({
       </div>
 
       <div className="w-full h-auto flex flex-col-reverse mt-12 md:mt-0 md:flex-row text-white items-center container">
-        <div className="flex flex-col w-full text-center sm:text-start sm:w-[80%] mt-6 md:mt-0 mr-10">
+        <div className="flex flex-col w-full text-center sm:text-start sm:w-[80%] mt-6 md:mt-0 mr-0 md:mr-10">
           <p className="font-bold text-xl">
             {mediaBannerData?.length > 0
               ? mediaBannerData[0].title

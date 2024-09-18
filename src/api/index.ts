@@ -145,3 +145,12 @@ export async function mediaBannerQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/mediabanner/get`);
   return response.data as mediaBannerProps[];
 }
+export type jabatanListProps = {
+  id: number;
+  title: string;
+  level: number;
+};
+export async function jabatanListQuery() {
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/jabatan/get`);
+  return response.data as jabatanListProps[];
+}
