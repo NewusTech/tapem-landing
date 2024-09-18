@@ -48,7 +48,7 @@ export default function FooterLanding({
             <Link href={"/sitemap.xml"} className="flex flex-row items-center ml-4 gap-2">
               <ChevronRight /> Sitemap
             </Link>
-            <Link href={"/"} className="flex flex-row items-center ml-4 gap-2">
+            <Link href={"/contact"} className="flex flex-row items-center ml-4 gap-2">
               <ChevronRight /> Kontak
             </Link>
           </div>

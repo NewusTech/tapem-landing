@@ -1,5 +1,3 @@
-"use client";
-
 import Cookies from "js-cookie";
 
 export const fetcher = async (url: string) => {
@@ -29,12 +27,16 @@ export const fetcherWithoutAuth = async (url: string) => {
       headers: {
         "Content-Type": "application/json",
       },
+      // cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     });
     if (!response.ok) {
       throw new Error("Failed to fetch");
     }
     const data = await response.json();
-    return data;
+    return data
   } catch (error) {
     console.error("Error fetching data:", error);
   }

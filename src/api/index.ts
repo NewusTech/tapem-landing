@@ -1,4 +1,5 @@
 import { SERVER_URL } from "@/constants";
+import { fetcherWithoutAuth } from "@/constants/fetcher";
 
 export type faqProps = {
   id: number;
@@ -6,21 +7,8 @@ export type faqProps = {
   answer: string;
 };
 export async function faqListQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/faq/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as faqProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/faq/get`);
+  return response.data;
 }
 export type galeryProps = {
   id: number;
@@ -28,21 +16,8 @@ export type galeryProps = {
   image: string;
 };
 export async function galeryListQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/galeri/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as galeryProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/galeri/get`);
+  return response.data as galeryProps[];
 }
 export type newsProps = {
   id: number;
@@ -74,41 +49,16 @@ export type newsListQueryResponse = {
   };
 };
 export async function newsListQuery(search?: string) {
-  try {
-    const response = await fetch(
-      `${SERVER_URL}/artikel/get?search=${search ?? ""}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data as newsListQueryResponse;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(
+    `${SERVER_URL}/artikel/get?search=${search ?? ""}`
+  );
+  return response as newsListQueryResponse;
 }
 export async function newsDetailsQuery(slug: string) {
-  try {
-    const response = await fetch(`${SERVER_URL}/artikel/get/${slug}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as newsProps;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(
+    `${SERVER_URL}/artikel/get/${slug}`
+  );
+  return response.data as newsProps;
 }
 export type aplikasiProps = {
   id: number;
@@ -118,63 +68,26 @@ export type aplikasiProps = {
   desc: string;
 };
 export async function aplikasiListQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/aplikasietc/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as aplikasiProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/aplikasietc/get`);
+  return response.data as aplikasiProps[];
 }
 export type categoryProps = {
   id: number;
   title: string;
 };
 export async function categoryListQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/kategoriartikel/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as categoryProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(
+    `${SERVER_URL}/kategoriartikel/get`
+  );
+  return response.data as categoryProps[];
 }
 export type bannerProps = {
   id: number;
   image: string;
 };
 export async function bannerListQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/carousel/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as bannerProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/carousel/get`);
+  return response.data as bannerProps[];
 }
 export type tugasPokokFungsiProps = {
   id: number;
@@ -182,21 +95,8 @@ export type tugasPokokFungsiProps = {
   fungsiutama: string;
 };
 export async function tugasPokokFungsiQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/tupoksi/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as tugasPokokFungsiProps;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/tupoksi/get`);
+  return response.data as tugasPokokFungsiProps;
 }
 export type personilListProps = {
   id: number;
@@ -204,26 +104,13 @@ export type personilListProps = {
   image: string;
   Jabatan: {
     id: number;
-    lavel:number;
+    level: number;
     title: string;
   };
 };
 export async function personilListQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/personil/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as personilListProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/personil/get`);
+  return response.data as personilListProps[];
 }
 export type contactProps = {
   id: number;
@@ -234,21 +121,8 @@ export type contactProps = {
   longitude: string;
 };
 export async function contactQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/contact/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as contactProps;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/contact/get`);
+  return response.data as contactProps;
 }
 export type regionInfoProps = {
   id: number;
@@ -257,21 +131,8 @@ export type regionInfoProps = {
   description: string;
 };
 export async function regionInfoQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/regioninfo/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as regionInfoProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/regioninfo/get`);
+  return response.data as regionInfoProps[];
 }
 export type mediaBannerProps = {
   id: number;
@@ -281,19 +142,6 @@ export type mediaBannerProps = {
   description: string;
 };
 export async function mediaBannerQuery() {
-  try {
-    const response = await fetch(`${SERVER_URL}/mediabanner/get`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch");
-    }
-    const data = await response.json();
-    return data.data as mediaBannerProps[];
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/mediabanner/get`);
+  return response.data as mediaBannerProps[];
 }

@@ -41,8 +41,6 @@ export default async function Home() {
     regionInfoQuery(),
     mediaBannerQuery(),
   ]);
-  console.log(mediaBannerData)
-
   return (
     <section className="flex flex-col">
       <BannerLanding bannerList={bannerList || []} />
