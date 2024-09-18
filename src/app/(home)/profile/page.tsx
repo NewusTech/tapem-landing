@@ -3,27 +3,29 @@ import {
   personilListQuery,
   tugasPokokFungsiQuery,
 } from "@/api";
-import { CircleUserRound } from "lucide-react";
 import React from "react";
 import parse from "html-react-parser";
 import Image from "next/image";
+
+export const dynamic = "force-dynamic";
 
 export default async function Profile() {
   const tupoksi = await tugasPokokFungsiQuery();
   const personil = await personilListQuery();
 
-  // Helper function to group personil by Jabatan.level
-  const groupByLevel = (personil: any) => {
-    return personil.reduce((acc: any, person: any) => {
-      const level = person.Jabatan.lavel;
+  const groupByLevel = (data: personilListProps[]) => {
+    return data.reduce((acc: any, person) => {
+      const level = person.Jabatan.level;
+      // Jika level belum ada di accumulator, buat array kosong
       if (!acc[level]) {
         acc[level] = [];
       }
+      // Tambahkan person ke array level yang sesuai
       acc[level].push(person);
       return acc;
-    }, {});
+    }, {}); // Initial value sebagai object kosong
   };
-  // Group personil by their levels
+
   const groupedPersonil = groupByLevel(personil || []);
 
   return (
@@ -49,41 +51,37 @@ export default async function Profile() {
         <p className="text-xl font-bold pb-1 border-b-2 border-primary-main mt-20">
           Struktur Organisasi
         </p>
-
-        <div className="w-fit h-fit flex flex-col items-center mt-10">
-          <div className="w-[7rem] md:w-[12rem] h-[7rem] md:h-[12rem] overflow-hidden rounded-full text-primary-main">
-            <CircleUserRound
-              width={24}
-              hanging={24}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <p className="font-bold text-base md:text-xl text-center mt-4">
-            Nama
-          </p>
-          <p className="text-center text-sm md:text-lg">NIP</p>
-        </div>
-
-        <div className="w-full flex flex-wrap gap-12 justify-center px-10 mt-6">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <div
-              key={index + "personil"}
-              className="w-fit h-fit flex flex-col items-center"
-            >
-              <div className="w-[7rem] md:w-[12rem] h-[7rem] md:h-[12rem] overflow-hidden rounded-full text-primary-main">
-                {/* <Image src={"/assets/images/dummy_1.png"} alt="image" width={300} height={300} className="w-full h-full object-cover"/> */}
-                <CircleUserRound
-                  width={24}
-                  hanging={24}
-                  className="w-full h-full object-cover"
-                />
+        <div className="w-full flex flex-col items-center gap-12 px-10 mt-6">
+          {Object.keys(groupedPersonil)
+            .sort((a: any, b: any) => a - b) // Sort levels from top to bottom
+            .map((level) => (
+              <div key={level} className="w-full flex flex-wrap justify-center gap-12">
+                {groupedPersonil[level].map(
+                  (person: personilListProps, index: number) => (
+                    <div
+                      key={index + "personil"}
+                      className="w-fit h-fit flex flex-col items-center"
+                    >
+                      <div className="w-[7rem] md:w-[10rem] h-[7rem] md:h-[10rem] overflow-hidden rounded-full text-primary-main">
+                        <Image
+                          src={person.image}
+                          alt="image"
+                          width={300}
+                          height={300}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <p className="font-bold text-base md:text-xl text-center mt-4">
+                        {person.name}
+                      </p>
+                      <p className="text-center text-sm md:text-lg">
+                        {person.Jabatan.title}
+                      </p>
+                    </div>
+                  )
+                )}
               </div>
-              <p className="font-bold text-base md:text-xl text-center mt-4">
-                Nama
-              </p>
-              <p className="text-center text-sm md:text-lg">NIP</p>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </section>

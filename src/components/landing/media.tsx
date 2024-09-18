@@ -32,15 +32,14 @@ export default function MediaLanding({
         ))}
       </div>
 
-      <div className="w-full h-auto flex flex-col-reverse mt-12 md:mt-0 md:flex-row text-white items-center">
-        <div className="flex flex-col w-full text-center sm:text-start sm:w-[50%] mt-6 md:mt-0 mx-28">
+      <div className="w-full h-auto flex flex-col-reverse mt-12 md:mt-0 md:flex-row text-white items-center container">
+        <div className="flex flex-col w-full text-center sm:text-start sm:w-[80%] mt-6 md:mt-0 mr-10">
           <p className="font-bold text-xl">
             {mediaBannerData?.length > 0
               ? mediaBannerData[0].title
               : "Sekretariat Daerah"}
           </p>
           <p className="mt-2">
-            {" "}
             {mediaBannerData?.length > 0
               ? mediaBannerData[0].subTitle
               : "Bagian Tata Pemerintahan"}
@@ -51,7 +50,7 @@ export default function MediaLanding({
               : "Lorem ipsum dolor sit amet consectetur. Eleifend consectetur dapibus sapien senectus vulputate at integer. Mi vestibulum aliquam tempus et interdum fames vel viverra. Condimentum dolor porttitor semper non. Sit ut scelerisque sit auctor."}
           </p>
         </div>
-        <div className="w-[100%] h-auto">
+        <div className="w-full lg:w-[70%] h-auto ml-auto overflow-hidden">
           {mediaBannerData?.length > 0 ? (
             <iframe
               width="560"
@@ -59,6 +58,7 @@ export default function MediaLanding({
               src={mediaBannerData[0].mediaLink}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              className="w-full"
             />
           ) : (
             <Image

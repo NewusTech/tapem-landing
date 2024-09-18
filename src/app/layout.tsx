@@ -21,11 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${popins.className}`}>
-        <Suspense>
-          <LayoutComponent>{children}</LayoutComponent>
-        </Suspense>
-      </body>
+      <body className={`${popins.className}`}>{children}</body>
     </html>
   );
 }
