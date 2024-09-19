@@ -7,14 +7,14 @@ import {
     BreadcrumbSeparator,
   } from "@/components/ui/breadcrumb";
   import React from "react";
-  import { DataTable } from "@/components/dashboard/regioninfoLanding/data-table";
-  import { columns } from "@/components/dashboard/regioninfoLanding/columns";
-  import { regionInfoQuery } from "@/api";
+  import { DataTable } from "@/components/dashboard/jabatan/data-table";
+  import { columns } from "@/components/dashboard/jabatan/columns";
+  import { jabatanListQuery } from "@/api";
 
   export const dynamic = "force-dynamic";
   
   export default async function page() {
-    const data = await regionInfoQuery();
+    const data = await jabatanListQuery();
     return (
       <section className="space-y-4 container py-4">
         <Breadcrumb>
@@ -25,7 +25,7 @@ import {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage className="font-semibold">
-                Region Info Landing
+                Jabatan
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>

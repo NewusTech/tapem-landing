@@ -85,7 +85,7 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
               <CarouselContent>
                 {newsList &&
                   newsList.length > 0 &&
-                  newsList.slice(0, 4).map((data, index) => (
+                  newsList.map((data, index) => (
                     <CarouselItem
                       key={index + "berita"}
                       className=" md:basis-[50%] lg:basis-[45%] xl:basis-[32%] py-5"
@@ -100,16 +100,12 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
             <Button
               className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
               onClick={handlePreviousWeb}
-              disabled={caroselApiWeb?.selectedScrollSnap() === 0}
             >
               <ChevronLeft />
             </Button>
             <Button
               className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
               onClick={handleNextWeb}
-              disabled={
-                caroselApiWeb?.selectedScrollSnap() === newsList.length - 1
-              }
             >
               <ChevronRight />
             </Button>

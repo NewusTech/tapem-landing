@@ -145,3 +145,41 @@ export async function mediaBannerQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/mediabanner/get`);
   return response.data as mediaBannerProps[];
 }
+export type jabatanListProps = {
+  id: number;
+  title: string;
+  level: number;
+};
+export async function jabatanListQuery() {
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/jabatan/get`);
+  return response.data as jabatanListProps[];
+}
+
+/// POST
+
+// login user
+export const loginUser = async (data: { nik: string; password: string }) => {
+  const response = await fetch(`${SERVER_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+    cache: "no-store",
+  });
+
+  return await response.json();
+};
+// logout user
+export const logoutUser = async (token: string) => {
+  const response = await fetch(`${SERVER_URL}/logout`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
+
+  return await response.json();
+};

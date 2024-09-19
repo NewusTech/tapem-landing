@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import LayoutComponent from "./../components/layout/layoutComponent";
-import { Suspense } from "react";
+import NextTopLoader from "nextjs-toploader";
 
 const popins = Poppins({
   subsets: ["latin"],
@@ -21,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${popins.className}`}>{children}</body>
+      <body className={`${popins.className}`}>
+        <NextTopLoader showSpinner={false} />
+        {children}
+      </body>
     </html>
   );
 }

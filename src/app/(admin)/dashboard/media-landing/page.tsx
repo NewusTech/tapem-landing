@@ -10,6 +10,8 @@ import {
   import { DataTable } from "@/components/dashboard/mediaLanding/data-table";
   import { columns } from "@/components/dashboard/mediaLanding/columns";
   import { mediaBannerQuery } from "@/api";
+
+  export const dynamic = "force-dynamic";
   
   export default async function page() {
     const data = await mediaBannerQuery();

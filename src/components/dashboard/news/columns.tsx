@@ -1,6 +1,6 @@
 "use client";
 
-import { bannerProps } from "@/api";
+import { bannerProps, newsProps } from "@/api";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -14,13 +14,11 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import Swal from "sweetalert2";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<bannerProps>[] = [
+export const columns: ColumnDef<newsProps>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -47,16 +45,37 @@ export const columns: ColumnDef<bannerProps>[] = [
     accessorKey: "image",
     header: "Gambar",
     cell: ({ row }) => {
-      const banner = row.original;
+      const news = row.original;
 
       return (
         <Image
-          src={banner.image ?? "/assets/images/no-image.png"}
-          alt={`banner-${banner.image}`}
+          src={news.image}
+          alt={`news-${news.image}`}
           width={600}
           height={300}
-          className="w-auto h-20"
+          className="w-[120px] h-auto"
         />
+      );
+    },
+  },
+  {
+    accessorKey: "title",
+    header: "Judul",
+  },
+  {
+    accessorKey: "desc",
+    header: "Keterangan",
+  },
+  {
+    accessorKey: "Kategoriartikel",
+    header: "Kategori",
+    cell: ({ row }) => {
+      const news = row.original;
+
+      return (
+        <span className="bg-primary-main rounded-full p-1 px-4 w-full max-w-[25%] text-sm text-white text-center mr-2">
+          {news.Kategoriartikel.title}
+        </span>
       );
     },
   },
@@ -67,26 +86,6 @@ export const columns: ColumnDef<bannerProps>[] = [
     cell: ({ row }) => {
       const banner = row.original;
 
-      const handleDelete = () => {
-        Swal.fire({
-          title: "Apakah Kamu Yakin!",
-          text: "ingin menghapus banner ini ?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          }
-        });
-      };
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -96,15 +95,8 @@ export const columns: ColumnDef<bannerProps>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-white" align="end">
-            <DropdownMenuItem>
-              <Link
-                href={`/dashboard/banner-landing/${banner.id}`}
-                className="w-full"
-              >
-                Edit
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDelete} className="text-red-500 hover:text-red-700 duration-150">Delete</DropdownMenuItem>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

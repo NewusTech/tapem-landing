@@ -29,10 +29,9 @@ import {
   DropdownMenuContent,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { EllipsisVertical, Plus, Search } from "lucide-react";
+import { EllipsisVertical, Search } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -79,48 +78,56 @@ export function DataTable<TData, TValue>({
             className="placeholder-primary-main focus:outline-none w-full"
             placeholder="Seacrh"
             inputMode="search"
-            value={(table.getColumn("image")?.getFilterValue() as string) ?? ""}
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("image")?.setFilterValue(event.target.value)
+              table.getColumn("title")?.setFilterValue(event.target.value)
             }
           />
         </label>
-        <div className="flex flex-row w-full gap-8 justify-end">
-          <Link href={"/dashboard/banner-landing/create"}>
-            <Button className="bg-primary-main hover:bg-primary-700 flex flex-row gap-4 text-white rounded-full duration-150">
-              <Plus size={16} /> Tambah Banner
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              className="ml-auto bg-white rounded-full border-primary-main text-primary-main"
+            >
+              <EllipsisVertical />
             </Button>
-          </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="bg-white rounded-full border-primary-main text-primary-main"
-              >
-                <EllipsisVertical />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-white">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="bg-white">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                  //   <div
+                  //     className="flex items-center space-x-2 text-black"
+                  //     key={column.id}
+                  //   >
+                  //     <Switch
+                  //       id="airplane-mode"
+                  //       checked={column.getIsVisible()}
+                  //       onCheckedChange={(value) =>
+                  //         column.toggleVisibility(!!value)
+                  //       }
+                  //       className="data-[state=checked]:bg-primary-soft data-[state=unchecked]:bg-gray-400"
+                  //       color="white"
+                  //     />
+                  //     <Label htmlFor="airplane-mode">{column.id}</Label>
+                  //   </div>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div className="rounded-md border">
         <Table>

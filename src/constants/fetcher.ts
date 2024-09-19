@@ -27,17 +27,20 @@ export const fetcherWithoutAuth = async (url: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      // cache: "no-store",
-      next: {
-        revalidate: 60,
-      },
+      // next: {
+      //   revalidate: 60, // Will revalidate after 60 seconds
+      // },
+      cache: "no-store",
     });
+
     if (!response.ok) {
       throw new Error("Failed to fetch");
     }
+
     const data = await response.json();
-    return data
+    return data;
   } catch (error) {
     console.error("Error fetching data:", error);
+    // Implement a retry mechanism here if necessary
   }
 };

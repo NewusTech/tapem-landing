@@ -15,22 +15,28 @@ type SidbarItemProps = {
     link: string;
   }[];
   label: string;
+  icon?: any;
 };
 export default function SidbarItem(props: SidbarItemProps) {
-  const { dataItems, label } = props;
-  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { dataItems, label, icon } = props;
+  const [isOpen, setIsOpen] = useState(() =>
+    dataItems.some((data) => data.link === pathname)
+  );
 
   return (
     <Collapsible className="w-full" open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleTrigger
         className={cn(
-          "flex flex-row justify-between gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4",
+          "flex flex-row justify-start gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4",
           dataItems.some((data) => data.link === pathname) &&
             "bg-primary-soft/20"
         )}
       >
+        {icon}
+        <span className="mr-auto">
         {label}
+        </span>
         {isOpen ? <ChevronDown /> : <ChevronUp />}
       </CollapsibleTrigger>
       <CollapsibleContent className="pl-4 py-4 flex flex-col gap-2">

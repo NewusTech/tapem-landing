@@ -12,3 +12,14 @@ type BearActions = {
 
 // Combine state and actions
 export type BearStore = BearState & BearActions;
+
+
+export type decodedProps = {
+  userId: number;
+  user_akun_id: number;
+  nik: string;
+  role: string;
+  permission: [];
+  iat: number;
+  exp: number;
+};

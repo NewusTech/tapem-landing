@@ -1,26 +1,23 @@
 "use client";
 
-import { bannerProps } from "@/api";
+import { aplikasiProps } from "@/api";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Swal from "sweetalert2";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<bannerProps>[] = [
+export const columns: ColumnDef<aplikasiProps>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -47,16 +44,29 @@ export const columns: ColumnDef<bannerProps>[] = [
     accessorKey: "image",
     header: "Gambar",
     cell: ({ row }) => {
-      const banner = row.original;
+      const aplication = row.original;
 
       return (
-        <Image
-          src={banner.image ?? "/assets/images/no-image.png"}
-          alt={`banner-${banner.image}`}
-          width={600}
-          height={300}
-          className="w-auto h-20"
-        />
+        <Image src={aplication.image} alt={`aplication-${aplication.image}`} width={600} height={300} className="w-auto h-20"/>
+      );
+    },
+  },
+  {
+    accessorKey:"name",
+    header:"Nama Aplikasi"
+  },
+  {
+    accessorKey:"desc",
+    header:"Deskripsi"
+  },
+  {
+    accessorKey:"link",
+    header:"Link Aplikasi",
+    cell: ({ row }) => {
+      const aplication = row.original;
+
+      return (
+        <Link target="_blank" href={aplication.link} className="text-primary-main underline">{aplication.link}</Link>
       );
     },
   },
@@ -65,27 +75,7 @@ export const columns: ColumnDef<bannerProps>[] = [
     header: "Aksi",
     enableHiding: false,
     cell: ({ row }) => {
-      const banner = row.original;
-
-      const handleDelete = () => {
-        Swal.fire({
-          title: "Apakah Kamu Yakin!",
-          text: "ingin menghapus banner ini ?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          }
-        });
-      };
+      const media = row.original;
 
       return (
         <DropdownMenu>
@@ -96,15 +86,8 @@ export const columns: ColumnDef<bannerProps>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-white" align="end">
-            <DropdownMenuItem>
-              <Link
-                href={`/dashboard/banner-landing/${banner.id}`}
-                className="w-full"
-              >
-                Edit
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDelete} className="text-red-500 hover:text-red-700 duration-150">Delete</DropdownMenuItem>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
