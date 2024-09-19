@@ -3,15 +3,26 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import { LayoutDashboard } from "lucide-react";
+import { AppWindow, Contact, Images, LayoutDashboard, Newspaper, PanelsTopLeft, UserPen } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import SidbarItem from "./sidbarItem";
 
+type sideItemLinkProps = {
+  label: string;
+  link: string;
+  icon?: any;
+  child?: {
+    label: string;
+    link: string;
+    icon?: any;
+  }[];
+};
+
 export default function SideBar() {
   const pathname = usePathname();
 
-  const sideItemLink = [
+  const sideItemLink: sideItemLinkProps[] = [
     {
       label: "Dashboard",
       link: "/dashboard",
@@ -20,6 +31,7 @@ export default function SideBar() {
     {
       label: "Data Landing",
       link: "#",
+      icon: <PanelsTopLeft />,
       child: [
         {
           label: "Banner Landing",
@@ -38,6 +50,7 @@ export default function SideBar() {
     {
       label: "Data Profile",
       link: "#",
+      icon: <UserPen />,
       child: [
         {
           label: "Tugas Pokok dan Fungsi",
@@ -49,9 +62,29 @@ export default function SideBar() {
         },
         {
           label: "Jabatan",
-          link: "/dashboard/position"
+          link: "/dashboard/position",
         },
       ],
+    },
+    {
+      label: "Galeri",
+      icon:<Images />,
+      link: "/dashboard/galery",
+    },
+    {
+      label: "Aplikasi",
+      icon:<AppWindow />,
+      link: "/dashboard/aplication",
+    },
+    {
+      label: "Kontak",
+      icon:<Contact />,
+      link: "/dashboard/contact",
+    },
+    {
+      label: "Berita",
+      icon:<Newspaper />,
+      link: "/dashboard/news",
     },
   ];
   return (
@@ -93,6 +126,7 @@ export default function SideBar() {
               key={data.label}
               label={data.label}
               dataItems={data.child}
+              icon={data.icon}
             />
           )
         )}

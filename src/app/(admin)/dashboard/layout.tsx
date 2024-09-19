@@ -32,7 +32,7 @@ export default function layout({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="w-full">{children}</div>
+        <div className="w-full overflow-y-auto h-[90%]">{children}</div>
       </main>
     </div>
   );

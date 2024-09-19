@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Breadcrumb,
@@ -9,9 +9,13 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Label } from "@/components/ui/label";
-import React from "react";
+import React, { useRef } from "react";
+import { Button } from "@/components/ui/button";
+import CustomEditor from "@/components/CKEditor";
 
-export default function page() {
+export default function Page() {
+  const tugaspokokRef = useRef(null);
+  const fungsiRef = useRef(null);
   return (
     <section className="space-y-4 container py-4">
       <Breadcrumb>
@@ -28,21 +32,23 @@ export default function page() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="w-full text-primary-main mt-10 bg-white border rounded-xl shadow-sm p-4 flex flex-col gap-y-6">
-        <label className="flex flex-col gap-y-4">
-          <span className="font-semibold">Tugas Pokok</span>
-          <textarea
-            className="rounded-xl border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150 min-h-20"
-            placeholder="Tugas pokok"
-          />
-        </label>
-        <div className="space-y-2">
-          <Label htmlFor="editor1" className="font-semibold">Fungsi Utama</Label>
-          {/* <MyEditor
-            ref={editor1Ref}
-            name="editor1"
-            initialValue={data?.desc || "<p>Ketik disini</p>"}
-          /> */}
+        <div className="space-y-4">
+          <Label htmlFor="tugaspokok" className="font-semibold">
+            Tugas Pokok
+          </Label>
+          <CustomEditor id="tugaspokok" ref={tugaspokokRef} />
         </div>
+        <div className="space-y-4">
+          <Label htmlFor="fungsi" className="font-semibold">
+            Fungsi Utama
+          </Label>
+          <CustomEditor id="fungsi" ref={fungsiRef} />
+        </div>
+      </div>
+      <div className="flex w-full justify-end">
+        <Button className="duration-150 bg-primary-main hover:bg-primary-700 focus:bg-primary-800  text-white rounded-xl">
+          Simpan
+        </Button>
       </div>
     </section>
   );

@@ -27,7 +27,7 @@ export const fetcherWithoutAuth = async (url: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      // cache: "no-store",
+      cache: "no-store",
       next: {
         revalidate: 60,
       },
