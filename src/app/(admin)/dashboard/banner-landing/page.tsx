@@ -11,6 +11,8 @@ import { DataTable } from "@/components/dashboard/bannerLanding/data-table";
 import { columns } from "@/components/dashboard/bannerLanding/columns";
 import { bannerListQuery } from "@/api";
 
+export const dynamic = "force-dynamic";
+
 export default async function page() {
   const data = await bannerListQuery();
   return (

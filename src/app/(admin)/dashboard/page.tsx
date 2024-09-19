@@ -1,6 +1,8 @@
 import CircularPercentage from "@/components/CircularPercentage";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 const Card = ({ number, label }: { number: number; label: string }) => {
   return (
     <div className="w-full space-y-2 bg-white rounded-lg flex flex-col justify-center items-center py-6 border">

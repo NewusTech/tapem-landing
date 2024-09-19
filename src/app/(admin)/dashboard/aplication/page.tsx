@@ -11,6 +11,8 @@ import {
   import { columns } from "@/components/dashboard/aplication/columns";
   import { aplikasiListQuery } from "@/api";
   
+  export const dynamic = "force-dynamic";
+
   export default async function page() {
     const data = await aplikasiListQuery();
     return (

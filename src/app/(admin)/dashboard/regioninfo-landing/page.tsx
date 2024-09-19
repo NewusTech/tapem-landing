@@ -10,6 +10,8 @@ import {
   import { DataTable } from "@/components/dashboard/regioninfoLanding/data-table";
   import { columns } from "@/components/dashboard/regioninfoLanding/columns";
   import { regionInfoQuery } from "@/api";
+
+  export const dynamic = "force-dynamic";
   
   export default async function page() {
     const data = await regionInfoQuery();

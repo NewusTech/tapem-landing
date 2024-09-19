@@ -9,13 +9,21 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Label } from "@/components/ui/label";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import CustomEditor from "@/components/CKEditor";
+import dynamicImport from "next/dynamic";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+export const dynamic = "force-dynamic";
+
+// const CustomEditor = dynamicImport(()=>import("@/components/CKEditor"))
 
 export default function Page() {
   const tugaspokokRef = useRef(null);
   const fungsiRef = useRef(null);
+  const [tugaspokok, setTugasPokok] = useState<string>();
+  const [fungsi, setFungsi] = useState<string>();
   return (
     <section className="space-y-4 container py-4">
       <Breadcrumb>
@@ -36,13 +44,13 @@ export default function Page() {
           <Label htmlFor="tugaspokok" className="font-semibold">
             Tugas Pokok
           </Label>
-          <CustomEditor id="tugaspokok" ref={tugaspokokRef} />
+          {/* <CustomEditor id="tugaspokok" ref={tugaspokokRef} /> */}
         </div>
         <div className="space-y-4">
           <Label htmlFor="fungsi" className="font-semibold">
             Fungsi Utama
           </Label>
-          <CustomEditor id="fungsi" ref={fungsiRef} />
+          {/* <CustomEditor id="fungsi" ref={fungsiRef} /> */}
         </div>
       </div>
       <div className="flex w-full justify-end">

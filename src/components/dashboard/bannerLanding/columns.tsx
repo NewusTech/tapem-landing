@@ -14,6 +14,8 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import Swal from "sweetalert2";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -48,7 +50,13 @@ export const columns: ColumnDef<bannerProps>[] = [
       const banner = row.original;
 
       return (
-        <Image src={banner.image} alt={`banner-${banner.image}`} width={600} height={300} className="w-auto h-20"/>
+        <Image
+          src={banner.image ?? "/assets/images/no-image.png"}
+          alt={`banner-${banner.image}`}
+          width={600}
+          height={300}
+          className="w-auto h-20"
+        />
       );
     },
   },
@@ -59,6 +67,26 @@ export const columns: ColumnDef<bannerProps>[] = [
     cell: ({ row }) => {
       const banner = row.original;
 
+      const handleDelete = () => {
+        Swal.fire({
+          title: "Apakah Kamu Yakin!",
+          text: "ingin menghapus banner ini ?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      };
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -68,8 +96,15 @@ export const columns: ColumnDef<bannerProps>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-white" align="end">
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link
+                href={`/dashboard/banner-landing/${banner.id}`}
+                className="w-full"
+              >
+                Edit
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDelete} className="text-red-500 hover:text-red-700 duration-150">Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

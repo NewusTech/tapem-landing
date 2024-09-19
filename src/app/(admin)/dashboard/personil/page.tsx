@@ -10,6 +10,8 @@ import {
   import { DataTable } from "@/components/dashboard/personil/data-table";
   import { columns } from "@/components/dashboard/personil/columns";
   import { personilListQuery } from "@/api";
+
+  export const dynamic = "force-dynamic";
   
   export default async function page() {
     const data = await personilListQuery();

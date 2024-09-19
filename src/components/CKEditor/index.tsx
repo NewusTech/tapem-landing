@@ -15,7 +15,7 @@ type CustomEditorProps = {
   ref?: LegacyRef<CKEditor<ClassicEditor>>;
   id?: string;
 };
-function CustomEditor({ id, ref, value, onChange, ...props }: CustomEditorProps) {
+function CustomEditor({ id, ref, value, onChange }: CustomEditorProps) {
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -23,7 +23,6 @@ function CustomEditor({ id, ref, value, onChange, ...props }: CustomEditorProps)
       data={value}
       ref={ref}
       id={id}
-      {...props}
     />
   );
 }

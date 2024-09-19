@@ -10,6 +10,8 @@ import {
   import { DataTable } from "@/components/dashboard/news/data-table";
   import { columns } from "@/components/dashboard/news/columns";
   import { newsListQuery } from "@/api";
+
+  export const dynamic = "force-dynamic";
   
   export default async function page() {
     const data = await newsListQuery();

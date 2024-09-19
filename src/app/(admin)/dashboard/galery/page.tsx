@@ -10,6 +10,8 @@ import {
   import { DataTable } from "@/components/dashboard/galery/data-table";
   import { columns } from "@/components/dashboard/galery/columns";
   import { galeryListQuery } from "@/api";
+
+  export const dynamic = "force-dynamic";
   
   export default async function page() {
     const data = await galeryListQuery();

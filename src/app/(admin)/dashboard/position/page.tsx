@@ -10,6 +10,8 @@ import {
   import { DataTable } from "@/components/dashboard/jabatan/data-table";
   import { columns } from "@/components/dashboard/jabatan/columns";
   import { jabatanListQuery } from "@/api";
+
+  export const dynamic = "force-dynamic";
   
   export default async function page() {
     const data = await jabatanListQuery();

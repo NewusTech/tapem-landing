@@ -30,7 +30,7 @@ export default function CardBerita({ data }: CardBeritaProps) {
           </p>
         </div>
         <div className="flex flex-row justify-start items-start px-2">
-          <p className="text-primary-main text-lg lg:text-xl line-clamp-3 font-bold">
+          <p className="text-primary-main text-lg lg:text-xl line-clamp-2 xl:line-clamp-3 font-bold">
             {data?.title}
           </p>
           <ArrowUpRight width={32} height={32} />
