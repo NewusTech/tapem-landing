@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,15 +8,22 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "@/components/dashboard/bannerLanding/data-table";
 import { columns } from "@/components/dashboard/bannerLanding/columns";
-import { bannerListQuery } from "@/api";
+import { bannerListQuery, bannerProps } from "@/api";
 
-export const dynamic = "force-dynamic";
+export default function Page() {
+  const [data, setData] = useState<bannerProps[]>([]);
 
-export default async function page() {
-  const data = await bannerListQuery();
+  const getData = async () => {
+    const data = await bannerListQuery();
+    setData(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <section className="space-y-4 container py-4">
       <Breadcrumb>

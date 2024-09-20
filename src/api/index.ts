@@ -84,6 +84,7 @@ export async function categoryListQuery() {
 export type bannerProps = {
   id: number;
   image: string;
+  name:string
 };
 export async function bannerListQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/carousel/get`);

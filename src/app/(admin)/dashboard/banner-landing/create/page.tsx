@@ -19,10 +19,11 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [imageBanner, setImageBanner] = useState<File | null>();
+  const [name, setName] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
 
   const token = Cookies.get("token");
-  const navigation = useRouter()
+  const navigation = useRouter();
 
   const handleChangeFile = (file: File[]) => {
     setImageBanner(file[0]);
@@ -44,7 +45,7 @@ export default function Page() {
   const handleCreateBanner = async () => {
     try {
       setLoading(true);
-      if(!imageBanner){
+      if (!imageBanner) {
         Swal.fire({
           icon: "error",
           title: "Upload gambar terlebih dahulu",
@@ -52,10 +53,21 @@ export default function Page() {
           showConfirmButton: false,
           position: "center",
         });
-        return
+        return;
+      }
+      if (name.trim() === "") {
+        Swal.fire({
+          icon: "error",
+          title: "Nama tidak boleh kosong",
+          timer: 2000,
+          showConfirmButton: false,
+          position: "center",
+        });
+        return;
       }
       const formData = new FormData();
       formData.append("image", imageBanner);
+      formData.append("name", name);
       const response = await posteBanner(formData);
 
       if (!response.data) {
@@ -76,7 +88,7 @@ export default function Page() {
         showConfirmButton: false,
         position: "center",
       });
-      navigation.replace("/dashboard/banner-landing")
+      navigation.replace("/dashboard/banner-landing");
     } catch (error) {
       console.error(error);
     } finally {
@@ -106,6 +118,16 @@ export default function Page() {
       <div className="mt-10 w-full bg-white shadow-md rounded-xl p-4">
         <p className="text-primary-700 font-semibold">Form Input Banner</p>
         <div className="flex flex-col gap-6 mt-10">
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Title</span>
+            <input
+              type="text"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="Title Media"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
           <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">
               Upload Gambar Banner

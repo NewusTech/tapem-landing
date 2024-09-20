@@ -4,7 +4,7 @@ import { FileWithPath, useDropzone } from "react-dropzone";
 type FileUploaderProps = {
   fileChange: (files: File[]) => void;
   mediaUrl?: string;
-  type?: string;
+  type?: "profile" | "logo" | "video";
 };
 
 const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
@@ -68,8 +68,8 @@ const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
             <p className="text-gray-400">Drag n drop gambar disini</p>
           </div>
           {fileUrl && (
-            <div className="flex justify-center py-2 h-40 w-40">
-              <img src={fileUrl} alt="image" />
+            <div className="flex justify-center py-2 h-40 w-[25rem]">
+              <img src={fileUrl} alt="image" className="w-full h-full object-cover" />
             </div>
           )}
         </>

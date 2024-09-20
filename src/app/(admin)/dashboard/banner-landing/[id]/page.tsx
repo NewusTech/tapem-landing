@@ -26,6 +26,7 @@ export default function PagebannerEdit({
 }) {
   const [imageBanner, setImageBanner] = useState<File | null>();
   const [imageUrl, setImageUrl] = useState<string | undefined>();
+  const [name, setName] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
   const [isLoadingPage, setLoadingPage] = useState(true);
 
@@ -50,6 +51,7 @@ export default function PagebannerEdit({
 
       const responseStatus = await response.json();
       setImageUrl(responseStatus.data.image);
+      setName(responseStatus.data.name)
     } catch (error) {
       console.error(error);
     } finally {
@@ -140,8 +142,18 @@ export default function PagebannerEdit({
         </BreadcrumbList>
       </Breadcrumb>
       <div className="mt-10 w-full bg-white shadow-md rounded-xl p-4">
-        <p className="text-primary-700 font-semibold">Form Input Banner</p>
+        <p className="text-primary-700 font-semibold">Form Edit Banner</p>
         <div className="flex flex-col gap-6 mt-10">
+        <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Title</span>
+            <input
+              type="text"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="Title Media"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
           <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">
               Upload Gambar Banner

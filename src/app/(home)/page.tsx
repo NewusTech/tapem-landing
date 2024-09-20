@@ -7,6 +7,7 @@ import {
   galeryListQuery,
   mediaBannerQuery,
   newsListQuery,
+  personilListQuery,
   regionInfoQuery,
 } from "@/api";
 import BannerLanding from "@/components/landing/banner";
@@ -16,6 +17,7 @@ import FooterLanding from "@/components/landing/footer";
 import GaleriLanding from "@/components/landing/galeri";
 import MapLanding from "@/components/landing/map";
 import MediaLanding from "@/components/landing/media";
+import StrukturOrganisasi from "@/components/landing/strukturOrganisasi";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +32,7 @@ export default async function Home() {
     contactData,
     regionData,
     mediaBannerData,
+    personilListData
   ] = await Promise.all([
     faqListQuery(),
     galeryListQuery(),
@@ -40,6 +43,7 @@ export default async function Home() {
     contactQuery(),
     regionInfoQuery(),
     mediaBannerQuery(),
+    personilListQuery()
   ]);
   return (
     <section className="flex flex-col">
@@ -49,6 +53,7 @@ export default async function Home() {
         mediaBannerData={mediaBannerData || []}
       />
       <BeritaLanding newsList={newList?.data || []} />
+      <StrukturOrganisasi personil={personilListData} />
       <MapLanding regionData={regionData || []} />
       <GaleriLanding galeryList={galeryList || []} />
       <FaqLanding faqList={faqList || []} />
