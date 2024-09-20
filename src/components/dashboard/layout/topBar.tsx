@@ -48,8 +48,8 @@ export default function TopBar() {
       showConfirmButton: false,
       position: "center",
     });
-    Cookies.remove("token")
-    navigation.replace("/login")
+    Cookies.remove("token");
+    navigation.replace("/login");
   };
 
   return (
@@ -57,7 +57,7 @@ export default function TopBar() {
       <DropdownMenu>
         <DropdownMenuTrigger className="flex flex-row items-center text-white gap-x-2 py-4 px-2">
           <CircleUserRound />
-          <span>Qurota Aini</span>
+          <span>Admin</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-white">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>

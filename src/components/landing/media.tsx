@@ -1,6 +1,10 @@
+"use client";
+
 import { aplikasiProps, mediaBannerProps } from "@/api";
 import Image from "next/image";
 import React from "react";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
 type MediaLandingProps = {
   aplikasiList: aplikasiProps[];
@@ -52,13 +56,9 @@ export default function MediaLanding({
         </div>
         <div className="w-full lg:w-[70%] h-auto ml-auto overflow-hidden">
           {mediaBannerData?.length > 0 ? (
-            <iframe
-              width="560"
-              height="315"
-              src={mediaBannerData[0].mediaLink}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              className="w-full"
+            <LiteYouTubeEmbed
+              id={mediaBannerData[0].mediaLink}
+              title={"Youtube"}
             />
           ) : (
             <Image
