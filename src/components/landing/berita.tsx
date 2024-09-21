@@ -74,12 +74,12 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
               </Button>
             </Link>
           </div>
-          <div className=" h-full w-[65%] lg:w-[75%] absolute -right-6 flex items-center">
+          <div className=" h-full w-full md:w-[65%] lg:w-[75%] absolute -right-3 lg:-right-6 flex items-center ">
             <Carousel
               opts={{
                 align: "start",
               }}
-              className="w-full md:w-[90%] lg:w-full"
+              className="w-full md:w-[95%] lg:w-[90%] xl:w-full"
               setApi={setCaroselApiWeb}
             >
               <CarouselContent>
@@ -88,7 +88,7 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                   newsList.map((data, index) => (
                     <CarouselItem
                       key={index + "berita"}
-                      className=" md:basis-[50%] lg:basis-[45%] xl:basis-[32%] py-5"
+                      className=" md:basis-[65%] lg:basis-[50%] xl:basis-[32%] py-5"
                     >
                       <CardBerita data={data} />
                     </CarouselItem>
@@ -96,7 +96,7 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
               </CarouselContent>
             </Carousel>
           </div>
-          <div className="w-[80%] flex flex-row justify-between px-8 absolute bottom-0 h-[40%] right-0 items-center pointer-events-none">
+          <div className="w-[70%] lg:w-[78%] flex flex-row justify-between px-8 absolute bottom-0 h-[40%] right-0 items-center pointer-events-none">
             <Button
               className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
               onClick={handlePreviousWeb}
