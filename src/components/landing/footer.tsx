@@ -1,5 +1,6 @@
 import { categoryProps, contactProps } from "@/api";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -15,9 +16,22 @@ export default function FooterLanding({
     <div className="w-full bg-black/80">
       <div className="container flex flex-col py-6">
         <div className="flex flex-col md:flex-row gap-y-6 text-white">
-          <div className="flex flex-col w-[60%]">
-            <p className="text-xl font-medium">Sekertariat Daerah</p>
-            <p>Bagian Tata Pemerintahan</p>
+          <div className="flex flex-col w-full md:w-[60%]">
+            <div className="flex flex-row gap-2 items-center">
+              <div className="w-[2rem] h-[2.5rem] md:w-[4rem] md:h-[4.5rem] overflow-hidden">
+                <Image
+                  src={"/assets/images/logo.png"}
+                  alt="Logo"
+                  height={80}
+                  width={95}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+              <div className="">
+                <p className="text-xl font-medium">Sekertariat Daerah</p>
+                <p>Bagian Tata Pemerintahan</p>
+              </div>
+            </div>
             <p className="mt-10">{contactData?.alamat}</p>
           </div>
           <div className="flex flex-col ml-0 md:ml-10">
@@ -45,10 +59,16 @@ export default function FooterLanding({
             >
               <ChevronRight /> FAQ
             </Link>
-            <Link href={"/sitemap.xml"} className="flex flex-row items-center ml-4 gap-2">
+            <Link
+              href={"/sitemap.xml"}
+              className="flex flex-row items-center ml-4 gap-2"
+            >
               <ChevronRight /> Sitemap
             </Link>
-            <Link href={"/contact"} className="flex flex-row items-center ml-4 gap-2">
+            <Link
+              href={"/contact"}
+              className="flex flex-row items-center ml-4 gap-2"
+            >
               <ChevronRight /> Kontak
             </Link>
           </div>

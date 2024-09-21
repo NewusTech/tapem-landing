@@ -10,23 +10,23 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { LoaderCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
 import { SERVER_URL } from "@/constants";
 import Swal from "sweetalert2";
+import { LoaderCircle } from "lucide-react";
+import { notFound, useRouter } from "next/navigation";
 
-export default function PagebannerEdit({
+export default function PageGaleryEdit({
   params,
 }: {
   params: {
     id: string;
   };
 }) {
-  const [imageBanner, setImageBanner] = useState<File | null>();
-  const [imageUrl, setImageUrl] = useState<string | undefined>();
-  const [name, setName] = useState<string>("");
+  const [imageGalery, setImageGalery] = useState<File | null>();
+  const [title, setTitle] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
   const [isLoadingPage, setLoadingPage] = useState(true);
 
@@ -34,13 +34,13 @@ export default function PagebannerEdit({
   const navigation = useRouter();
 
   const handleChangeFile = (file: File[]) => {
-    setImageBanner(file[0]);
+    setImageGalery(file[0]);
   };
 
-  const getBannerById = async () => {
+  const getGalerylById = async () => {
     try {
       setLoadingPage(true);
-      const response = await fetch(`${SERVER_URL}/carousel/get/${params.id}`, {
+      const response = await fetch(`${SERVER_URL}/galeri/get/${params.id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,8 +50,9 @@ export default function PagebannerEdit({
       });
 
       const responseStatus = await response.json();
+      if (!responseStatus.data) return notFound();
+      setTitle(responseStatus.data.title);
       setImageUrl(responseStatus.data.image);
-      setName(responseStatus.data.name);
     } catch (error) {
       console.error(error);
     } finally {
@@ -59,8 +60,8 @@ export default function PagebannerEdit({
     }
   };
 
-  const updateBanner = async (data: FormData) => {
-    const response = await fetch(`${SERVER_URL}/carousel/update/${params.id}`, {
+  const puteGalery = async (data: FormData) => {
+    const response = await fetch(`${SERVER_URL}/galeri/update/${params.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -72,10 +73,10 @@ export default function PagebannerEdit({
     return await response.json();
   };
 
-  const handleCreateBanner = async () => {
+  const handleCreateGaleri = async () => {
     try {
       setLoading(true);
-      if (name.trim() === "") {
+      if (title.trim() === "") {
         Swal.fire({
           icon: "error",
           title: "Nama tidak boleh kosong",
@@ -86,9 +87,9 @@ export default function PagebannerEdit({
         return;
       }
       const formData = new FormData();
-      if (imageBanner) formData.append("image", imageBanner);
-      formData.append("name", name);
-      const response = await updateBanner(formData);
+      if (imageGalery) formData.append("image", imageGalery);
+      formData.append("title", title);
+      const response = await puteGalery(formData);
 
       if (!response.data) {
         console.error(response.message);
@@ -108,7 +109,7 @@ export default function PagebannerEdit({
         showConfirmButton: false,
         position: "center",
       });
-      navigation.replace("/dashboard/banner-landing");
+      navigation.replace("/dashboard/galery");
     } catch (error) {
       console.error(error);
     } finally {
@@ -117,7 +118,7 @@ export default function PagebannerEdit({
   };
 
   useEffect(() => {
-    getBannerById();
+    getGalerylById();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -132,18 +133,18 @@ export default function PagebannerEdit({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/banner-landing">
-              Banner Landing
+            <BreadcrumbLink href="/dashboard/galery">
+              Galeri
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage className="font-semibold">Create</BreadcrumbPage>
+            <BreadcrumbPage className="font-semibold">Update</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="mt-10 w-full bg-white shadow-md rounded-xl p-4">
-        <p className="text-primary-700 font-semibold">Form Edit Banner</p>
+        <p className="text-primary-700 font-semibold">Form Update Glaeri</p>
         <div className="flex flex-col gap-6 mt-10">
           <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">Title</span>
@@ -151,19 +152,19 @@ export default function PagebannerEdit({
               type="text"
               className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
               placeholder="Title Media"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </label>
           <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">
-              Upload Gambar Banner
+              Upload Gambar Galeri
             </span>
             <FileUploader fileChange={handleChangeFile} mediaUrl={imageUrl} />
           </label>
           <div className="flex w-full justify-end">
             <Button
-              onClick={handleCreateBanner}
+              onClick={handleCreateGaleri}
               className="duration-150 bg-primary-main hover:bg-primary-700 focus:bg-primary-800  text-white rounded-xl min-w-32"
               disabled={isLoading}
             >

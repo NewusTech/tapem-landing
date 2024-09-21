@@ -13,6 +13,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { SERVER_URL } from "@/constants";
+import Swal from "sweetalert2";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -47,26 +50,38 @@ export const columns: ColumnDef<aplikasiProps>[] = [
       const aplication = row.original;
 
       return (
-        <Image src={aplication.image} alt={`aplication-${aplication.image}`} width={600} height={300} className="w-auto h-20"/>
+        <Image
+          src={aplication.image}
+          alt={`aplication-${aplication.image}`}
+          width={600}
+          height={300}
+          className="w-auto h-20"
+        />
       );
     },
   },
   {
-    accessorKey:"name",
-    header:"Nama Aplikasi"
+    accessorKey: "name",
+    header: "Nama Aplikasi",
   },
   {
-    accessorKey:"desc",
-    header:"Deskripsi"
+    accessorKey: "desc",
+    header: "Deskripsi",
   },
   {
-    accessorKey:"link",
-    header:"Link Aplikasi",
+    accessorKey: "link",
+    header: "Link Aplikasi",
     cell: ({ row }) => {
       const aplication = row.original;
 
       return (
-        <Link target="_blank" href={aplication.link} className="text-primary-main underline">{aplication.link}</Link>
+        <Link
+          target="_blank"
+          href={aplication.link}
+          className="text-primary-main underline"
+        >
+          {aplication.link}
+        </Link>
       );
     },
   },
@@ -75,7 +90,86 @@ export const columns: ColumnDef<aplikasiProps>[] = [
     header: "Aksi",
     enableHiding: false,
     cell: ({ row }) => {
-      const media = row.original;
+      const aplication = row.original;
+
+      const token = Cookies.get("token");
+
+      const posteBanner = async () => {
+        const response = await fetch(
+          `${SERVER_URL}/aplikasietc/delete/${aplication.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+          }
+        );
+
+        return await response.json();
+      };
+
+      const handleDelete = () => {
+        Swal.fire({
+          title: "Apakah Kamu Yakin!",
+          text: "ingin menghapus aplikasi ini?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            // Tampilkan loading sebelum memulai fetch data
+            Swal.fire({
+              title: "Menghapus...",
+              text: "Harap tunggu sementara data dihapus",
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
+
+            try {
+              // Fetch data
+              const response = await posteBanner();
+              if (response.status !== 200) {
+                Swal.fire({
+                  icon: "error",
+                  title: "Gagal Menghapus Data.",
+                  text: response.message,
+                  timer: 2000,
+                  showConfirmButton: false,
+                  position: "center",
+                });
+                return;
+              }
+
+              // Jika berhasil, tampilkan pesan sukses
+              Swal.fire({
+                title: "Deleted!",
+                text: "Banner berhasil dihapus.",
+                icon: "success",
+              });
+
+              // Reload halaman setelah 1 detik
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            } catch (error) {
+              // Jika ada error, tampilkan pesan gagal
+              Swal.fire({
+                icon: "error",
+                title: "Gagal Menghapus Data.",
+                text: "Terjadi kesalahan, silakan coba lagi nanti.",
+                timer: 2000,
+                showConfirmButton: false,
+                position: "center",
+              });
+            }
+          }
+        });
+      };
 
       return (
         <DropdownMenu>
@@ -86,8 +180,20 @@ export const columns: ColumnDef<aplikasiProps>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-white" align="end">
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link
+                href={`/dashboard/aplication/${aplication.id}`}
+                className="w-full"
+              >
+                Edit
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={handleDelete}
+              className="text-red-500 hover:text-red-700 duration-150"
+            >
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

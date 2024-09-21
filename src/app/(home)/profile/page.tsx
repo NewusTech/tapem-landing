@@ -64,7 +64,7 @@ export default async function Profile() {
                     >
                       <div className="w-[7rem] md:w-[10rem] h-[7rem] md:h-[10rem] overflow-hidden rounded-full text-primary-main">
                         <Image
-                          src={person.image}
+                          src={person.image??"/assets/images/no-image.png"}
                           alt="image"
                           width={300}
                           height={300}

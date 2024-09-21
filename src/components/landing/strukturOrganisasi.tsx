@@ -16,7 +16,7 @@ type MediaLandingProps = {
 export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, dragFree: false },
-    [AutoScroll({ playOnInit: true, direction: "forward" })]
+    [AutoScroll({ playOnInit: true, direction: "forward",speed:1 })]
   );
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -74,13 +74,13 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
           {personil.map((data) => (
             <div
               key={data.id + "personil"}
-              className="embla__slide w-[25%] flex-shrink-0 p-4 flex flex-col items-center gap-6 mr-[5px]"
+              className="embla__slide w-full sm:w-[50%] md:w-[25%] flex-shrink-0 p-4 flex flex-col items-center gap-6 mr-4 sm:mr-[4rem]"
             >
-              <div className="w-[20rem] h-[20rem]">
+              <div className="w-[13rem] sm:w-[10rem] lg:w-[15rem] xl:w-[20rem] h-[13rem] sm:h-[10rem] lg:h-[15rem] xl:h-[20rem]">
                 <Image
                   src={data.image ?? "/assets/images/no-image.png"}
                   alt={data.name}
-                  width={400}
+                  width={300}
                   height={300}
                   className="w-fill h-full object-cover bg-center"
                 />

@@ -15,12 +15,12 @@ export default function MediaLanding({
   mediaBannerData,
 }: MediaLandingProps) {
   return (
-    <div className="w-full bg-primary-main flex flex-col p-4 z-[3] pb-16">
-      <div className="flex flex-row gap-5 justify-start lg:justify-center md:relative -top-8 lg:-top-14 w-full overflow-x-auto px-5">
+    <div className="w-full bg-primary-main flex flex-col p-4 z-[3] pb-16 relative">
+      <div className="flex flex-row gap-2 sm:gap-5 justify-center absolute left-0 -top-10 sm:-top-8 w-full overflow-hidden px-1 sm:px-5">
         {aplikasiList.slice(0, 3).map((data, index) => (
           <div
             key={index + "media"}
-            className="bg-white rounded-xl shadow-sm text-primary-main flex-none flex flex-row gap-4 items-center p-4 w-[20rem] h-[4rem] overflow-hidden"
+            className="bg-white rounded-xl shadow-sm text-primary-main flex flex-col sm:flex-row gap-4 items-center p-2 px-4 sm:p-4 sm:w-[12rem]  lg:w-[17rem] xl:w-[20rem] h-fit sm:h-[4rem] overflow-hidden"
           >
             <div className="w-[1.5rem] md:w-[3rem] h-[1.5rem] md:h-[3rem] bg-primary-200 rounded-full overflow-hidden">
               <Image
@@ -31,12 +31,12 @@ export default function MediaLanding({
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="font-medium text-xl line-clamp-1">{data.name}</p>
+            <p className="font-medium text-base sm:text-xl line-clamp-1">{data.name}</p>
           </div>
         ))}
       </div>
 
-      <div className="w-full h-auto flex flex-col-reverse mt-12 md:mt-0 md:flex-row text-white items-center container">
+      <div className="w-full h-auto flex flex-col-reverse mt-12 md:mt-0 md:flex-row text-white items-center container sm:pt-[5rem]">
         <div className="flex flex-col w-full text-center sm:text-start sm:w-[80%] mt-6 md:mt-0 mr-0 md:mr-10">
           <p className="font-bold text-xl">
             {mediaBannerData?.length > 0
