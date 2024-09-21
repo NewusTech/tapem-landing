@@ -34,7 +34,7 @@ const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
       {type === "profile" ? (
         <div className="cursor-pointer flex-center gap-4 flex items-center">
           <img
-            src={fileUrl}
+            src={fileUrl || "/assets/images/no-image.png"}
             alt="image"
             className="h-16 w-16 rounded-full object-cover"
           />

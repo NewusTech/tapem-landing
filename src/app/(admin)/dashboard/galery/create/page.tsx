@@ -10,58 +10,28 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { LoaderCircle } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
 import { SERVER_URL } from "@/constants";
 import Swal from "sweetalert2";
+import { LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-export default function PagebannerEdit({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-}) {
-  const [imageBanner, setImageBanner] = useState<File | null>();
-  const [imageUrl, setImageUrl] = useState<string | undefined>();
-  const [name, setName] = useState<string>("");
+export default function PageGaleryCreate() {
+  const [imageGalery, setImageGalery] = useState<File | null>();
+  const [title, setTitle] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
-  const [isLoadingPage, setLoadingPage] = useState(true);
 
   const token = Cookies.get("token");
   const navigation = useRouter();
 
   const handleChangeFile = (file: File[]) => {
-    setImageBanner(file[0]);
+    setImageGalery(file[0]);
   };
 
-  const getBannerById = async () => {
-    try {
-      setLoadingPage(true);
-      const response = await fetch(`${SERVER_URL}/carousel/get/${params.id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-      });
-
-      const responseStatus = await response.json();
-      setImageUrl(responseStatus.data.image);
-      setName(responseStatus.data.name);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoadingPage(false);
-    }
-  };
-
-  const updateBanner = async (data: FormData) => {
-    const response = await fetch(`${SERVER_URL}/carousel/update/${params.id}`, {
-      method: "PUT",
+  const posteGalery = async (data: FormData) => {
+    const response = await fetch(`${SERVER_URL}/galeri/create`, {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -72,10 +42,20 @@ export default function PagebannerEdit({
     return await response.json();
   };
 
-  const handleCreateBanner = async () => {
+  const handleCreateGaleri = async () => {
     try {
       setLoading(true);
-      if (name.trim() === "") {
+      if (!imageGalery) {
+        Swal.fire({
+          icon: "error",
+          title: "Upload gambar terlebih dahulu",
+          timer: 2000,
+          showConfirmButton: false,
+          position: "center",
+        });
+        return;
+      }
+      if (title.trim() === "") {
         Swal.fire({
           icon: "error",
           title: "Nama tidak boleh kosong",
@@ -86,15 +66,15 @@ export default function PagebannerEdit({
         return;
       }
       const formData = new FormData();
-      if (imageBanner) formData.append("image", imageBanner);
-      formData.append("name", name);
-      const response = await updateBanner(formData);
+      formData.append("image", imageGalery);
+      formData.append("title", title);
+      const response = await posteGalery(formData);
 
       if (!response.data) {
         console.error(response.message);
         Swal.fire({
           icon: "error",
-          title: "Gagal Mengupdate Data. " + response.message,
+          title: "Gagal Menambah Data. " + response.message,
           timer: 2000,
           showConfirmButton: false,
           position: "center",
@@ -103,25 +83,18 @@ export default function PagebannerEdit({
       }
       Swal.fire({
         icon: "success",
-        title: "Berhasil Mengupdate Data!",
+        title: "Berhasil Menambah Data!",
         timer: 2000,
         showConfirmButton: false,
         position: "center",
       });
-      navigation.replace("/dashboard/banner-landing");
+      navigation.replace("/dashboard/galery");
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    getBannerById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (isLoadingPage) return null;
 
   return (
     <section className="space-y-4 container py-4">
@@ -132,8 +105,8 @@ export default function PagebannerEdit({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/banner-landing">
-              Banner Landing
+            <BreadcrumbLink href="/dashboard/galery">
+              Galeri
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -143,7 +116,7 @@ export default function PagebannerEdit({
         </BreadcrumbList>
       </Breadcrumb>
       <div className="mt-10 w-full bg-white shadow-md rounded-xl p-4">
-        <p className="text-primary-700 font-semibold">Form Edit Banner</p>
+        <p className="text-primary-700 font-semibold">Form Input Galeri</p>
         <div className="flex flex-col gap-6 mt-10">
           <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">Title</span>
@@ -151,23 +124,23 @@ export default function PagebannerEdit({
               type="text"
               className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
               placeholder="Title Media"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </label>
           <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">
-              Upload Gambar Banner
+              Upload Gambar Galeri
             </span>
-            <FileUploader fileChange={handleChangeFile} mediaUrl={imageUrl} />
+            <FileUploader fileChange={handleChangeFile} />
           </label>
           <div className="flex w-full justify-end">
             <Button
-              onClick={handleCreateBanner}
+              onClick={handleCreateGaleri}
               className="duration-150 bg-primary-main hover:bg-primary-700 focus:bg-primary-800  text-white rounded-xl min-w-32"
               disabled={isLoading}
             >
-              {isLoading ? <LoaderCircle className="animate-spin" /> : "Update"}
+              {isLoading ? <LoaderCircle className="animate-spin" /> : "Simpan"}
             </Button>
           </div>
         </div>
