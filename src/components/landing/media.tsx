@@ -20,7 +20,7 @@ export default function MediaLanding({
         {aplikasiList.slice(0, 3).map((data, index) => (
           <div
             key={index + "media"}
-            className="bg-white rounded-xl shadow-sm text-primary-main flex flex-col sm:flex-row gap-4 items-center p-2 px-4 sm:p-4 sm:w-[12rem]  lg:w-[17rem] xl:w-[20rem] h-fit sm:h-[4rem] overflow-hidden"
+            className="bg-white rounded-xl shadow-sm text-primary-main flex flex-col sm:flex-row gap-4 items-center p-2 px-4 sm:p-4 md:w-[17rem]  lg:w-[17rem] xl:w-[20rem] h-fit sm:h-[4rem] overflow-hidden"
           >
             <div className="w-[1.5rem] md:w-[3rem] h-[1.5rem] md:h-[3rem] bg-primary-200 rounded-full overflow-hidden">
               <Image
@@ -36,7 +36,7 @@ export default function MediaLanding({
         ))}
       </div>
 
-      <div className="w-full h-auto flex flex-col-reverse mt-12 md:mt-0 md:flex-row text-white items-center container sm:pt-[5rem]">
+      <div className="w-full h-auto flex flex-col-reverse mt-12 sm:mt-0 md:flex-row text-white items-center container sm:pt-[5rem]">
         <div className="flex flex-col w-full text-center sm:text-start sm:w-[80%] mt-6 md:mt-0 mr-0 md:mr-10">
           <p className="font-bold text-xl">
             {mediaBannerData?.length > 0
@@ -48,7 +48,7 @@ export default function MediaLanding({
               ? mediaBannerData[0].subTitle
               : "Bagian Tata Pemerintahan"}
           </p>
-          <p className="mt-16">
+          <p className="mt-8 sm:mt-16">
             {mediaBannerData?.length > 0
               ? mediaBannerData[0].description
               : "Lorem ipsum dolor sit amet consectetur. Eleifend consectetur dapibus sapien senectus vulputate at integer. Mi vestibulum aliquam tempus et interdum fames vel viverra. Condimentum dolor porttitor semper non. Sit ut scelerisque sit auctor."}

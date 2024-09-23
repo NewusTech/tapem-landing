@@ -84,7 +84,7 @@ export async function categoryListQuery() {
 export type bannerProps = {
   id: number;
   image: string;
-  name:string
+  name: string;
 };
 export async function bannerListQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/carousel/get`);
@@ -154,6 +154,17 @@ export type jabatanListProps = {
 export async function jabatanListQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/jabatan/get`);
   return response.data as jabatanListProps[];
+}
+
+export type kategoriListProps = {
+  id: number;
+  title: string;
+};
+export async function kategoriListQuery() {
+  const response = await fetcherWithoutAuth(
+    `${SERVER_URL}/kategoriartikel/get`
+  );
+  return response.data as kategoriListProps[];
 }
 
 /// POST

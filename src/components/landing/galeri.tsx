@@ -15,7 +15,7 @@ export default function GaleriLanding({ galeryList }: GaleriLandingProps) {
       <p className="text-2xl font-bold text-primary-main">Galeri</p>
       <div className="w-full flex flex-wrap gap-4 justify-center">
         {galeryList.length > 1 &&
-          galeryList.map((data, index) => (
+          galeryList.slice(0,5).map((data, index) => (
             <div
               key={index + "galeri"}
               className="w-[20rem] sm:w-[18rem] xl:w-[25rem] h-[13rem] sm:h-[12rem] xl:h-[15rem] relative flex flex-col bg-cover overflow-hidden rounded-xl"

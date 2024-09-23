@@ -14,6 +14,11 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import Cookies from "js-cookie";
+import { SERVER_URL } from "@/constants";
+import Swal from "sweetalert2";
+import parse from "html-react-parser";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -65,6 +70,11 @@ export const columns: ColumnDef<newsProps>[] = [
   {
     accessorKey: "desc",
     header: "Keterangan",
+    cell: ({ row }) => {
+      const news = row.original;
+
+      return parse(news.desc);
+    },
   },
   {
     accessorKey: "Kategoriartikel",
@@ -84,7 +94,86 @@ export const columns: ColumnDef<newsProps>[] = [
     header: "Aksi",
     enableHiding: false,
     cell: ({ row }) => {
-      const banner = row.original;
+      const news = row.original;
+
+      const token = Cookies.get("token");
+
+      const deletePersonil = async () => {
+        const response = await fetch(
+          `${SERVER_URL}/artikel/delete/${news.slug}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+          }
+        );
+
+        return await response.json();
+      };
+
+      const handleDelete = () => {
+        Swal.fire({
+          title: "Apakah Kamu Yakin!",
+          text: "ingin menghapus Artikel ini?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            // Tampilkan loading sebelum memulai fetch data
+            Swal.fire({
+              title: "Menghapus...",
+              text: "Harap tunggu sementara data dihapus",
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
+
+            try {
+              // Fetch data
+              const response = await deletePersonil();
+              if (response.status !== 200) {
+                Swal.fire({
+                  icon: "error",
+                  title: "Gagal Menghapus Data.",
+                  text: response.message,
+                  timer: 2000,
+                  showConfirmButton: false,
+                  position: "center",
+                });
+                return;
+              }
+
+              // Jika berhasil, tampilkan pesan sukses
+              Swal.fire({
+                title: "Deleted!",
+                text: "Banner berhasil dihapus.",
+                icon: "success",
+              });
+
+              // Reload halaman setelah 1 detik
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            } catch (error) {
+              // Jika ada error, tampilkan pesan gagal
+              Swal.fire({
+                icon: "error",
+                title: "Gagal Menghapus Data.",
+                text: "Terjadi kesalahan, silakan coba lagi nanti.",
+                timer: 2000,
+                showConfirmButton: false,
+                position: "center",
+              });
+            }
+          }
+        });
+      };
 
       return (
         <DropdownMenu>
@@ -95,8 +184,20 @@ export const columns: ColumnDef<newsProps>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-white" align="end">
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link
+                href={`/dashboard/news/${news.slug}`}
+                className="w-full"
+              >
+                Edit
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={handleDelete}
+              className="text-red-500 hover:text-red-700 duration-150"
+            >
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

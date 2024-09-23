@@ -53,7 +53,7 @@ export const Personil = z
       .string({ message: "Nama tidak boleh kosong!" })
       .min(1, { message: "Nama tidak boleh kosong!" }),
     jabatan_id: z.string({ message: "Jabatan tidak boleh kosong!" }),
-    image: z.string().optional(),
+    image: z.string().optional().readonly(),
   })
   .required();
 // Convert Zod schema to TypeScript type
@@ -109,3 +109,18 @@ export const contact = z
   .required();
 // Convert Zod schema to TypeScript type
 export type contactFormData = z.infer<typeof contact>;
+
+export const news = z
+  .object({
+    title: z
+      .string({ message: "title tidak boleh kosong!" })
+      .min(1, { message: "title tidak boleh kosong!" }),
+    desc: z
+      .string({ message: "deskripsi tidak boleh kosong!" })
+      .min(1, { message: "deskripsi tidak boleh kosong!" }),
+      kategori_id: z.string({ message: "kategori tidak boleh kosong!" }),
+      image: z.string().optional().readonly(),
+  })
+  .required();
+// Convert Zod schema to TypeScript type
+export type newsFormData = z.infer<typeof news>;

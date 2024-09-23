@@ -6,6 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenu,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
+  DropdownMenuSubContent,
 } from "../ui/dropdown-menu";
 import { Menu } from "lucide-react";
 import { navLink } from "@/constants";
@@ -22,18 +29,50 @@ export default function DropdownMenuSection() {
         <Menu className="text-primary-main" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-white">
-        {navLink.map((data) => (
-          <Link key={data.link} href={data.link}>
-            <DropdownMenuItem
-              className={cn([
-                "uppercase text-primary-main",
-                pathname === data.link && "font-bold",
-              ])}
-            >
-              {data.title}
-            </DropdownMenuItem>
-          </Link>
-        ))}
+        {navLink.map((data) =>
+          data.child ? (
+            <DropdownMenuSub key={data.title}>
+              <DropdownMenuSubTrigger className="text-primary-main">
+                <span
+                  className={cn([
+                    "uppercase text-primary-main",
+                    data.child.some((data) => data.link === pathname) &&
+                      "font-bold",
+                  ])}
+                >
+                  {data.title}
+                </span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent className="bg-white p-2">
+                  {data.child.map((child) => (
+                    <DropdownMenuItem key={child.title}>
+                      <span
+                        className={cn([
+                          "uppercase text-primary-main",
+                          pathname === data.link && "font-bold",
+                        ])}
+                      >
+                        {child.title}
+                      </span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
+          ) : (
+            <Link key={data.link} href={data.link}>
+              <DropdownMenuItem
+                className={cn([
+                  "uppercase text-primary-main",
+                  pathname === data.link && "font-bold",
+                ])}
+              >
+                {data.title}
+              </DropdownMenuItem>
+            </Link>
+          )
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
