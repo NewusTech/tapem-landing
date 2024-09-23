@@ -29,9 +29,10 @@ import {
   DropdownMenuContent,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { EllipsisVertical, Search } from "lucide-react";
+import { EllipsisVertical, Plus, Search } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -84,11 +85,17 @@ export function DataTable<TData, TValue>({
             }
           />
         </label>
+        <div className="flex flex-row w-full gap-8 justify-end">
+          <Link href={"/dashboard/news/create"}>
+            <Button className="bg-primary-main hover:bg-primary-700 flex flex-row gap-4 text-white rounded-full duration-150">
+              <Plus size={16} /> Tambah Berita
+            </Button>
+          </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="ml-auto bg-white rounded-full border-primary-main text-primary-main"
+              className="bg-white rounded-full border-primary-main text-primary-main"
             >
               <EllipsisVertical />
             </Button>
@@ -128,6 +135,7 @@ export function DataTable<TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>

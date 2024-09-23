@@ -3,10 +3,13 @@ import Image from "next/image";
 import React from "react";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function HeaderSection() {
+  const isMobile = useMediaQuery("(max-width: 640px)");
+
   return (
-    <div className="w-full bg-gradient-to-r from-primary-main to-primary-soft h-[10rem] flex flex-col-reverse sm:flex-row justify-between items-center px-2 md:px-16 py-5 duration-150">
+    <div className="w-full bg-gradient-to-r from-primary-main to-primary-soft h-fit sm:h-[10rem] flex flex-col gap-y-4 sm:flex-row justify-between items-center px-2 md:px-16 py-5 duration-150">
       <div className="flex flex-row items-center">
         <div className="w-[3rem] h-[3.5rem] md:w-[7rem] md:h-[7.5rem] overflow-hidden">
           <Image
@@ -22,18 +25,18 @@ export default function HeaderSection() {
           <p className="text-base md:text-xl">KABUPATEN LAMPUNG UTARA</p>
         </div>
       </div>
-      <div className="flex flex-row text-white items-center ml-auto gap-8 text-sm md:text-base pr-6 md:pr-0">
+      <div className="flex flex-row text-white items-center ml-auto gap-x-4 sm:gap-x-8 text-sm md:text-base pr-6 md:pr-0">
         <Link href={"/"}>
-          <Facebook />
+          <Facebook size={isMobile ? 16 : 24} />
         </Link>
         <Link href={"/"}>
-          <Linkedin />
+          <Linkedin size={isMobile ? 16 : 24} />
         </Link>
         <Link href={"/"}>
-          <Twitter />
+          <Twitter size={isMobile ? 16 : 24} />
         </Link>
         <Link href={"/"}>
-          <Instagram />
+          <Instagram size={isMobile ? 16 : 24} />
         </Link>
       </div>
     </div>

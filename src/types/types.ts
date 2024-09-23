@@ -16,6 +16,7 @@ export type BearStore = BearState & BearActions;
 
 export type decodedProps = {
   userId: number;
+  name:string
   user_akun_id: number;
   nik: string;
   role: string;

@@ -1,7 +1,5 @@
 "use client";
 
-import { jabatanListProps, jabatanListQuery } from "@/api";
-import FileUploader from "@/components/fileUploader";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,7 +8,20 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { news, newsFormData } from "@/validations";
+import { SERVER_URL } from "@/constants";
 import { Button } from "@/components/ui/button";
+import { LoaderCircle } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { useQuill } from "react-quilljs";
+import "quill/dist/quill.snow.css";
+import FileUploader from "@/components/fileUploader";
 import {
   Select,
   SelectContent,
@@ -18,43 +29,39 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SERVER_URL } from "@/constants";
-import { Personil, PersonilFormData } from "@/validations";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircle } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import Cookies from "js-cookie";
-import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
+import { kategoriListProps, kategoriListQuery } from "@/api";
 
-export default function PersonilCreatePage() {
+export default function Page() {
   const token = Cookies.get("token");
   const navigation = useRouter();
+
+  const [dataKetegori, setDataKategori] = useState<kategoriListProps[]>([]);
+
+  const { quill, quillRef } = useQuill();
 
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
-  } = useForm<PersonilFormData>({
-    resolver: zodResolver(Personil),
+  } = useForm<newsFormData>({
+    resolver: zodResolver(news),
   });
-  const [imageProfile, setImageProfile] = useState<File | null>();
-  const [dataJabatan, setDataJabatan] = useState<jabatanListProps[]>([]);
+
+  const [image, setImage] = useState<File | null>();
 
   const handleChangeFile = (file: File[]) => {
-    setImageProfile(file[0]);
+    setImage(file[0]);
   };
 
-  const getJabatan = async () => {
-    const response = await jabatanListQuery();
-    setDataJabatan(response);
+  const getKategori = async () => {
+    const response = await kategoriListQuery();
+    setDataKategori(response);
   };
 
-  const postPersonil = async (data: FormData) => {
-    const response = await fetch(`${SERVER_URL}/personil/create`, {
+  const postNews = async (data: FormData) => {
+    const response = await fetch(`${SERVER_URL}/artikel/create`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -66,8 +73,8 @@ export default function PersonilCreatePage() {
     return await response.json();
   };
 
-  const onSubmit: SubmitHandler<PersonilFormData> = async (data) => {
-    if (!imageProfile) {
+  const onSubmit: SubmitHandler<newsFormData> = async (data) => {
+    if (!image) {
       Swal.fire({
         icon: "error",
         title: "Upload gambar terlebih dahulu",
@@ -77,12 +84,14 @@ export default function PersonilCreatePage() {
       });
       return;
     }
-    const formData = new FormData();
-    formData.append("image", imageProfile);
-    formData.append("name", data.name);
-    formData.append("jabatan_id", data.jabatan_id);
     
-    const response = await postPersonil(formData);
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", data.title);
+    formData.append("desc", data.desc);
+    formData.append("kategori_id", data.kategori_id);
+
+    const response = await postNews(formData);
 
     if (response.status !== 201) {
       console.error(response.message);
@@ -102,11 +111,20 @@ export default function PersonilCreatePage() {
       showConfirmButton: false,
       position: "center",
     });
-    navigation.replace("/dashboard/personil");
+    navigation.replace("/dashboard/news");
   };
 
+  // Update the state when editor content changes
   useEffect(() => {
-    getJabatan();
+    if (quill) {
+      quill.on("text-change", () => {
+        setValue("desc", quill.root.innerHTML);
+      });
+    }
+  }, [quill, setValue]);
+
+  useEffect(() => {
+    getKategori();
   }, []);
 
   return (
@@ -118,7 +136,7 @@ export default function PersonilCreatePage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/personil">Personil</BreadcrumbLink>
+            <BreadcrumbLink href="/dashboard/news">Berita</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -127,48 +145,67 @@ export default function PersonilCreatePage() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="mt-10 w-full bg-white shadow-md rounded-xl p-4">
-        <p className="text-primary-700 font-semibold">Form Input Personil</p>
+        <p className="text-primary-700 font-semibold">Form Input Jabatan</p>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-6 mt-6"
         >
           <label className="flex flex-col gap-y-2">
-            <FileUploader fileChange={handleChangeFile} type="profile" />
-          </label>
-          <label className="flex flex-col gap-y-2">
-            <span className="font-medium text-primary-700">Nama</span>
+            <span className="font-medium text-primary-700">Title</span>
             <input
               type="text"
               className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
-              placeholder="Nama"
-              {...register("name")}
+              placeholder="Title Berita"
+              {...register("title")}
             />
-            {errors.name && (
+            {errors.title && (
               <span className="text-red-600 text-sm pl-2 mt-4">
-                {errors.name.message}
+                {errors.title.message}
               </span>
             )}
           </label>
           <label className="flex flex-col gap-y-2">
-            <span className="font-medium text-primary-700">Pilih Jabatan</span>
+            <span>Image Berita</span>
+            <FileUploader fileChange={handleChangeFile} />
+          </label>
+          <div className="space-y-4">
+            <Label htmlFor="deskripsi" className="font-semibold">
+              Deskripsi
+            </Label>
+
+            <div
+              id="deskripsi"
+              className="flex flex-col h-[300px] w-full border border-textSecondary"
+              ref={quillRef}
+            />
+            {errors.desc && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.desc.message}
+              </span>
+            )}
+          </div>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">
+              Pilih Kategori Berita
+            </span>
             <Select
-              value={watch("jabatan_id")}
-              onValueChange={(value) => setValue("jabatan_id", value)}
+              value={watch("kategori_id")}
+              onValueChange={(value) => setValue("kategori_id", value)}
             >
               <SelectTrigger className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150">
-                <SelectValue placeholder="---Pilih Jabatan---" />
+                <SelectValue placeholder="---Pilih kategori---" />
               </SelectTrigger>
               <SelectContent className="bg-white">
-                {dataJabatan.map((data) => (
-                  <SelectItem key={data.id} value={data.level.toString()}>
-                    {data.title} <span className="text-sm text-gray-500 italic">level {data.level}</span> 
+                {dataKetegori.map((data) => (
+                  <SelectItem key={data.id} value={data.id.toString()}>
+                    {data.title}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            {errors.jabatan_id && (
+            {errors.kategori_id && (
               <span className="text-red-600 text-sm pl-2 mt-4">
-                {errors.jabatan_id.message}
+                {errors.kategori_id.message}
               </span>
             )}
           </label>

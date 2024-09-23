@@ -5,18 +5,35 @@ export const bloodTypes = [
   { id: 4, key: "O" },
 ];
 
-export const navLink = [
+export const navLink: {
+  title: string;
+  link: string;
+  child?: {
+    title: string;
+    link: string;
+  }[];
+}[] = [
   {
     title: "home",
     link: "/",
   },
   {
     title: "profile",
-    link: "/profile",
+    link: "#",
+    child:[
+      {
+        title:"tupoksi",
+        link:"/tupoksi"
+      },
+      {
+        title:"personil",
+        link:"/personil"
+      },
+    ]
   },
   {
-    title: "informasi",
-    link: "/information",
+    title: "berita",
+    link: "/news",
   },
   {
     title: "galery",
@@ -32,4 +49,4 @@ export const navLink = [
   },
 ];
 
-export const SERVER_URL = process.env.NEXT_PUBLIC_API_URL
+export const SERVER_URL = process.env.NEXT_PUBLIC_API_URL;
