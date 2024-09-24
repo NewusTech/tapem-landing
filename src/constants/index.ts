@@ -22,12 +22,30 @@ export const navLink: {
     link: "#",
     child:[
       {
-        title:"tupoksi",
+        title:"tupoksi (tugas pokok dan fungsi utama)",
         link:"/tupoksi"
       },
       {
         title:"personil",
         link:"/personil"
+      },
+    ]
+  },
+  {
+    title: "informasi",
+    link: "#",
+    child:[
+      {
+        title:"regulasi",
+        link:"/regulation"
+      },
+      {
+        title:"laporan kecamatan",
+        link:"/laporan-kecamatan"
+      },
+      {
+        title:"lppd",
+        link:"/lppd"
       },
     ]
   },

@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound, useSearchParams } from "next/navigation";
 import React, { useMemo, useState } from "react";
+import parse from "html-react-parser";
 
 export default function News() {
   const searchParams = useSearchParams();
@@ -123,7 +124,7 @@ export default function News() {
                 />
               </div>
               <p className="text-black font-normal px-2 mt-4 line-clamp-4 lg:line-clamp-6">
-                {newsList?.data[0].desc}
+                {parse(newsList?.data[0].desc)}
               </p>
             </div>
           </div>

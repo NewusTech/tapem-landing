@@ -6,6 +6,14 @@ import {
 import React from "react";
 import parse from "html-react-parser";
 import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export const dynamic = "force-dynamic";
 
@@ -43,41 +51,70 @@ export default async function Profile() {
         <p className="text-xl font-bold pb-1 border-b-2 border-primary-main">
           Fungsi Utama
         </p>
-        <div className="list-disc mt-12 text-justify space-y-4">
+        <div className="mt-12 text-justify space-y-4">
           {parse(tupoksi?.fungsiutama || "")}
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <p className="text-xl font-bold pb-1 border-b-2 border-primary-main mt-20">
+        <p className="text-xl font-bold pb-1 border-b-2 border-primary-main mt-16">
           Struktur Organisasi
         </p>
-        <div className="w-full flex flex-col items-center gap-12 px-10 mt-6">
+        <div className="w-full flex flex-col items-center gap-4 px-10 mt-12">
           {Object.keys(groupedPersonil)
             .sort((a: any, b: any) => a - b) // Sort levels from top to bottom
             .map((level) => (
-              <div key={level} className="w-full flex flex-wrap justify-center gap-12">
+              <div
+                key={level}
+                className="w-full flex flex-wrap justify-center gap-12"
+              >
                 {groupedPersonil[level].map(
                   (person: personilListProps, index: number) => (
-                    <div
-                      key={index + "personil"}
-                      className="w-fit h-fit flex flex-col items-center"
-                    >
-                      <div className="w-[7rem] md:w-[10rem] h-[7rem] md:h-[10rem] overflow-hidden rounded-full text-primary-main">
-                        <Image
-                          src={person.image??"/assets/images/no-image.png"}
-                          alt="image"
-                          width={300}
-                          height={300}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <p className="font-bold text-base md:text-xl text-center mt-4">
-                        {person.name}
-                      </p>
-                      <p className="text-center text-sm md:text-lg">
-                        {person.Jabatan.title}
-                      </p>
-                    </div>
+                    <Dialog key={person.id + "personil"}>
+                      <DialogTrigger className="w-[7rem] md:w-[12rem] h-auto flex flex-col items-center">
+                        <div className="w-[7rem] md:w-[10rem] h-[7rem] md:h-[10rem] overflow-hidden rounded-full text-primary-main">
+                          <Image
+                            src={person.image ?? "/assets/images/no-image.png"}
+                            alt={person.name}
+                            width={300}
+                            height={300}
+                            className="w-full h-full object-cover bg-center"
+                          />
+                        </div>
+                        <p className="font-bold text-base md:text-xl text-center mt-4">
+                          {person.name}
+                        </p>
+                        <p className="text-center text-sm md:text-lg mt-auto">
+                          {person.Jabatan.title}
+                        </p>
+                      </DialogTrigger>
+                      <DialogContent className="px-4 bg-transparent border-transparent [&>button]:hidden">
+                        <DialogHeader className="hidden">
+                          <DialogTitle>Detail Personil</DialogTitle>
+                          <DialogDescription>{person.name}</DialogDescription>
+                        </DialogHeader>
+                        <div className="flex flex-col bg-white rounded-xl overflow-hidden">
+                          <div className="w-full h-[15rem]">
+                            <Image
+                              src={
+                                person.image ?? "/assets/images/no-image.png"
+                              }
+                              alt={person.name}
+                              width={300}
+                              height={300}
+                              className="w-full h-full object-cover bg-center"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-1 text-black py-4">
+                            <span className="font-semibold text-center line-clamp-1">
+                              {person.name}
+                            </span>
+                            <span className="text-sm text-center">
+                              {person.Jabatan.title}
+                            </span>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   )
                 )}
               </div>

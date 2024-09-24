@@ -13,7 +13,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
 
 export default function NavBar() {
@@ -49,19 +48,24 @@ export default function NavBar() {
                       {data.title}
                     </span>
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="bg-white p-4 flex flex-col cursor-pointer">
-                    {data.child.map((data) => (
-                      <NavigationMenuLink
-                        key={data.title}
-                        className={cn([
-                          "uppercase hover:font-bold duration-150 text-base",
-                          pathname === data.link && "font-bold",
-                        ])}
-                        href={data.link}
-                      >
-                        {data.title}
-                      </NavigationMenuLink>
-                    ))}
+                  <NavigationMenuContent>
+                    <ul className="flex flex-col p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] bg-white list-none">
+                      {data.child.map((data) => (
+                        <li className="" key={data.link}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              className={cn([
+                                "uppercase hover:font-bold duration-150 text-base w-full",
+                                pathname === data.link && "font-bold",
+                              ])}
+                              href={data.link}
+                            >
+                              {data.title}
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               ) : (

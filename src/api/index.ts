@@ -14,6 +14,7 @@ export type galeryProps = {
   id: number;
   title: string;
   image: string;
+  mediaLink?:string
 };
 export async function galeryListQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/galeri/get`);
