@@ -42,7 +42,7 @@ export default function BannerLanding({ bannerList }: BannerLandingProps) {
                 alt="image"
                 width={600}
                 height={600}
-                className="w-full h-[10rem] sm:h-[20rem] md:h-[25rem] lg:h-[30rem] object-cover"
+                className="w-full h-[12rem] sm:h-[20rem] md:h-[22rem] lg:h-[30rem] xl:h-[32rem] object-cover object-bottom"
               />
             </CarouselItem>
           ))}

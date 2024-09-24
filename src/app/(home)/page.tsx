@@ -17,6 +17,7 @@ import FooterLanding from "@/components/landing/footer";
 import GaleriLanding from "@/components/landing/galeri";
 import MapLanding from "@/components/landing/map";
 import MediaLanding from "@/components/landing/media";
+import Sambutan from "@/components/landing/sambutan";
 import StrukturOrganisasi from "@/components/landing/strukturOrganisasi";
 
 export const dynamic = "force-dynamic";
@@ -52,6 +53,7 @@ export default async function Home() {
         aplikasiList={mediaList || []}
         mediaBannerData={mediaBannerData || []}
       />
+      <Sambutan/>
       <BeritaLanding newsList={newList?.data || []} />
       <StrukturOrganisasi personil={personilListData} />
       <MapLanding regionData={regionData || []} />

@@ -36,7 +36,7 @@ export default function MediaLanding({
         ))}
       </div>
 
-      <div className="w-full h-auto flex flex-col-reverse mt-12 sm:mt-0 md:flex-row text-white items-center container sm:pt-[5rem]">
+      <div className="w-full h-auto flex flex-col-reverse mt-12 sm:mt-0 md:flex-row text-white items-start container sm:pt-[5rem]">
         <div className="flex flex-col w-full text-center sm:text-start sm:w-[80%] mt-6 md:mt-0 mr-0 md:mr-10">
           <p className="font-bold text-xl">
             {mediaBannerData?.length > 0
@@ -54,7 +54,7 @@ export default function MediaLanding({
               : "Lorem ipsum dolor sit amet consectetur. Eleifend consectetur dapibus sapien senectus vulputate at integer. Mi vestibulum aliquam tempus et interdum fames vel viverra. Condimentum dolor porttitor semper non. Sit ut scelerisque sit auctor."}
           </p>
         </div>
-        <div className="w-full lg:w-[70%] h-auto ml-auto overflow-hidden">
+        <div className="w-full lg:w-[70%] h-auto ml-auto overflow-hidden rounded-xl">
           {mediaBannerData?.length > 0 ? (
             <LiteYouTubeEmbed
               id={mediaBannerData[0].mediaLink}

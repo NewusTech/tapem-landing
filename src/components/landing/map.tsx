@@ -7,7 +7,7 @@ type MapLandingProps = {
 };
 export default function MapLanding({ regionData }: MapLandingProps) {
   return (
-    <div className="w-full flex flex-col md:flex-row gap-4 container">
+    <div className="w-full flex flex-col md:flex-row gap-4 container my-6">
       <div className="w-full h-fit my-auto">
         <Image
           src={regionData?.length > 0 ? regionData[0].image : "/assets/images/map.png"}

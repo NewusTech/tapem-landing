@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import parse from "html-react-parser";
 
 type CardBeritaProps = {
   data: newsProps;
@@ -36,7 +37,7 @@ export default function CardBerita({ data }: CardBeritaProps) {
           <ArrowUpRight width={32} height={32} />
         </div>
         <p className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
-          {data?.desc}
+          {parse(data.desc)}
         </p>
       </div>
     </Link>
