@@ -25,16 +25,22 @@ export default function PageGaleryEdit({
   };
 }) {
   const [imageGalery, setImageGalery] = useState<File | null>();
+  const [mediaVideo, setMediaVideo] = useState<File | null>();
   const [title, setTitle] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [mediaLink, setMediaLink] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
   const [isLoadingPage, setLoadingPage] = useState(true);
 
   const token = Cookies.get("token");
   const navigation = useRouter();
 
-  const handleChangeFile = (file: File[]) => {
+  const handleChangeFileImage = (file: File[]) => {
     setImageGalery(file[0]);
+  };
+  const handleChangeFileVideo = (file: File[]) => {
+    setMediaVideo(file[0]);
+    console.log(file[0]);
   };
 
   const getGalerylById = async () => {
@@ -53,6 +59,7 @@ export default function PageGaleryEdit({
       if (!responseStatus.data) return notFound();
       setTitle(responseStatus.data.title);
       setImageUrl(responseStatus.data.image);
+      setMediaLink(responseStatus.data.mediaLink);
     } catch (error) {
       console.error(error);
     } finally {
@@ -88,10 +95,11 @@ export default function PageGaleryEdit({
       }
       const formData = new FormData();
       if (imageGalery) formData.append("image", imageGalery);
+      if (mediaVideo) formData.append("mediaLink", mediaVideo);
       formData.append("title", title);
       const response = await puteGalery(formData);
 
-      if (!response.data) {
+      if (response.status !== 200) {
         console.error(response.message);
         Swal.fire({
           icon: "error",
@@ -133,9 +141,7 @@ export default function PageGaleryEdit({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/galery">
-              Galeri
-            </BreadcrumbLink>
+            <BreadcrumbLink href="/dashboard/galery">Galeri</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -160,7 +166,21 @@ export default function PageGaleryEdit({
             <span className="font-medium text-primary-700">
               Upload Gambar Galeri
             </span>
-            <FileUploader fileChange={handleChangeFile} mediaUrl={imageUrl} />
+            <FileUploader
+              fileChange={handleChangeFileImage}
+              mediaUrl={imageUrl}
+            />
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">
+              Upload File Video{" "}
+              <span className="italic text-sm text-gray-500">(Optioonal)</span>
+            </span>
+            <FileUploader
+              fileChange={handleChangeFileVideo}
+              type="video"
+              mediaUrl={mediaLink}
+            />
           </label>
           <div className="flex w-full justify-end">
             <Button

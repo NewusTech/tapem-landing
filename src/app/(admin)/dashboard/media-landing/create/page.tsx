@@ -18,21 +18,12 @@ import { MediaLanding, MediaLandingFormData } from "@/validations";
 import Swal from "sweetalert2";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+import FileUploader from "@/components/fileUploader";
 
 export default function MediaLandingpage() {
   const token = Cookies.get("token");
   const navigation = useRouter();
-  const [youtubeId, setYoutubeId] = useState("");
+  const [mediaVideo, setMediaVideo] = useState<File | null>();
 
   const {
     register,
@@ -43,14 +34,17 @@ export default function MediaLandingpage() {
     resolver: zodResolver(MediaLanding),
   });
 
-  const posteMediaBanner = async (data: MediaLandingFormData) => {
+  const handleChangeFileVideo = (file: File[]) => {
+    setMediaVideo(file[0]);
+  };
+
+  const posteMediaBanner = async (data: FormData) => {
     const response = await fetch(`${SERVER_URL}/mediabanner/create`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: data,
       cache: "no-store",
     });
 
@@ -59,10 +53,24 @@ export default function MediaLandingpage() {
 
   const onSubmit: SubmitHandler<MediaLandingFormData> = async (data) => {
     try {
-      const response = await posteMediaBanner({
-        ...data,
-        mediaLink: youtubeId,
-      });
+      if (!mediaVideo) {
+        Swal.fire({
+          icon: "error",
+          title: "Upload gambar terlebih dahulu",
+          timer: 2000,
+          showConfirmButton: false,
+          position: "center",
+        });
+        return;
+      }
+      const formData = new FormData();
+      if (mediaVideo) formData.append("mediaLink", mediaVideo);
+      formData.append("title", data.title);
+      formData.append("subTitle", data.subTitle);
+      formData.append("description", data.description);
+
+      const response = await posteMediaBanner(formData);
+
       if (!response.data) {
         Swal.fire({
           icon: "error",
@@ -85,15 +93,6 @@ export default function MediaLandingpage() {
       console.error(error.message);
     }
   };
-
-  const mediaLink = watch("mediaLink");
-
-  useEffect(() => {
-    if (mediaLink && mediaLink.trim() !== "") {
-      const getIdYoutube = mediaLink.split("=")[1];
-      setYoutubeId(getIdYoutube);
-    }
-  }, [mediaLink]);
 
   return (
     <section className="space-y-4 container py-4">
@@ -152,32 +151,10 @@ export default function MediaLandingpage() {
             )}
           </label>
           <label className="flex flex-col gap-y-2">
-            <div className="flex flex-row justify-between">
-              <span className="font-medium text-primary-700">Media Link</span>
-              <Dialog>
-                <DialogTrigger className="font-semibold">
-                  Lihat Media
-                </DialogTrigger>
-                <DialogContent className="bg-white">
-                  <DialogHeader>
-                    <DialogTitle>Media youtube</DialogTitle>
-                    <DialogDescription></DialogDescription>
-                  </DialogHeader>
-                  <LiteYouTubeEmbed id={youtubeId} title={"Youtube"} />
-                </DialogContent>
-              </Dialog>
-            </div>
-            <input
-              type="text"
-              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
-              placeholder="Url Youtube"
-              {...register("mediaLink")}
-            />
-            {errors.mediaLink && (
-              <span className="text-red-600 text-sm pl-2 mt-4">
-                {errors.mediaLink.message}
-              </span>
-            )}
+            <span className="font-medium text-primary-700">
+              Upload File Video
+            </span>
+            <FileUploader fileChange={handleChangeFileVideo} type="video" />
           </label>
           <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">Deskripsi</span>

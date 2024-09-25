@@ -15,6 +15,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import "@/assets/css/index.css"
+
 export const dynamic = "force-dynamic";
 
 export default async function Profile() {

@@ -19,14 +19,18 @@ import { useRouter } from "next/navigation";
 
 export default function PageGaleryCreate() {
   const [imageGalery, setImageGalery] = useState<File | null>();
+  const [mediaVideo, setMediaVideo] = useState<File | null>();
   const [title, setTitle] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
 
   const token = Cookies.get("token");
   const navigation = useRouter();
 
-  const handleChangeFile = (file: File[]) => {
+  const handleChangeFileImage = (file: File[]) => {
     setImageGalery(file[0]);
+  };
+  const handleChangeFileVideo = (file: File[]) => {
+    setMediaVideo(file[0]);
   };
 
   const posteGalery = async (data: FormData) => {
@@ -45,7 +49,7 @@ export default function PageGaleryCreate() {
   const handleCreateGaleri = async () => {
     try {
       setLoading(true);
-      if (!imageGalery) {
+      if (!imageGalery && !mediaVideo) {
         Swal.fire({
           icon: "error",
           title: "Upload gambar terlebih dahulu",
@@ -66,11 +70,12 @@ export default function PageGaleryCreate() {
         return;
       }
       const formData = new FormData();
-      formData.append("image", imageGalery);
+      if (imageGalery) formData.append("image", imageGalery);
+      if (mediaVideo) formData.append("mediaLink", mediaVideo);
       formData.append("title", title);
       const response = await posteGalery(formData);
 
-      if (!response.data) {
+      if (response.status === 200) {
         console.error(response.message);
         Swal.fire({
           icon: "error",
@@ -105,9 +110,7 @@ export default function PageGaleryCreate() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/galery">
-              Galeri
-            </BreadcrumbLink>
+            <BreadcrumbLink href="/dashboard/galery">Galeri</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -132,7 +135,14 @@ export default function PageGaleryCreate() {
             <span className="font-medium text-primary-700">
               Upload Gambar Galeri
             </span>
-            <FileUploader fileChange={handleChangeFile} />
+            <FileUploader fileChange={handleChangeFileImage} />
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">
+              Upload File Video{" "}
+              <span className="italic text-sm text-gray-500">(Optioonal)</span>
+            </span>
+            <FileUploader fileChange={handleChangeFileVideo} type="video" />
           </label>
           <div className="flex w-full justify-end">
             <Button

@@ -16,6 +16,14 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { SERVER_URL } from "@/constants";
 import Swal from "sweetalert2";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -45,18 +53,47 @@ export const columns: ColumnDef<galeryProps>[] = [
   },
   {
     accessorKey: "image",
-    header: "Gambar",
+    header: "Gambar / Video",
     cell: ({ row }) => {
       const galery = row.original;
 
       return (
-        <Image
-          src={galery.image}
-          alt={`galery-${galery.image}`}
-          width={600}
-          height={300}
-          className="w-auto h-20"
-        />
+        <Dialog>
+          <DialogTrigger className="font-semibold">Lihat Media</DialogTrigger>
+          <DialogContent className="bg-white">
+            <DialogHeader>
+              <DialogTitle>{galery.title}</DialogTitle>
+              <DialogDescription className="hidden">
+                {galery.title}
+              </DialogDescription>
+            </DialogHeader>
+            {galery.image && (
+              <div className="h-[300px] w-full overflow-hidden rounded-xl">
+                <Image
+                  src={galery.image}
+                  alt={`galery-${galery.image}`}
+                  width={900}
+                  height={600}
+                  className="w-full h-full"
+                />
+              </div>
+            )}
+            {galery.mediaLink && (
+              <video
+                className="md:w-full md:h-full object-cover rounded-sm"
+                width={650}
+                height={310}
+                autoPlay
+                src={galery.mediaLink}
+                muted
+                controls
+              >
+                <source src={galery.mediaLink} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </DialogContent>
+        </Dialog>
       );
     },
   },
