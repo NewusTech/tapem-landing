@@ -15,8 +15,6 @@ import {
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const LiteYouTubeEmbed = dynamic(() => import("react-lite-youtube-embed"));
-
 type GaleriLandingProps = {
   galeryList: galeryProps[];
 };
@@ -32,10 +30,18 @@ export default function GaleriLanding({ galeryList }: GaleriLandingProps) {
               <DialogTrigger className="w-[20rem] sm:w-[18rem] xl:w-[25rem] h-[10rem] sm:h-[11rem] xl:h-[14rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
                 {data.mediaLink ? (
                   <div className="w-full h-full absolute bg-cover">
-                    <LiteYouTubeEmbed
-                      id={data.mediaLink}
-                      title={"Youtube"}
-                    />
+                    <video
+                      className="md:w-full md:h-full object-cover rounded-sm"
+                      width={650}
+                      height={310}
+                      autoPlay
+                      src={data.mediaLink}
+                      muted
+                      loop
+                    >
+                      <source src={data.mediaLink} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 ) : (
                   <Image
@@ -58,7 +64,18 @@ export default function GaleriLanding({ galeryList }: GaleriLandingProps) {
                 </DialogHeader>
                 <div className="flex flex-col bg-white rounded-xl overflow-hidden w-full">
                   {data.mediaLink ? (
-                    <LiteYouTubeEmbed id={data.mediaLink} title={"Youtube"} />
+                    <video
+                      className="md:w-full md:h-full object-cover rounded-sm"
+                      width={650}
+                      height={310}
+                      autoPlay
+                      src={data.mediaLink}
+                      muted
+                      controls
+                    >
+                      <source src={data.mediaLink} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   ) : (
                     <div className="w-full h-[90%] overflow-hidden">
                       <Image

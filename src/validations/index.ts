@@ -120,6 +120,7 @@ export const news = z
       .min(1, { message: "deskripsi tidak boleh kosong!" }),
       kategori_id: z.string({ message: "kategori tidak boleh kosong!" }),
       image: z.string().optional().readonly(),
+      mediaLink: z.string().optional().readonly(),
   })
   .required();
 // Convert Zod schema to TypeScript type

@@ -57,7 +57,7 @@ const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
             <p className="text-gray-400">Drag n drop video disini</p>
           </div>
           {fileUrl && (
-            <div className="flex justify-center py-2 h-40 w-40">
+            <div className="flex justify-center py-2 h-40 w-[19rem]">
               <video src={fileUrl} controls />
             </div>
           )}

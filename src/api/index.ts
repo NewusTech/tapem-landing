@@ -26,6 +26,7 @@ export type newsProps = {
   slug: string;
   desc: string;
   image: string;
+  mediaLink:string | null
   kategori_id: number;
   createdAt: string;
   updatedAt: string;

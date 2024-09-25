@@ -36,9 +36,9 @@ export default function CardBerita({ data }: CardBeritaProps) {
           </p>
           <ArrowUpRight width={32} height={32} />
         </div>
-        <p className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
+        <div className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
           {parse(data.desc)}
-        </p>
+        </div>
       </div>
     </Link>
   );

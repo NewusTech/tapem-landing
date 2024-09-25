@@ -60,9 +60,13 @@ export default function NewsEditPage({
   });
 
   const [image, setImage] = useState<File | null>();
+  const [mediaVideo, setMediaVideo] = useState<File | null>();
 
-  const handleChangeFile = (file: File[]) => {
+  const handleChangeFileImage = (file: File[]) => {
     setImage(file[0]);
+  };
+  const handleChangeFileVideo = (file: File[]) => {
+    setMediaVideo(file[0]);
   };
 
   const getDataNews = async () => {
@@ -70,6 +74,7 @@ export default function NewsEditPage({
     if (!response.title) return notFound();
     setResponseData({ desc: response.desc });
     setValue("image", response.image);
+    if (response.mediaLink) setValue("mediaLink", response.mediaLink);
     setValue("kategori_id", response.kategori_id.toString());
     setValue("title", response.title);
   };
@@ -80,14 +85,17 @@ export default function NewsEditPage({
   };
 
   const putNews = async (data: FormData) => {
-    const response = await fetch(`${SERVER_URL}/artikel/update/${params.slug}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: data,
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${SERVER_URL}/artikel/update/${params.slug}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+        cache: "no-store",
+      }
+    );
 
     return await response.json();
   };
@@ -95,6 +103,7 @@ export default function NewsEditPage({
   const onSubmit: SubmitHandler<newsFormData> = async (data) => {
     const formData = new FormData();
     if (image) formData.append("image", image);
+    if (mediaVideo) formData.append("mediaLink", mediaVideo);
     formData.append("title", data.title);
     formData.append("desc", data.desc);
     formData.append("kategori_id", data.kategori_id);
@@ -157,7 +166,7 @@ export default function NewsEditPage({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage className="font-semibold">Create</BreadcrumbPage>
+            <BreadcrumbPage className="font-semibold">Update</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -183,7 +192,23 @@ export default function NewsEditPage({
           </label>
           <label className="flex flex-col gap-y-2">
             <span>Image Berita</span>
-            <FileUploader fileChange={handleChangeFile} />
+            <FileUploader
+              key={watch("image")}
+              fileChange={handleChangeFileImage}
+              mediaUrl={watch("image")}
+            />
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">
+              Upload File Video{" "}
+              <span className="italic text-sm text-gray-500">(Optioonal)</span>
+            </span>
+            <FileUploader
+              key={watch("mediaLink")}
+              fileChange={handleChangeFileVideo}
+              type="video"
+              mediaUrl={watch("mediaLink")}
+            />
           </label>
           <div className="space-y-4">
             <Label htmlFor="deskripsi" className="font-semibold">

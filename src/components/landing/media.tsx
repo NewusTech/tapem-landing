@@ -3,8 +3,6 @@
 import { aplikasiProps, mediaBannerProps } from "@/api";
 import Image from "next/image";
 import React from "react";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
 type MediaLandingProps = {
   aplikasiList: aplikasiProps[];
@@ -56,10 +54,19 @@ export default function MediaLanding({
         </div>
         <div className="w-full lg:w-[70%] h-auto ml-auto overflow-hidden rounded-xl">
           {mediaBannerData?.length > 0 ? (
-            <LiteYouTubeEmbed
-              id={mediaBannerData[0].mediaLink}
-              title={"Youtube"}
-            />
+            <video
+            className="md:w-full md:h-full object-cover rounded-sm"
+            width={650}
+            height={310}
+            autoPlay
+            src={mediaBannerData[0].mediaLink}
+            muted
+            controls
+            loop
+          >
+            <source src={mediaBannerData[0].mediaLink} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           ) : (
             <Image
               src={"/assets/images/placeholder_video.png"}

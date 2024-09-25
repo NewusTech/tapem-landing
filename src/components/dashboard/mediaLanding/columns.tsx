@@ -23,8 +23,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -66,7 +64,18 @@ export const columns: ColumnDef<mediaBannerProps>[] = [
               <DialogTitle>{media.title}</DialogTitle>
               <DialogDescription>{media.description}</DialogDescription>
             </DialogHeader>
-            <LiteYouTubeEmbed id={media.mediaLink} title={media.title} />
+            <video
+              className="md:w-full md:h-full object-cover rounded-sm"
+              width={650}
+              height={310}
+              autoPlay
+              src={media.mediaLink}
+              muted
+              controls
+            >
+              <source src={media.mediaLink} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </DialogContent>
         </Dialog>
       );

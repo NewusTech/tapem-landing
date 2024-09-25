@@ -34,7 +34,7 @@ import { kategoriListProps, kategoriListQuery } from "@/api";
 export default function Page() {
   const token = Cookies.get("token");
   const navigation = useRouter();
-
+  
   const [dataKetegori, setDataKategori] = useState<kategoriListProps[]>([]);
 
   const { quill, quillRef } = useQuill();
@@ -48,11 +48,15 @@ export default function Page() {
   } = useForm<newsFormData>({
     resolver: zodResolver(news),
   });
-
+  
   const [image, setImage] = useState<File | null>();
+  const [mediaVideo, setMediaVideo] = useState<File | null>();
 
-  const handleChangeFile = (file: File[]) => {
+  const handleChangeFileImage = (file: File[]) => {
     setImage(file[0]);
+  };
+  const handleChangeFileVideo = (file: File[]) => {
+    setMediaVideo(file[0]);
   };
 
   const getKategori = async () => {
@@ -87,6 +91,7 @@ export default function Page() {
     
     const formData = new FormData();
     formData.append("image", image);
+    if (mediaVideo) formData.append("mediaLink", mediaVideo);
     formData.append("title", data.title);
     formData.append("desc", data.desc);
     formData.append("kategori_id", data.kategori_id);
@@ -166,7 +171,14 @@ export default function Page() {
           </label>
           <label className="flex flex-col gap-y-2">
             <span>Image Berita</span>
-            <FileUploader fileChange={handleChangeFile} />
+            <FileUploader fileChange={handleChangeFileImage} />
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">
+              Upload File Video{" "}
+              <span className="italic text-sm text-gray-500">(Optioonal)</span>
+            </span>
+            <FileUploader fileChange={handleChangeFileVideo} type="video" />
           </label>
           <div className="space-y-4">
             <Label htmlFor="deskripsi" className="font-semibold">
