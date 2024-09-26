@@ -38,7 +38,18 @@ export default function Galery() {
               <DialogTrigger className="w-[20rem] sm:w-[18rem] lg:w-[24rem] xl:w-[26rem] h-[13rem] sm:h-[10rem] lg:h-[13rem] xl:h-[15rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
                 {data.mediaLink ? (
                   <div className="w-full h-full object-cover bg-center absolute">
-                    <LiteYouTubeEmbed id={data.mediaLink} title={"Youtube"} />
+                    <video
+                      className="md:w-full md:h-full object-cover rounded-sm"
+                      width={650}
+                      height={310}
+                      autoPlay
+                      src={data.mediaLink}
+                      muted
+                      loop
+                    >
+                      <source src={data.mediaLink} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 ) : (
                   <Image
@@ -61,7 +72,18 @@ export default function Galery() {
                 </DialogHeader>
                 <div className="flex flex-col bg-white rounded-xl overflow-hidden">
                   {data.mediaLink ? (
-                    <LiteYouTubeEmbed id={data.mediaLink} title={"Youtube"} />
+                    <video
+                      className="md:w-full md:h-full object-cover rounded-sm"
+                      width={650}
+                      height={310}
+                      autoPlay
+                      src={data.mediaLink}
+                      muted
+                      controls
+                    >
+                      <source src={data.mediaLink} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   ) : (
                     <div className="w-full h-[90%] overflow-hidden">
                       <Image

@@ -22,7 +22,7 @@ export const navLink: {
     link: "#",
     child:[
       {
-        title:"tupoksi (tugas pokok dan fungsi utama)",
+        title:"tupoksi",
         link:"/tupoksi"
       },
       {

@@ -4,7 +4,7 @@ import { FileWithPath, useDropzone } from "react-dropzone";
 type FileUploaderProps = {
   fileChange: (files: File[]) => void;
   mediaUrl?: string;
-  type?: "profile" | "logo" | "video";
+  type?: "profile" | "logo" | "video" | "pdf";
 };
 
 const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
@@ -17,7 +17,7 @@ const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
       fileChange(acceptedFiles);
       setFileUrl(URL.createObjectURL(acceptedFiles[0]));
     },
-    [file],
+    [file]
   );
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -25,6 +25,7 @@ const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
     accept: {
       "image/*": [".png", ".jpeg", ".jpg", ".svg"],
       "video/*": [".mp4"],
+      "application/*": [".pdf"],
     },
   });
 
@@ -62,6 +63,17 @@ const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
             </div>
           )}
         </>
+      ) : type === "pdf" ? (
+        <>
+          <div className="w-full border border-dashed p-5 flex justify-center cursor-pointer">
+            <p className="text-gray-400">Drag n drop Pdf disini</p>
+          </div>
+          {fileUrl && (
+            <div className="flex justify-center py-2 h-[60rem] w-[60rem]">
+              <iframe src={fileUrl} className="w-full h-full"></iframe>
+            </div>
+          )}
+        </>
       ) : (
         <>
           <div className="w-full border border-dashed p-5 flex justify-center cursor-pointer">
@@ -69,7 +81,11 @@ const FileUploader = ({ fileChange, mediaUrl, type }: FileUploaderProps) => {
           </div>
           {fileUrl && (
             <div className="flex justify-center py-2 h-40 w-[25rem]">
-              <img src={fileUrl} alt="image" className="w-full h-full object-cover" />
+              <img
+                src={fileUrl}
+                alt="image"
+                className="w-full h-full object-cover"
+              />
             </div>
           )}
         </>
