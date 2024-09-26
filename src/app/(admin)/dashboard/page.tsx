@@ -23,11 +23,11 @@ const Card = ({
         className
       )}
     >
-      <div className="flex flex-row items-center justify-center gap-x-4">
+      <div className="flex flex-row items-center justify-evenly gap-x-4 w-full">
         <div className="rounded-full bg-white w-[46px] h-[46px] items-center flex pl-3 overflow-hidden p-2 text-black">
           {icon}
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-fit">
           <p className="">{number}</p>
           <p className="text-sm">{label}</p>
         </div>

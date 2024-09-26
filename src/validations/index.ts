@@ -141,3 +141,14 @@ export const sambutan = z
   .required();
 // Convert Zod schema to TypeScript type
 export type sambutanFormData = z.infer<typeof sambutan>;
+
+export const regulation = z
+  .object({
+    title: z
+      .string({ message: "title tidak boleh kosong!" })
+      .min(1, { message: "title tidak boleh kosong!" }),
+    file: z.string().optional().readonly(),
+  })
+  .required();
+// Convert Zod schema to TypeScript type
+export type regulationFormData = z.infer<typeof regulation>;

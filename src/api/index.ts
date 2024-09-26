@@ -181,13 +181,24 @@ export async function dashboardDataQuery() {
 
 export type sambutanDataProps = {
   id: number;
-  title:string;
+  title: string;
   desc: string;
   personil_id: number;
+  Personil: personilListProps;
 };
 export async function sambutanDataQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/sambutan/get`);
-  return response.data as sambutanDataProps[];
+  return response.data as sambutanDataProps;
+}
+
+export type regulasiListProps = {
+  id: number;
+  title: string;
+  file: string;
+};
+export async function regulasiListQuery() {
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/regulasi/get`);
+  return response.data as regulasiListProps[];
 }
 
 /// POST

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import { AppWindow, Contact, Images, LayoutDashboard, Newspaper, PanelsTopLeft, UserPen } from "lucide-react";
+import { AppWindow, Contact, Images, Info, LayoutDashboard, Newspaper, PanelsTopLeft, UserPen } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import SidbarItem from "./sidbarItem";
@@ -71,6 +71,21 @@ export default function SideBar() {
       ],
     },
     {
+      label: "Informasi",
+      link: "#",
+      icon: <Info />,
+      child: [
+        {
+          label: "Regulasi",
+          link: "/dashboard/regulation",
+        },
+        {
+          label: "Lppd",
+          link: "/dashboard/lppd",
+        },
+      ],
+    },
+    {
       label: "Galeri",
       icon:<Images />,
       link: "/dashboard/galery",
@@ -118,11 +133,11 @@ export default function SideBar() {
               key={data.label}
               href={data.link}
               className={cn(
-                "flex flex-row gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4 hover:bg-primary-soft/30",
+                "flex flex-row gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4 group hover:bg-primary-soft/30 hover:translate-x-1 duration-300",
                 pathname === data.link && "bg-primary-soft/20"
               )}
             >
-              {data.icon && data.icon}
+              {data.icon && <div className="group-hover:scale-125 duration-300">{data.icon}</div>}
               {data.label}
             </Link>
           ) : (

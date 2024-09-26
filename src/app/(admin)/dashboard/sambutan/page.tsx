@@ -43,10 +43,10 @@ export default function PageSambutan() {
 
   const getData = async () => {
     const response = await sambutanDataQuery();
-    console.log(response)
-    setValue("title", response[0].title);
-    setValue("desc", response[0].desc);
-    setValue("personil_id", response[0].personil_id.toString());
+    console.log(response);
+    setValue("title", response.title);
+    setValue("desc", response.desc);
+    setValue("personil_id", response.personil_id.toString());
   };
 
   const getPersonil = async () => {
@@ -55,7 +55,7 @@ export default function PageSambutan() {
   };
 
   const putSambutan = async (data: sambutanFormData) => {
-    const response = await fetch(`${SERVER_URL}/contact/update`, {
+    const response = await fetch(`${SERVER_URL}/sambutan/update`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -135,6 +135,7 @@ export default function PageSambutan() {
         <label className="flex flex-col gap-y-2">
           <span className="font-medium text-primary-700">Pilih Personil</span>
           <Select
+            key={watch("personil_id")}
             value={watch("personil_id")}
             onValueChange={(value) => setValue("personil_id", value)}
           >

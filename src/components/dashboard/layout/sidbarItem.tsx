@@ -28,15 +28,13 @@ export default function SidbarItem(props: SidbarItemProps) {
     <Collapsible className="w-full" open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleTrigger
         className={cn(
-          "flex flex-row justify-start gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4 duration-300 hover:bg-primary-soft/30",
+          "flex flex-row justify-start gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4 duration-300 hover:bg-primary-soft/30 group",
           dataItems.some((data) => data.link === pathname) &&
             "bg-primary-soft/20"
         )}
       >
-        {icon}
-        <span className="mr-auto">
-        {label}
-        </span>
+        <div className="group-hover:scale-125 duration-300">{icon}</div>
+        <span className="mr-auto group-hover:translate-x-1 duration-300">{label}</span>
         {isOpen ? <ChevronDown /> : <ChevronUp />}
       </CollapsibleTrigger>
       <CollapsibleContent className="pl-4 py-4 flex flex-col gap-2">
@@ -45,7 +43,7 @@ export default function SidbarItem(props: SidbarItemProps) {
             key={data.label}
             href={data.link}
             className={cn(
-              "flex flex-row gap-x-4 text-primary-main items-center font-medium w-full px-4 py-4 hover:bg-primary-soft/30",
+              "flex flex-row gap-x-4 text-primary-main items-center font-medium w-full px-4 py-4 hover:bg-primary-soft/30 hover:translate-x-1 duration-300",
               pathname === data.link && "bg-primary-soft/20"
             )}
           >
