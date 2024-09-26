@@ -45,6 +45,10 @@ export default function SideBar() {
           label: "Region Info",
           link: "/dashboard/regioninfo-landing",
         },
+        {
+          label: "Sambutan",
+          link: "/dashboard/sambutan",
+        },
       ],
     },
     {
@@ -114,7 +118,7 @@ export default function SideBar() {
               key={data.label}
               href={data.link}
               className={cn(
-                "flex flex-row gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4",
+                "flex flex-row gap-x-4 text-primary-main items-center font-bold w-full px-4 py-4 hover:bg-primary-soft/30",
                 pathname === data.link && "bg-primary-soft/20"
               )}
             >

@@ -14,7 +14,7 @@ export type galeryProps = {
   id: number;
   title: string;
   image: string;
-  mediaLink?:string
+  mediaLink?: string;
 };
 export async function galeryListQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/galeri/get`);
@@ -26,7 +26,7 @@ export type newsProps = {
   slug: string;
   desc: string;
   image: string;
-  mediaLink:string | null
+  mediaLink: string | null;
   kategori_id: number;
   createdAt: string;
   updatedAt: string;
@@ -167,6 +167,27 @@ export async function kategoriListQuery() {
     `${SERVER_URL}/kategoriartikel/get`
   );
   return response.data as kategoriListProps[];
+}
+export type dashboardDataProps = {
+  artikelCount: number;
+  galeriCount: number;
+  personilCount: number;
+  aplikasiCount: number;
+};
+export async function dashboardDataQuery() {
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/dashboard`);
+  return response.data as dashboardDataProps;
+}
+
+export type sambutanDataProps = {
+  id: number;
+  title:string;
+  desc: string;
+  personil_id: number;
+};
+export async function sambutanDataQuery() {
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/sambutan/get`);
+  return response.data as sambutanDataProps[];
 }
 
 /// POST

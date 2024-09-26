@@ -207,7 +207,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "../ui/carousel";
-import CardBerita from "../berita/cardBerita";
+import parse from "html-react-parser";
 import Link from "next/link";
 import Image from "next/image";
 import { newsProps } from "@/api";
@@ -309,10 +309,9 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                             </p>
                             <ArrowUpRight width={32} height={32} />
                           </div>
-                          <p className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
-                            {/* {parse(data.desc)} */}
-                            {data.desc}
-                          </p>
+                          <div className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
+                            {parse(data.desc)}
+                          </div>
                         </div>
                       </Link>
                     </CarouselItem>

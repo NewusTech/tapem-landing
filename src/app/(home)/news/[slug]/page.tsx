@@ -32,26 +32,9 @@ export default async function DetailBerita({
           </p>
         </div>
         <div className="mt-6">{parse(newsDetails.desc)}</div>
-        {/* {newsDetails.mediaLink && (
-          <div className="mt-6">
-            <video
-              className="md:w-full md:h-full object-cover rounded-sm"
-              width={650}
-              height={310}
-              autoPlay
-              src={newsDetails.mediaLink}
-              muted
-              controls
-              loop
-            >
-              <source src={newsDetails.mediaLink} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        )} */}
       </section>
       {/* berita lainnya */}
-      <section className="container mt-[10rem]">
+      <section className="container mt-[6rem]">
         <div className="flex flex-row items-center">
           <p className="text-2xl font-bold w-[65%] md:w-[35%]">
             Berita Lainnya

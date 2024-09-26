@@ -118,10 +118,26 @@ export const news = z
     desc: z
       .string({ message: "deskripsi tidak boleh kosong!" })
       .min(1, { message: "deskripsi tidak boleh kosong!" }),
-      kategori_id: z.string({ message: "kategori tidak boleh kosong!" }),
-      image: z.string().optional().readonly(),
-      mediaLink: z.string().optional().readonly(),
+    kategori_id: z.string({ message: "kategori tidak boleh kosong!" }),
+    image: z.string().optional().readonly(),
+    mediaLink: z.string().optional().readonly(),
   })
   .required();
 // Convert Zod schema to TypeScript type
 export type newsFormData = z.infer<typeof news>;
+
+export const sambutan = z
+  .object({
+    title: z
+      .string({ message: "title tidak boleh kosong!" })
+      .min(1, { message: "title tidak boleh kosong!" }),
+    desc: z
+      .string({ message: "deskripsi tidak boleh kosong!" })
+      .min(1, { message: "deskripsi tidak boleh kosong!" }),
+    personil_id: z
+      .string({ message: "personil tidak boleh kosong!" })
+      .min(1, { message: "personil tidak boleh kosong!" }),
+  })
+  .required();
+// Convert Zod schema to TypeScript type
+export type sambutanFormData = z.infer<typeof sambutan>;
