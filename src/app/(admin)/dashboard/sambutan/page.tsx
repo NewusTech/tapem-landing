@@ -43,7 +43,6 @@ export default function PageSambutan() {
 
   const getData = async () => {
     const response = await sambutanDataQuery();
-    console.log(response);
     setValue("title", response.title);
     setValue("desc", response.desc);
     setValue("personil_id", response.personil_id.toString());
@@ -55,7 +54,7 @@ export default function PageSambutan() {
   };
 
   const putSambutan = async (data: sambutanFormData) => {
-    const response = await fetch(`${SERVER_URL}/sambutan/update`, {
+    const response = await fetch(`${SERVER_URL}/sambutan/update/1`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

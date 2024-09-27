@@ -9,7 +9,7 @@ export default function HeaderSection() {
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   return (
-    <div className="w-full bg-gradient-to-r from-primary-main to-primary-soft h-fit sm:h-[8rem] flex flex-col gap-y-4 sm:flex-row justify-between items-center px-2 md:px-16 py-5 duration-150">
+    <div className="w-full bg-gradient-to-r from-primary-main to-primary-soft h-fit sm:h-[8rem] flex flex-row gap-y-4 justify-between items-center px-2 md:px-16 py-5 duration-150">
       <div className="flex flex-row items-center">
         <div className="w-[3rem] h-[3.5rem] md:w-[5rem] md:h-[5.5rem] overflow-hidden">
           <Image
@@ -20,9 +20,9 @@ export default function HeaderSection() {
             className="object-contain w-full h-full bg-bottom"
           />
         </div>
-        <div className="flex flex-col gap-2 justify-center text-white items-start ml-4 md:ml-10">
-          <p className="text-xl md:text-2xl font-bold">TATA PEMERINTAHAN</p>
-          <p className="text-base md:textlg">KABUPATEN LAMPUNG UTARA</p>
+        <div className="flex flex-col gap-1 sm:gap-2 justify-center text-white items-start ml-4 md:ml-10">
+          <p className="text-sm sm:text-xl md:text-2xl font-bold">TATA PEMERINTAHAN</p>
+          <p className="text-sm sm:text-base md:textlg">KABUPATEN LAMPUNG UTARA</p>
         </div>
       </div>
       <div className="flex flex-row text-white items-center ml-auto gap-x-4 sm:gap-x-8 text-sm md:text-base pr-6 md:pr-0">

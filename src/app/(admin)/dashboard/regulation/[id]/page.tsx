@@ -70,7 +70,7 @@ export default function RegulationUpdatePage({
   };
 
   const putRegulation = async (data: FormData) => {
-    const response = await fetch(`${SERVER_URL}/regulasi/create`, {
+    const response = await fetch(`${SERVER_URL}/regulasi/update/${params.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -84,26 +84,16 @@ export default function RegulationUpdatePage({
 
   const onSubmit: SubmitHandler<regulationFormData> = async (data) => {
     try {
-      if (!mediaPdf) {
-        Swal.fire({
-          icon: "error",
-          title: "Upload File Pdf terlebih dahulu",
-          timer: 2000,
-          showConfirmButton: false,
-          position: "center",
-        });
-        return;
-      }
       const formData = new FormData();
       if (mediaPdf) formData.append("file", mediaPdf);
       formData.append("title", data.title);
 
       const response = await putRegulation(formData);
 
-      if (!response.data) {
+      if (response.status !== 200) {
         Swal.fire({
           icon: "error",
-          title: "Gagal menambah data regulasi. " + response.message,
+          title: "Gagal update data regulasi. " + response.message,
           timer: 2000,
           showConfirmButton: false,
           position: "center",
@@ -112,7 +102,7 @@ export default function RegulationUpdatePage({
       }
       Swal.fire({
         icon: "success",
-        title: "Berhasil menambah data regulasi.",
+        title: "Berhasil update data regulasi.",
         timer: 2000,
         showConfirmButton: false,
         position: "center",
@@ -173,7 +163,7 @@ export default function RegulationUpdatePage({
             <span className="font-medium text-primary-700">
               Upload File Pdf
             </span>
-            <FileUploader fileChange={handleChangeFilePdf} type="pdf" />
+            <FileUploader key={watch("file")} fileChange={handleChangeFilePdf} type="pdf" mediaUrl={watch("file")} />
           </label>
           <div className="flex w-full justify-end">
             <Button

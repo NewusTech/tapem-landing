@@ -92,7 +92,7 @@ export default function NavBar() {
             onChange={handleSeach}
             onKeyDown={handleKeyDown}
             className="placeholder-primary-main focus:outline-none w-fit"
-            placeholder="Seacrh"
+            placeholder="Search"
             inputMode="search"
           />
         </label>

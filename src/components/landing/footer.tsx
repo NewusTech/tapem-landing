@@ -54,7 +54,7 @@ export default function FooterLanding({
           <p className="text-sm">Copyright ©️ 2024 All rights reserved.</p>
           <div className="flex flex-row md:ml-auto text-sm sm:text-base">
             <Link
-              href={"/"}
+              href={"/faq"}
               className="flex flex-row items-center ml-auto gap-2"
             >
               <ChevronRight /> FAQ

@@ -11,9 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-
-const LiteYouTubeEmbed = dynamic(() => import("react-lite-youtube-embed"));
 
 export default function Galery() {
   const [galery, setGalery] = useState<galeryProps[]>([]);
@@ -31,11 +28,11 @@ export default function Galery() {
       <h1 className="text-primary-main text-3xl font-semibold ml-4 sm:ml-10 mb-6">
         Galery
       </h1>
-      <div className="w-full flex flex-wrap gap-4 justify-center px-4">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-between px-4">
         {galery.length > 1 &&
           galery.map((data, index) => (
             <Dialog key={index + "galery"}>
-              <DialogTrigger className="w-[20rem] sm:w-[18rem] lg:w-[24rem] xl:w-[26rem] h-[13rem] sm:h-[10rem] lg:h-[13rem] xl:h-[15rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
+              <DialogTrigger className="w-full min-h-[13rem] sm:h-[10rem] lg:h-[13rem] xl:h-[15rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
                 {data.mediaLink ? (
                   <div className="w-full h-full object-cover bg-center absolute">
                     <video

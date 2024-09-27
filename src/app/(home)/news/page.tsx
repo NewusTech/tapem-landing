@@ -72,7 +72,7 @@ export default function News() {
   if(newsList && newsList.data.length <= 0) return notFound()
 
   return (
-    <section className="w-full container pb-10">
+    <section className="w-full container pb-10 px-4 sm:px-10 sm:py-6">
       <h1 className="text-primary-main text-xl sm:text-3xl font-semibold">
         Berita Utama
       </h1>
@@ -123,14 +123,14 @@ export default function News() {
                   className="text-primary-main"
                 />
               </div>
-              <p className="text-black font-normal px-2 mt-4 line-clamp-4 lg:line-clamp-6">
+              <div className="text-black font-normal px-2 mt-4 line-clamp-4 lg:line-clamp-6">
                 {parse(newsList?.data[0].desc)}
-              </p>
+              </div>
             </div>
           </div>
         </Link>
       )}
-      <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4 mt-10">
+      <div className="grid place-items-center justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
         {newsList?.data.map((data, index) => (
           <CardBerita key={data.slug} data={data} />
         ))}

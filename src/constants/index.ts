@@ -41,7 +41,7 @@ export const navLink: {
       },
       {
         title:"laporan kecamatan",
-        link:"/laporan-kecamatan"
+        link:"/district-report"
       },
       {
         title:"lppd",
@@ -68,3 +68,4 @@ export const navLink: {
 ];
 
 export const SERVER_URL = process.env.NEXT_PUBLIC_API_URL;
+export const SERVER_SIPETA_URL = process.env.NEXT_PUBLIC_API_SIPETA_URL;

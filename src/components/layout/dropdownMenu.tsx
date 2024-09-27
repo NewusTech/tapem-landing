@@ -47,14 +47,15 @@ export default function DropdownMenuSection() {
                 <DropdownMenuSubContent className="bg-white p-2">
                   {data.child.map((child) => (
                     <DropdownMenuItem key={child.title}>
-                      <span
+                      <Link
+                      href={child.link}
                         className={cn([
                           "uppercase text-primary-main",
-                          pathname === data.link && "font-bold",
+                          pathname === child.link && "font-bold",
                         ])}
                       >
                         {child.title}
-                      </span>
+                      </Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuSubContent>

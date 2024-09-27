@@ -7,8 +7,9 @@ import { AppWindow, Contact, Images, Info, LayoutDashboard, Newspaper, PanelsTop
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import SidbarItem from "./sidbarItem";
+import MobileSidebarItem from "./mobileSidebarItem";
 
-type sideItemLinkProps = {
+export type sideItemLinkProps = {
   label: string;
   link: string;
   icon?: any;
@@ -107,8 +108,8 @@ export default function SideBar() {
     },
   ];
   return (
-    <aside className="w-[30%] flex flex-col my-10 mx-6">
-      <div className="flex flex-row gap-4">
+    <aside className="w-fit sm:w-[30%] flex flex-col my-10 mx-6 overflow-y-auto overflow-x-hidden scrollbar-thin">
+      <div className="hidden sm:flex flex-row gap-4 justify-center items-center">
         <div className="w-[64px] h-auto">
           <Image
             src="/assets/images/logo.png"
@@ -126,7 +127,7 @@ export default function SideBar() {
         </div>
       </div>
       {/*  */}
-      <div className="flex flex-col gap-y-4 w-full h-full mt-10">
+      <div className="hidden sm:flex flex-col gap-y-4 w-full h-full mt-10">
         {sideItemLink.map((data) =>
           !data.child ? (
             <Link
@@ -150,6 +151,8 @@ export default function SideBar() {
           )
         )}
       </div>
+      {/* mobile */}
+      <MobileSidebarItem sideItemLink={sideItemLink}/>
     </aside>
   );
 }

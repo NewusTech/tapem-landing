@@ -7,6 +7,7 @@ import React from "react";
 import parse from "html-react-parser";
 import { formatDate } from "@/lib/utils";
 import MediaHeader from "@/components/news/mediaHeader";
+import "@/assets/css/index.css"
 
 export default async function DetailBerita({
   params,
@@ -41,7 +42,7 @@ export default async function DetailBerita({
           </p>
           <div className="h-[2px] bg-gray-300 w-full ml-4" />
         </div>
-        <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4 mt-10">
+        <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
           {moreNews?.data
             .slice(0, 4)
             .map((data, index) => <CardBerita key={data.slug} data={data} />)}

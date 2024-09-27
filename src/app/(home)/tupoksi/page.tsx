@@ -40,12 +40,12 @@ export default async function Profile() {
 
   return (
     <section className="pb-10">
-      <div className="w-full h-[20rem] flex flex-col items-center justify-center bg-[url('/assets/images/dummy_1.png')] relative bg-cover overflow-hidden">
-        <div className="bg-white/40 w-full h-full absolute" />
+      <div className="w-full min-h-[20rem] py-4 flex flex-col items-center justify-center bg-[url('/assets/images/dummy_1.png')] relative bg-cover overflow-hidden">
+        <div className="bg-white/60 w-full h-full absolute" />
         <p className="text-xl md:text-2xl w-fit font-bold pb-2 md:pb-4 border-b-2 border-primary-main z-[2]">
           Tugas Pokok
         </p>
-        <div className="text-base md:text-xl font-semibold w-[90%] md:w-[50%] text-center z-[2] mt-5 md:mt-10">
+        <div className="text-base md:text-xl font-semibold w-[90%] lg:w-[70%] xl:w-[50%] text-center z-[2] mt-5 md:mt-10">
           {parse(tupoksi?.tugaspokok || "")}
         </div>
       </div>
@@ -95,7 +95,7 @@ export default async function Profile() {
                           <DialogDescription>{person.name}</DialogDescription>
                         </DialogHeader>
                         <div className="flex flex-col bg-white rounded-xl overflow-hidden">
-                          <div className="w-full h-[15rem]">
+                          <div className="w-full min-h-[15rem]">
                             <Image
                               src={
                                 person.image ?? "/assets/images/no-image.png"
