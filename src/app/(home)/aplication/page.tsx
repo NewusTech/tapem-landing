@@ -7,8 +7,8 @@ import React from "react";
 export default async function Aplication() {
   const aplicationList = await aplikasiListQuery();
   return (
-    <section className="py-4 md:py-10 container">
-      <h1 className="text-primary-main text-3xl font-semibold mb-6">
+    <section className="py-1 pb-10 md:py-10 container">
+      <h1 className="text-primary-main text-2xl md:text-3xl font-semibold mb-6">
         Aplikasi
       </h1>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">

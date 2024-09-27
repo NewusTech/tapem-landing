@@ -14,8 +14,8 @@ export default function FooterLanding({
 }: FooterLandingProps) {
   return (
     <div className="w-full bg-black/80">
-      <div className="container flex flex-col py-6">
-        <div className="flex flex-col md:flex-row gap-y-6 text-white">
+      <div className="flex flex-col py-6 ">
+        <div className="flex flex-col md:flex-row gap-y-6 text-white container justify-start">
           <div className="flex flex-col w-full md:w-[60%]">
             <div className="flex flex-row gap-2 items-center">
               <div className="w-[2rem] h-[2.5rem] md:w-[4rem] md:h-[4.5rem] overflow-hidden">
@@ -50,7 +50,7 @@ export default function FooterLanding({
         </div>
       </div>
       <div className="w-full bg-primary-main p-4 text-white font-normal">
-        <div className="flex flex-col md:flex-row gap-y-6 container items-center">
+        <div className="w-full flex flex-col md:flex-row gap-y-6 container items-center">
           <p className="text-sm">Copyright ©️ 2024 All rights reserved.</p>
           <div className="flex flex-row md:ml-auto text-sm sm:text-base">
             <Link

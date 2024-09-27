@@ -81,6 +81,10 @@ export default function PersonilCreatePage() {
     formData.append("image", imageProfile);
     formData.append("name", data.name);
     formData.append("jabatan_id", data.jabatan_id);
+    formData.append("nip", data.nip);
+    formData.append("phoneNumber", data.phoneNumber);
+    formData.append("educationHistory", data.educationHistory);
+    formData.append("positionHistory", data.positionHistory);
     
     const response = await postPersonil(formData);
 
@@ -146,6 +150,63 @@ export default function PersonilCreatePage() {
             {errors.name && (
               <span className="text-red-600 text-sm pl-2 mt-4">
                 {errors.name.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">NIP</span>
+            <input
+              type="number"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="NIP"
+              {...register("nip")}
+            />
+            {errors.nip && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.nip.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Nomor Ponsel</span>
+            <input
+              type="number"
+              inputMode="tel"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="08"
+              {...register("phoneNumber")}
+            />
+            {errors.phoneNumber && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.phoneNumber.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Riwayat Pendidikan Terakhir</span>
+            <input
+              type="text"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="Riwayat pendidikan"
+              {...register("educationHistory")}
+            />
+            {errors.educationHistory && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.educationHistory.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Riwayat Jabatan Terakhir</span>
+            <input
+              type="text"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="Riwayat jabatan"
+              {...register("positionHistory")}
+            />
+            {errors.positionHistory && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.positionHistory.message}
               </span>
             )}
           </label>

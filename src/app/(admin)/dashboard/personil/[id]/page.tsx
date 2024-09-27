@@ -80,6 +80,10 @@ export default function PersonilEditPage({
       setValue("name", responseStatus.data.name);
       setValue("jabatan_id", responseStatus.data.jabatan_id.toString());
       setValue("image", responseStatus.data.image);
+      setValue("nip", responseStatus.data.nip);
+      setValue("phoneNumber", responseStatus.data.phoneNumber);
+      setValue("educationHistory", responseStatus.data.educationHistory);
+      setValue("positionHistory", responseStatus.data.positionHistory);
     } catch (error) {
       console.error(error);
     } finally {
@@ -105,13 +109,17 @@ export default function PersonilEditPage({
     if (imageProfile) formData.append("image", imageProfile);
     formData.append("name", data.name);
     formData.append("jabatan_id", data.jabatan_id);
+    formData.append("nip", data.nip);
+    formData.append("phoneNumber", data.phoneNumber);
+    formData.append("educationHistory", data.educationHistory);
+    formData.append("positionHistory", data.positionHistory);
     const response = await putPersonil(formData);
 
     if (response.status !== 200) {
       console.error(response.message);
       Swal.fire({
         icon: "error",
-        title: "Gagal Menambah Data. " + response.message,
+        title: "Gagal Mengupdate Data. " + response.message,
         timer: 2000,
         showConfirmButton: false,
         position: "center",
@@ -120,7 +128,7 @@ export default function PersonilEditPage({
     }
     Swal.fire({
       icon: "success",
-      title: "Berhasil Menambah Data!",
+      title: "Berhasil Mengupdate Data!",
       timer: 2000,
       showConfirmButton: false,
       position: "center",
@@ -177,6 +185,63 @@ export default function PersonilEditPage({
             )}
           </label>
           <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">NIP</span>
+            <input
+              type="number"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="NIP"
+              {...register("nip")}
+            />
+            {errors.nip && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.nip.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Nomor Ponsel</span>
+            <input
+              type="number"
+              inputMode="tel"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="08"
+              {...register("phoneNumber")}
+            />
+            {errors.phoneNumber && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.phoneNumber.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Riwayat Pendidikan Terakhir</span>
+            <input
+              type="text"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="Riwayat pendidikan"
+              {...register("educationHistory")}
+            />
+            {errors.educationHistory && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.educationHistory.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
+            <span className="font-medium text-primary-700">Riwayat Jabatan Terakhir</span>
+            <input
+              type="text"
+              className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
+              placeholder="Riwayat jabatan"
+              {...register("positionHistory")}
+            />
+            {errors.positionHistory && (
+              <span className="text-red-600 text-sm pl-2 mt-4">
+                {errors.positionHistory.message}
+              </span>
+            )}
+          </label>
+          <label className="flex flex-col gap-y-2">
             <span className="font-medium text-primary-700">Pilih Jabatan</span>
             <Select
               value={watch("jabatan_id")}
@@ -211,7 +276,7 @@ export default function PersonilEditPage({
               {isSubmitting ? (
                 <LoaderCircle className="animate-spin" />
               ) : (
-                "Simpan"
+                "Update"
               )}
             </Button>
           </div>

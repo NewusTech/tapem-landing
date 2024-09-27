@@ -53,6 +53,18 @@ export const Personil = z
       .string({ message: "Nama tidak boleh kosong!" })
       .min(1, { message: "Nama tidak boleh kosong!" }),
     jabatan_id: z.string({ message: "Jabatan tidak boleh kosong!" }),
+    nip: z
+    .string({ message: "Nip tidak boleh kosong!" })
+    .min(1, { message: "Nip tidak boleh kosong!" }),
+    phoneNumber: z
+    .string({ message: "Nomor ponsel tidak boleh kosong!" })
+    .min(1, { message: "Nomor ponsel boleh kosong!" }).max(13,{message:"Nomor ponsel tidak boleh lebih 13 karakter"}),
+    educationHistory: z
+    .string({ message: "Nomor ponsel tidak boleh kosong!" })
+    .min(1, { message: "Nomor ponsel boleh kosong!" }),
+    positionHistory: z
+    .string({ message: "Riwayat pendidikan tidak boleh kosong!" })
+    .min(1, { message: "Riwayat pendidikan ponsel boleh kosong!" }),
     image: z.string().optional().readonly(),
   })
   .required();
