@@ -54,7 +54,7 @@ export const navLink: {
     link: "/news",
   },
   {
-    title: "galery",
+    title: "galeri",
     link: "/galery",
   },
   {
