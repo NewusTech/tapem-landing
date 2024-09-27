@@ -110,6 +110,10 @@ export type personilListProps = {
     level: number;
     title: string;
   };
+  nip: string;
+  phoneNumber: string;
+  educationHistory: string;
+  positionHistory: string;
 };
 export async function personilListQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/personil/get`);

@@ -1,4 +1,5 @@
 import { personilListQuery } from "@/api";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogClose,
@@ -20,27 +21,23 @@ export default async function Personil() {
       <h1 className="text-primary-main text-3xl font-semibold ml-10 mb-12">
         Personil
       </h1>
-      <div className="w-full flex flex-wrap gap-12 justify-center px-10">
+      <div className="w-full flex flex-wrap gap-6 sm:gap-12 justify-center px-10">
         {personil?.map((data, index) => (
           <Dialog key={data.id + "personil"}>
-            <DialogTrigger className="w-[7rem] md:w-[12rem] h-auto flex flex-col items-center">
-              <div className="w-[7rem] md:w-[10rem] h-[7rem] md:h-[10rem] overflow-hidden rounded-full text-primary-main">
-                <Image
+            <DialogTrigger className="w-full sm:w-[14rem] h-auto flex flex-col items-center">
+              <Avatar className="w-[160px] h-[160px] border-2 border-black">
+                <AvatarImage
                   src={data.image ?? "/assets/images/no-image.png"}
-                  alt={data.name}
-                  width={300}
-                  height={300}
                   className="w-full h-full object-cover bg-center"
                 />
-              </div>
-              <p className="font-bold text-base md:text-xl text-center mt-4">
-                {data.name}
-              </p>
-              <p className="text-center text-sm md:text-lg mt-auto">
+                <AvatarFallback>{data.name}</AvatarFallback>
+              </Avatar>
+              <p className="font-bold text-xl text-center mt-4">{data.name}</p>
+              <p className="text-center text-lg mt-auto align-text-top h-[19%] overflow-hidden">
                 {data.Jabatan.title}
               </p>
             </DialogTrigger>
-            <DialogContent className="px-4 bg-transparent border-transparent w-full h-full max-w-[550px] max-h-[600px] [&>button]:hidden">
+            <DialogContent className="px-4 bg-transparent border-transparent w-full max-w-[550px] h-fit min-h-[600px] [&>button]:hidden">
               <DialogHeader className="hidden">
                 <DialogTitle>Detail Personil</DialogTitle>
                 <DialogDescription>{data.name}</DialogDescription>
@@ -62,31 +59,37 @@ export default async function Personil() {
                     />
                   </div>
                   <div className="flex flex-col gap-1 py-4 text-white">
-                    <span className="font-semibold text-center line-clamp-1 text-xl">
+                    <span className="font-semibold text-center line-clamp-2 text-xl">
                       {data.name}
                     </span>
                     <span className="text-center text-base">
-                      NIP. xxxxxxxxxxxxxxxxx
+                      NIP. {data.nip || "-"}
                     </span>
                   </div>
-                  <div className="flex flex-col text-white w-[80%] items-center gap-y-3 mt-6">
-                    <div className="flex flex-row w-full justify-left items-center">
-                      <p className="font-semibold w-[50%] text-left">Jabatan</p>
-                      <p className="">:Jabatan</p>
-                    </div>
-                    <div className="flex flex-row w-full justify-left items-center">
-                      <p className="font-semibold w-[50%]">kontak</p>
-                      <p className="">:kontak</p>
-                    </div>
-                    <div className="flex flex-row w-full justify-left items-center">
-                      <p className="font-semibold w-[50%]">Riwayat Jabatan</p>
-                      <p className="">:Riwayat Jabatan</p>
-                    </div>
-                    <div className="flex flex-row w-full justify-left items-center">
-                      <p className="font-semibold w-[50%]">
-                        Riwayat Pendidikan
+                  <div className="flex flex-col text-white w-full items-center gap-y-3 mt-6">
+                    <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                      <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                        Jabatan
                       </p>
-                      <p className="">:Riwayat Pendidikan</p>
+                      <p className="text-left w-full"><span className="hidden md:inline-block">:</span> {data.Jabatan.title || "-"}</p>
+                    </div>
+                    <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                      <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                        Kontak
+                      </p>
+                      <p className="text-left w-full"><span className="hidden md:inline-block">:</span> {data.phoneNumber || "-"}</p>
+                    </div>
+                    <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                      <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                      Riwayat Jabatan
+                      </p>
+                      <p className="text-left w-full"><span className="hidden md:inline-block">:</span> {data.positionHistory || "-"}</p>
+                    </div>
+                    <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                      <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                      Riwayat Pendidikan
+                      </p>
+                      <p className="text-left w-full"><span className="hidden md:inline-block">:</span> {data.educationHistory || "-"}</p>
                     </div>
                   </div>
                 </div>

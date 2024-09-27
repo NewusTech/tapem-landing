@@ -40,8 +40,8 @@ export default function BannerLanding({ bannerList }: BannerLandingProps) {
               <Image
                 src={data.image}
                 alt="image"
-                width={900}
-                height={900}
+                width={1200}
+                height={1200}
                 className="w-full h-[12rem] sm:h-[20rem] md:h-[22rem] lg:h-[30rem] xl:h-[32rem] object-cover object-bottom"
               />
             </CarouselItem>

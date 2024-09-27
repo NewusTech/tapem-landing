@@ -11,7 +11,7 @@ export default function HeaderSection() {
   return (
     <div className="w-full bg-gradient-to-r from-primary-main to-primary-soft h-fit sm:h-[8rem] flex flex-row gap-y-4 justify-between items-center px-2 md:px-16 py-5 duration-150">
       <div className="flex flex-row items-center">
-        <div className="w-[3rem] h-[3.5rem] md:w-[5rem] md:h-[5.5rem] overflow-hidden">
+        <Link href={"/"} className="w-[3rem] h-[3.5rem] md:w-[5rem] md:h-[5.5rem] overflow-hidden">
           <Image
             src={"/assets/images/logo.png"}
             alt="Logo"
@@ -19,7 +19,7 @@ export default function HeaderSection() {
             width={95}
             className="object-contain w-full h-full bg-bottom"
           />
-        </div>
+        </Link>
         <div className="flex flex-col gap-1 sm:gap-2 justify-center text-white items-start ml-4 md:ml-10">
           <p className="text-sm sm:text-xl md:text-2xl font-bold">TATA PEMERINTAHAN</p>
           <p className="text-sm sm:text-base md:textlg">KABUPATEN LAMPUNG UTARA</p>

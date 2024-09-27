@@ -23,7 +23,9 @@ type District = {
   camat: string;
   name: string;
   telp: string;
-  Desas: Vilage[];
+  Desas: {
+    data: Vilage[];
+  };
 };
 
 const columns: ColumnDef<Vilage>[] = [
@@ -75,7 +77,9 @@ export default function DistrictPage() {
 
   return (
     <section className="container py-10">
-        <h1 className="text-primary-main text-4xl font-semibold pt-0 mt-0 mb-8">Laporan Kecamatan</h1>
+      <h1 className="text-primary-main text-4xl font-semibold pt-0 mt-0 mb-8">
+        Laporan Kecamatan
+      </h1>
       {result?.map((district: District) => (
         <div key={district.id} className="space-y-3">
           <h1 className="text-lg font-semibold text-primary-main">
@@ -94,7 +98,11 @@ export default function DistrictPage() {
             </div>
           </div>
           {district.Desas && (
-            <DataTables2 columns={columns} data={district.Desas} filterBy="name" />
+            <DataTables2
+              columns={columns}
+              data={district.Desas.data}
+              filterBy="name"
+            />
           )}
         </div>
       ))}
