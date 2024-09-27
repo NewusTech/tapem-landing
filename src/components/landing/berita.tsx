@@ -110,13 +110,13 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                                 formatDate(new Date(data?.createdAt))}
                             </p>
                           </div>
-                          <div className="flex flex-row justify-start items-start px-2">
+                          <div className="flex flex-row justify-start items-start px-4">
                             <p className="text-primary-main text-lg lg:text-xl line-clamp-2 xl:line-clamp-3 font-bold">
                               {data?.title}
                             </p>
                             <ArrowUpRight width={32} height={32} />
                           </div>
-                          <div className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
+                          <div className="text-primary-main font-normal px-4 mt-2 line-clamp-2 lg:line-clamp-3">
                             {parse(data.desc)}
                           </div>
                         </div>
@@ -186,9 +186,9 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                           </p>
                           <ArrowUpRight width={32} height={32} />
                         </div>
-                        <p className="text-primary-main font-normal px-2 mt-2 line-clamp-3 lg:line-clamp-4">
-                          {data.desc}
-                        </p>
+                        <div className="text-primary-main font-normal px-2 mt-2 line-clamp-3 lg:line-clamp-4">
+                         {parse(data.desc)}
+                        </div>
                       </div>
                     </Link>
                   </CarouselItem>
@@ -213,7 +213,7 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
         </div>
         <Link href={"/news/"} className="w-full px-4 mt-2">
           <Button className="w-full bg-white text-primary-main border border-primary-main rounded-xl py-6 font-semibold duration-150 hover:bg-gray-50">
-            Lihat Selengkeapnya..
+            Lihat Selengkapnya..
           </Button>
         </Link>
       </div>

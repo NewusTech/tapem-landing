@@ -101,12 +101,12 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
                   </span>
                 </div>
               </DialogTrigger>
-              <DialogContent className="px-4 bg-transparent border-transparent [&>button]:hidden w-full max-w-[600px] max-h-[70%]">
+              <DialogContent className="px-4 bg-transparent border-transparent [&>button]:hidden">
                 <DialogHeader className="hidden">
                   <DialogTitle>Detail Personil</DialogTitle>
                   <DialogDescription>{data.name}</DialogDescription>
                 </DialogHeader>
-                <div className="flex flex-col bg-white rounded-xl overflow-hidden">
+                <div className="flex flex-col bg-white rounded-xl overflow-hidden h-full">
                   <div className="w-full h-[90%]">
                     <Image
                       src={data.image ?? "/assets/images/no-image.png"}
@@ -116,7 +116,7 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
                       className="w-full h-full object-cover bg-center"
                     />
                   </div>
-                  <div className="flex flex-col gap-1 text-black py-4">
+                  <div className="flex flex-col gap-1 text-black py-4 h-auto">
                     <span className="font-semibold text-center line-clamp-1">
                       {data.name}
                     </span>

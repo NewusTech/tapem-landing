@@ -12,7 +12,7 @@ type CardBeritaProps = {
 export default function CardBerita({ data }: CardBeritaProps) {
   return (
     <Link href={`/news/${data.slug}`}>
-      <div className="max-w-[20rem] h-[25rem] bg-white rounded-xl overflow-hidden shadow-lg">
+      <div className="w-full h-[25rem] flex flex-col pb-4 bg-white rounded-xl overflow-hidden shadow-lg">
         <div className="w-full h-[50%] bg-gray-400">
           <Image
             src={data?.image}
@@ -30,13 +30,15 @@ export default function CardBerita({ data }: CardBeritaProps) {
             {data?.createdAt && formatDate(new Date(data?.createdAt))}
           </p>
         </div>
-        <div className="flex flex-row justify-start items-start px-2">
-          <p className="text-primary-main text-lg lg:text-xl line-clamp-2 xl:line-clamp-3 font-bold">
+        <div className="flex flex-row justify-start items-start px-4 w-full">
+          <p className="text-primary-main text-lg lg:text-xl line-clamp-2 md:line-clamp-2 lg:line-clamp-3 font-bold w-full">
             {data?.title}
           </p>
-          <ArrowUpRight width={32} height={32} />
+          <div className="h-[32px] w-[36px] ml-auto">
+            <ArrowUpRight width={32} height={32} className="w-full h-full" />
+          </div>
         </div>
-        <div className="text-primary-main font-normal px-2 mt-2 line-clamp-2 lg:line-clamp-3">
+        <div className="text-primary-main font-normal px-4 mt-auto line-clamp-4 lg:line-clamp-3">
           {parse(data.desc)}
         </div>
       </div>

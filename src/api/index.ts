@@ -188,7 +188,7 @@ export type sambutanDataProps = {
 };
 export async function sambutanDataQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/sambutan/get`);
-  return response.data as sambutanDataProps;
+  return response.data[0] as sambutanDataProps;
 }
 
 export type regulasiListProps = {

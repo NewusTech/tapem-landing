@@ -2,6 +2,7 @@
 
 import { aplikasiProps, mediaBannerProps } from "@/api";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 type MediaLandingProps = {
@@ -16,7 +17,8 @@ export default function MediaLanding({
     <div className="w-full bg-primary-main flex flex-col p-4 z-[3] pb-16 relative">
       <div className="flex flex-row gap-2 sm:gap-5 justify-center absolute left-0 -top-10 sm:-top-8 w-full overflow-hidden px-1 sm:px-5">
         {aplikasiList.slice(0, 3).map((data, index) => (
-          <div
+          <Link
+          href={data.link}
             key={index + "media"}
             className="bg-white rounded-xl shadow-sm text-primary-main flex flex-col sm:flex-row gap-4 items-center p-2 px-4 sm:p-4 md:w-[17rem]  lg:w-[17rem] xl:w-[20rem] h-fit sm:h-[4rem] overflow-hidden"
           >
@@ -30,7 +32,7 @@ export default function MediaLanding({
               />
             </div>
             <p className="font-medium text-base sm:text-xl line-clamp-1">{data.name}</p>
-          </div>
+          </Link>
         ))}
       </div>
 

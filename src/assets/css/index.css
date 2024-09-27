@@ -10,3 +10,6 @@ ol {
     margin-bottom: 0.5rem; /* Agar item daftar memiliki jarak */
   }
   
+  .ql-align-justify {
+    text-align: justify;
+  }

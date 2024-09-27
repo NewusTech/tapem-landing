@@ -13,7 +13,6 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 
 type GaleriLandingProps = {
   galeryList: galeryProps[];
@@ -23,11 +22,11 @@ export default function GaleriLanding({ galeryList }: GaleriLandingProps) {
   return (
     <div className="w-full flex flex-col gap-4 container mt-6">
       <p className="text-2xl font-bold text-primary-main">Galeri</p>
-      <div className="w-full flex flex-wrap gap-4 justify-center">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-between">
         {galeryList.length > 1 &&
           galeryList.slice(0, 5).map((data, index) => (
             <Dialog key={index + "galery"}>
-              <DialogTrigger className="w-[20rem] sm:w-[18rem] xl:w-[25rem] h-[10rem] sm:h-[11rem] xl:h-[14rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
+              <DialogTrigger className="w-full xl:w-[27rem] min-h-[10rem] sm:h-[11rem] lg:h-[14rem] xl:h-[16rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
                 {data.mediaLink ? (
                   <div className="w-full h-full absolute bg-cover">
                     <video
