@@ -2,8 +2,8 @@ import React from "react";
 
 export default function page() {
   return (
-    <section className="py-4 md:py-10 container">
-      <h1 className="text-primary-main text-3xl font-semibold mb-6">LPPD</h1>
+    <section className="py-2 pb-10 md:py-10 container">
+      <h1 className="text-primary-main text-2xl md:text-3xl font-semibold mb-6">LPPD</h1>
       <div className="bg-primary-main text-white p-8 rounded-xl w-full mx-auto flex flex-col gap-y-4">
         <div className="flex flex-col md:flex-row gap-y-2 ">
           <p className="font-bold w-full md:w-[50%] lg:w-[30%] pr-0 md:pr-[10rem]">

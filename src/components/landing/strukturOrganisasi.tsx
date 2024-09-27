@@ -27,7 +27,7 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
   );
   const observerRef = useRef(null);
 
-  const { selectedIndex, onDotButtonClick } = useDotButton(emblaApi);
+  const { selectedIndex, onDotButtonClick,scrollSnaps } = useDotButton(emblaApi);
 
   const handleAutoScrollResume = useCallback(() => {
     const autoScroll = emblaApi?.plugins()?.autoScroll;
@@ -82,17 +82,17 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
         <div className="embla__container flex">
           {personil.map((data) => (
             <Dialog key={data.id + "personil"}>
-              <DialogTrigger className="embla__slide w-full sm:w-[50%] md:w-[25%] flex-shrink-0 p-4 flex flex-col items-center gap-6 mr-4 sm:mr-[4rem]">
-                <div className="w-[13rem] sm:w-[10rem] lg:w-[15rem] xl:w-[20rem] h-[13rem] sm:h-[10rem] lg:h-[15rem] xl:h-[20rem]">
+              <DialogTrigger className="embla__slide h-fit w-full md:w-[50%] lg:w-[29%] flex-shrink-0 flex flex-col items-center gap-6 mr-4 sm:mr-[2rem] bg-white overflow-hidden rounded-xl">
+                <div className="w-full h-[20rem] bg-rose-200">
                   <Image
                     src={data.image ?? "/assets/images/no-image.png"}
                     alt={data.name}
                     width={300}
                     height={300}
-                    className="w-full h-full object-cover bg-center"
+                    className="w-full h-full object-cover bg-top object-top"
                   />
                 </div>
-                <div className="flex flex-col gap-1 text-white w-[13rem] sm:w-[10rem] lg:w-[15rem] xl:w-[20rem]">
+                <div className="flex flex-col gap-1 text-black w-full px-4 pb-4">
                   <span className="font-semibold text-center line-clamp-1 w-full">
                     {data.name}
                   </span>
@@ -130,8 +130,8 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
           ))}
         </div>
       </div>
-      <div className="embla__dots mt-4 flex justify-end items-center">
-        {personil.map((_, index) => (
+      <div className="embla__dots mt-4 flex justify-center items-center">
+        {scrollSnaps.map((_, index) => (
           <DotButton
             key={index}
             onClick={() => onDotButtonClick(index)}

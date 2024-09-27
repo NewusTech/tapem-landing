@@ -17,11 +17,11 @@ import React from "react";
 export default async function Personil() {
   const personil = await personilListQuery();
   return (
-    <section className="py-10">
-      <h1 className="text-primary-main text-3xl font-semibold ml-10 mb-12">
+    <section className="py-1 sm:py-10 pb-10">
+      <h1 className="text-primary-main text-2xl md:text-3xl font-semibold ml-10 mb-12">
         Personil
       </h1>
-      <div className="w-full flex flex-wrap gap-6 sm:gap-12 justify-center px-10">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-12 justify-between px-10">
         {personil?.map((data, index) => (
           <Dialog key={data.id + "personil"}>
             <DialogTrigger className="w-full sm:w-[14rem] h-auto flex flex-col items-center">

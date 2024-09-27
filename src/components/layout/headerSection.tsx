@@ -25,18 +25,18 @@ export default function HeaderSection() {
           <p className="text-sm sm:text-base md:textlg">KABUPATEN LAMPUNG UTARA</p>
         </div>
       </div>
-      <div className="flex flex-row text-white items-center ml-auto gap-x-4 sm:gap-x-8 text-sm md:text-base pr-6 md:pr-0">
+      <div className="flex flex-row text-white items-center ml-auto gap-x-4 sm:gap-x-8 text-sm md:text-base md:pr-0">
         <Link href={"/"}>
-          <Facebook size={isMobile ? 16 : 24} />
+          <Facebook size={isMobile ? 14 : 24} />
         </Link>
         <Link href={"/"}>
-          <Linkedin size={isMobile ? 16 : 24} />
+          <Linkedin size={isMobile ? 14 : 24} />
         </Link>
         <Link href={"/"}>
-          <Twitter size={isMobile ? 16 : 24} />
+          <Twitter size={isMobile ? 14 : 24} />
         </Link>
         <Link href={"/"}>
-          <Instagram size={isMobile ? 16 : 24} />
+          <Instagram size={isMobile ? 14 : 24} />
         </Link>
       </div>
     </div>

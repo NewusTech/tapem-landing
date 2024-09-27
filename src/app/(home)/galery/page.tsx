@@ -24,9 +24,9 @@ export default function Galery() {
     getDataGalery();
   }, []);
   return (
-    <section className="py-4 md:py-10">
-      <h1 className="text-primary-main text-3xl font-semibold ml-4 sm:ml-10 mb-6">
-        Galery
+    <section className="py-2 pb-10 md:py-10">
+      <h1 className="text-primary-main text-2xl md:text-3xl font-semibold ml-4 sm:ml-10 mb-6">
+        Galeri
       </h1>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-between px-4">
         {galery.length > 1 &&

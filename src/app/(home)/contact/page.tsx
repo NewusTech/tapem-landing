@@ -5,7 +5,7 @@ import React from "react";
 export default async function Contact() {
   const contactData = await contactQuery();
   return (
-    <section className="container py-10">
+    <section className="container md:py-10 pb-10">
       <h1 className="text-2xl font-bold w-[65%] md:w-[35%]">Kontak</h1>
       <div className="hidden md:flex flex-col mt-6 gap-2">
         <div className="flex flex-row">

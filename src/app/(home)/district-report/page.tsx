@@ -76,8 +76,8 @@ export default function DistrictPage() {
   console.log(result);
 
   return (
-    <section className="container py-10">
-      <h1 className="text-primary-main text-4xl font-semibold pt-0 mt-0 mb-8">
+    <section className="container py-1 md:py-10 pb-10">
+      <h1 className="text-primary-main text-2xl md:text-3xl font-semibold pt-0 mt-0 mb-8">
         Laporan Kecamatan
       </h1>
       {result?.map((district: District) => (

@@ -49,7 +49,7 @@ export default function NavBar() {
                     </span>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="flex flex-col p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] bg-white list-none">
+                    <ul className="flex flex-col p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] bg-white list-none gap-2">
                       {data.child.map((data) => (
                         <li className="" key={data.link}>
                           <NavigationMenuLink asChild>
