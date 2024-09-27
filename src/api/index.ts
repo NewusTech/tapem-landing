@@ -7,7 +7,7 @@ export type faqProps = {
   answer: string;
 };
 export async function faqListQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/faq/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/faq/get?limit=100`);
   return response.data;
 }
 export type galeryProps = {
@@ -17,7 +17,7 @@ export type galeryProps = {
   mediaLink?: string;
 };
 export async function galeryListQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/galeri/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/galeri/get?limit=100`);
   return response.data as galeryProps[];
 }
 export type newsProps = {
@@ -70,7 +70,7 @@ export type aplikasiProps = {
   desc: string;
 };
 export async function aplikasiListQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/aplikasietc/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/aplikasietc/get?limit=100`);
   return response.data as aplikasiProps[];
 }
 export type categoryProps = {
@@ -89,7 +89,7 @@ export type bannerProps = {
   name: string;
 };
 export async function bannerListQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/carousel/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/carousel/get?limit=100`);
   return response.data as bannerProps[];
 }
 export type tugasPokokFungsiProps = {
@@ -98,7 +98,7 @@ export type tugasPokokFungsiProps = {
   fungsiutama: string;
 };
 export async function tugasPokokFungsiQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/tupoksi/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/tupoksi/get?limit=100`);
   return response.data as tugasPokokFungsiProps;
 }
 export type personilListProps = {
@@ -116,7 +116,7 @@ export type personilListProps = {
   positionHistory: string;
 };
 export async function personilListQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/personil/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/personil/get?limit=100`);
   return response.data as personilListProps[];
 }
 export type contactProps = {
@@ -138,7 +138,7 @@ export type regionInfoProps = {
   description: string;
 };
 export async function regionInfoQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/regioninfo/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/regioninfo/get?limit=100`);
   return response.data as regionInfoProps[];
 }
 export type mediaBannerProps = {
@@ -149,7 +149,7 @@ export type mediaBannerProps = {
   description: string;
 };
 export async function mediaBannerQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/mediabanner/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/mediabanner/get?limit=100`);
   return response.data as mediaBannerProps[];
 }
 export type jabatanListProps = {
@@ -158,7 +158,7 @@ export type jabatanListProps = {
   level: number;
 };
 export async function jabatanListQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/jabatan/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/jabatan/get?limit=100`);
   return response.data as jabatanListProps[];
 }
 
@@ -168,7 +168,7 @@ export type kategoriListProps = {
 };
 export async function kategoriListQuery() {
   const response = await fetcherWithoutAuth(
-    `${SERVER_URL}/kategoriartikel/get`
+    `${SERVER_URL}/kategoriartikel/get?limit=100`
   );
   return response.data as kategoriListProps[];
 }
@@ -191,7 +191,7 @@ export type sambutanDataProps = {
   Personil: personilListProps;
 };
 export async function sambutanDataQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/sambutan/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/sambutan/get?limit=100`);
   return response.data[0] as sambutanDataProps;
 }
 
@@ -201,7 +201,7 @@ export type regulasiListProps = {
   file: string;
 };
 export async function regulasiListQuery() {
-  const response = await fetcherWithoutAuth(`${SERVER_URL}/regulasi/get`);
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/regulasi/get?limit=100`);
   return response.data as regulasiListProps[];
 }
 

@@ -24,7 +24,7 @@ export default function GaleriLanding({ galeryList }: GaleriLandingProps) {
       <p className="text-2xl font-bold text-primary-main">Galeri</p>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-between">
         {galeryList.length > 1 &&
-          galeryList.slice(0, 5).map((data, index) => (
+          galeryList.slice(0, 6).map((data, index) => (
             <Dialog key={index + "galery"}>
               <DialogTrigger className="w-full xl:w-[27rem] min-h-[10rem] sm:h-[11rem] lg:h-[14rem] xl:h-[16rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
                 {data.mediaLink ? (

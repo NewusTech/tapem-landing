@@ -40,7 +40,7 @@ export default async function Profile() {
 
   return (
     <section className="pb-10">
-      <div className="w-full min-h-[20rem] py-4 flex flex-col items-center justify-center bg-[url('/assets/images/dummy_1.png')] relative bg-cover overflow-hidden">
+      <div className="w-full min-h-[20rem] py-4 flex flex-col items-center justify-center bg-[url('/assets/images/tupoksi-bg.jpg')] relative bg-cover overflow-hidden">
         <div className="bg-white/60 w-full h-full absolute" />
         <p className="text-xl md:text-2xl w-fit font-bold pb-2 md:pb-4 border-b-2 border-primary-main z-[2]">
           Tugas Pokok
