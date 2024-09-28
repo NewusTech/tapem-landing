@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import { AppWindow, Contact, Images, Info, LayoutDashboard, Newspaper, PanelsTopLeft, UserPen } from "lucide-react";
+import { AppWindow, Contact, Images, Info, LayoutDashboard, ListCollapse, Newspaper, PanelsTopLeft, UserPen } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import SidbarItem from "./sidbarItem";
@@ -105,6 +105,11 @@ export default function SideBar() {
       label: "Berita",
       icon:<Newspaper />,
       link: "/dashboard/news",
+    },
+    {
+      label: "FAQ",
+      icon: <ListCollapse />,
+      link: "/dashboard/faq",
     },
   ];
   return (

@@ -19,9 +19,9 @@ export default async function DetailBerita({
   if (!newsDetails) return notFound();
   return (
     <section className="py-10">
-      <section className="container w-full md:w-[70%] flex flex-col">
+      <section className="container w-full md:w-[70%] flex flex-col gap-y-[1px]">
         <MediaHeader image={newsDetails.image} video={newsDetails.mediaLink} />
-        <h1 className="text-2xl font-bold text-primary-main">
+        <h1 className="text-lg md:text-xl font-bold text-primary-main">
           {newsDetails.title}
         </h1>
         <div className="flex flex-row w-full items-center">
@@ -32,15 +32,15 @@ export default async function DetailBerita({
             {formatDate(new Date(newsDetails.createdAt))}
           </p>
         </div>
-        <div className="mt-6">{parse(newsDetails.desc)}</div>
+        <div className="mt-6 text-sm">{parse(newsDetails.desc)}</div>
       </section>
       {/* berita lainnya */}
       <section className="container mt-[6rem]">
         <div className="flex flex-row items-center">
-          <p className="text-2xl font-bold w-[65%] md:w-[35%]">
+          <p className="text-xl md:text-2xl font-bold w-[95%] md:w-[35%]">
             Berita Lainnya
           </p>
-          <div className="h-[2px] bg-gray-300 w-full ml-4" />
+          <div className="h-[2px] bg-gray-300 w-[50%] md:w-full ml-4" />
         </div>
         <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
           {moreNews?.data
