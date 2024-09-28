@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { faqProps } from "@/api";
+import parse from "html-react-parser";
 
 type FaqLandingProps = {
   faqList: faqProps[];
@@ -52,7 +53,7 @@ export default function FaqLanding({ faqList }: FaqLandingProps) {
               <AccordionContent
                 className={`px-4 py-2 bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
               >
-                {faq.answer}
+                {parse(faq.answer)}
               </AccordionContent>
             </AccordionItem>
           );

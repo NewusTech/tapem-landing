@@ -38,7 +38,7 @@ export default function MediaLanding({
         ))}
       </div>
 
-      <div className="w-full h-auto flex flex-col mt-12 sm:mt-0 text-white items-start container sm:pt-[5rem]">
+      <div className="w-full h-auto flex flex-col lg:flex-row-reverse mt-12 sm:mt-0 text-white items-start container sm:pt-[5rem]">
         <div className="w-full h-auto mt-6 lg:mt-0 lg:ml-auto overflow-hidden rounded-xl">
           {mediaBannerData?.length > 0 ? (
             <video

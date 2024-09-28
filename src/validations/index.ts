@@ -54,22 +54,24 @@ export const Personil = z
       .min(1, { message: "Nama tidak boleh kosong!" }),
     jabatan_id: z.string({ message: "Jabatan tidak boleh kosong!" }),
     nip: z
-    .string({ message: "Nip tidak boleh kosong!" })
-    .min(1, { message: "Nip tidak boleh kosong!" }),
+      .string({ message: "Nip tidak boleh kosong!" })
+      .min(1, { message: "Nip tidak boleh kosong!" }),
     phoneNumber: z
-    .string({ message: "Nomor ponsel tidak boleh kosong!" })
-    .min(1, { message: "Nomor ponsel boleh kosong!" }).max(13,{message:"Nomor ponsel tidak boleh lebih 13 karakter"}),
+      .string({ message: "Nomor ponsel tidak boleh kosong!" })
+      .min(1, { message: "Nomor ponsel boleh kosong!" })
+      .max(13, { message: "Nomor ponsel tidak boleh lebih 13 karakter" }),
     educationHistory: z
-    .string({ message: "Nomor ponsel tidak boleh kosong!" })
-    .min(1, { message: "Nomor ponsel boleh kosong!" }),
+      .string({ message: "Nomor ponsel tidak boleh kosong!" })
+      .min(1, { message: "Nomor ponsel boleh kosong!" }),
     positionHistory: z
-    .string({ message: "Riwayat pendidikan tidak boleh kosong!" })
-    .min(1, { message: "Riwayat pendidikan ponsel boleh kosong!" }),
+      .string({ message: "Riwayat pendidikan tidak boleh kosong!" })
+      .min(1, { message: "Riwayat pendidikan ponsel boleh kosong!" }),
     image: z.string().optional().readonly(),
   })
   .required();
 // Convert Zod schema to TypeScript type
 export type PersonilFormData = z.infer<typeof Personil>;
+
 export const position = z
   .object({
     title: z
@@ -164,3 +166,44 @@ export const regulation = z
   .required();
 // Convert Zod schema to TypeScript type
 export type regulationFormData = z.infer<typeof regulation>;
+
+export const faq = z
+  .object({
+    question: z
+      .string({ message: "Pertanyaan tidak boleh kosong!" })
+      .min(1, { message: "Pertanyaan tidak boleh kosong!" }),
+    answer: z
+      .string({ message: "Jawaban tidak boleh kosong!" })
+      .min(1, { message: "Jawaban tidak boleh kosong!" }),
+  })
+  .required();
+// Convert Zod schema to TypeScript type
+export type faqFormData = z.infer<typeof faq>;
+
+export const lppd = z
+  .object({
+    tanggalPublish: z
+      .string({ message: "Tanggal Publish tidak boleh kosong!" }).date(),
+    kategori: z
+      .string({ message: "Kategori tidak boleh kosong!" })
+      .min(1, { message: "Kategori tidak boleh kosong!" }),
+    jenisInformasi: z
+      .string({ message: "Jenis Informasi tidak boleh kosong!" })
+      .min(1, { message: "Jenis Informasi tidak boleh kosong!" }),
+    subJenisInformasi: z
+      .string({ message: "Sub Jenis Informasi tidak boleh kosong!" })
+      .min(1, { message: "Sub Jenis Informasi tidak boleh kosong!" }),
+    tipeDokumen: z
+      .string({ message: "Tipe Dokumen tidak boleh kosong!" })
+      .min(1, { message: "Tipe Dokumen tidak boleh kosong!" }),
+    kandunganInformasi: z
+      .string({ message: "Kandungan Informasi tidak boleh kosong!" })
+      .min(1, { message: "Kandungan Informasi tidak boleh kosong!" }),
+    badanPublik: z
+      .string({ message: "Badan Publik tidak boleh kosong!" })
+      .min(1, { message: "Badan Publik tidak boleh kosong!" }),
+    fileLampiran: z.string().optional().readonly(),
+  })
+  .required();
+// Convert Zod schema to TypeScript type
+export type lppdFormData = z.infer<typeof lppd>;

@@ -31,14 +31,14 @@ export default function CardBerita({ data }: CardBeritaProps) {
           </p>
         </div>
         <div className="flex flex-row justify-start items-start px-4 w-full">
-          <p className="text-primary-main text-lg lg:text-xl line-clamp-2 md:line-clamp-2 lg:line-clamp-3 font-bold w-full">
+          <p className="text-primary-main text-base md:text-lg line-clamp-2 md:line-clamp-2 lg:line-clamp-3 font-bold w-full">
             {data?.title}
           </p>
           <div className="h-[32px] w-[36px] ml-auto">
             <ArrowUpRight width={32} height={32} className="w-full h-full" />
           </div>
         </div>
-        <div className="text-primary-main font-normal px-4 mt-auto line-clamp-4 lg:line-clamp-3">
+        <div className="text-primary-main text-sm px-4 mt-auto line-clamp-4 lg:line-clamp-3">
           {parse(data.desc)}
         </div>
       </div>

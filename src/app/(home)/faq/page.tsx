@@ -3,7 +3,7 @@
 import { faqListQuery, faqProps } from "@/api";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import parse from "html-react-parser";
 
 export default function FaqPage() {
     const [openItem, setOpenItem] = useState(null);
@@ -53,7 +53,7 @@ export default function FaqPage() {
               <AccordionContent
                 className={`px-4 py-2 bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
               >
-               {faq.answer}
+                 {parse(faq.answer)}
               </AccordionContent>
             </AccordionItem>
           );

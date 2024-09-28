@@ -9,12 +9,14 @@ import { cn } from "@/lib/utils";
 import React, { useEffect, useCallback, useRef } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { X } from "lucide-react";
 
 type MediaLandingProps = {
   personil: personilListProps[];
@@ -27,7 +29,8 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
   );
   const observerRef = useRef(null);
 
-  const { selectedIndex, onDotButtonClick,scrollSnaps } = useDotButton(emblaApi);
+  const { selectedIndex, onDotButtonClick, scrollSnaps } =
+    useDotButton(emblaApi);
 
   const handleAutoScrollResume = useCallback(() => {
     const autoScroll = emblaApi?.plugins()?.autoScroll;
@@ -106,23 +109,68 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
                   <DialogTitle>Detail Personil</DialogTitle>
                   <DialogDescription>{data.name}</DialogDescription>
                 </DialogHeader>
-                <div className="flex flex-col bg-white rounded-xl overflow-hidden h-full">
-                  <div className="w-full h-[90%]">
-                    <Image
-                      src={data.image ?? "/assets/images/no-image.png"}
-                      alt={data.name}
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-cover bg-center"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1 text-black py-4 h-auto">
-                    <span className="font-semibold text-center line-clamp-1">
-                      {data.name}
-                    </span>
-                    <span className="text-sm text-center">
-                      {data.Jabatan.title}
-                    </span>
+                <div className="flex flex-col bg-primary-main rounded-xl overflow-hidden p-6">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="w-full mb-6">
+                      <DialogClose className="float-right">
+                        <X className="text-white" />
+                      </DialogClose>
+                    </div>
+                    <div className="w-[180px] h-[180px] rounded-full overflow-hidden">
+                      <Image
+                        src={data.image ?? "/assets/images/no-image.png"}
+                        alt={data.name}
+                        width={300}
+                        height={300}
+                        className="w-full h-full object-cover bg-center"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1 py-4 text-white">
+                      <span className="font-semibold text-center line-clamp-2 text-xl">
+                        {data.name}
+                      </span>
+                      <span className="text-center text-base">
+                        NIP. {data.nip || "-"}
+                      </span>
+                    </div>
+                    <div className="flex flex-col text-white w-full items-center gap-y-3 mt-6">
+                      <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                        <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                          Jabatan
+                        </p>
+                        <p className="text-left w-full">
+                          <span className="hidden md:inline-block">:</span>{" "}
+                          {data.Jabatan.title || "-"}
+                        </p>
+                      </div>
+                      <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                        <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                          Kontak
+                        </p>
+                        <p className="text-left w-full">
+                          <span className="hidden md:inline-block">:</span>{" "}
+                          {data.phoneNumber || "-"}
+                        </p>
+                      </div>
+                      <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                        <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                          Riwayat Jabatan
+                        </p>
+                        <p className="text-left w-full">
+                          <span className="hidden md:inline-block">:</span>{" "}
+                          {data.positionHistory || "-"}
+                        </p>
+                      </div>
+                      <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
+                        <p className="font-semibold w-full sm:max-w-[50%] text-left">
+                          Riwayat Pendidikan
+                        </p>
+                        <p className="text-left w-full">
+                          <span className="hidden md:inline-block">:</span>{" "}
+                          {data.educationHistory || "-"}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </DialogContent>

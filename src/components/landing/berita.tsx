@@ -88,13 +88,13 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
         <p className="text-2xl font-bold">Berita</p>
         <div className="flex flex-row mt-10 relative">
           <motion.div
-            animate={{ width: isHidden ? "100%" : "" }}
+            animate={{ width: isHidden ? "100%" : "60%" }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col items-start justify-center gap-6 bg-gradient-to-b from-primary-soft to-primary-700 p-10 h-[35rem] w-full md:w-[60%] rounded-2xl overflow-hidden"
+            className="flex flex-col items-start justify-center gap-6 bg-gradient-to-b from-primary-soft to-primary-700 p-10 h-[35rem] rounded-2xl overflow-hidden"
           >
             <motion.div
-             animate={{ x: isHidden ? -1200 : 0 }}
-             transition={{ duration: 0.5 }}
+             animate={{ x: isHidden ? -900 : 20 }}
+             transition={{ duration: 0.6 }}
             >
             <div className="flex flex-col items-center gap-4">
               <div className="bg-white p-6 w-fit h-fit rounded-full">
@@ -106,13 +106,14 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
             </div>
             <Link href={"/news/"}>
               <Button className="w-fit bg-white text-black rounded-full mt-10 duration-150 hover:bg-gray-200 focus:shadow-sm">
-                Lihat Selengkeapnya..
+                Lihat Selengkapnya..
               </Button>
             </Link>
             </motion.div>
           </motion.div>
           <motion.div
             animate={{ width: isHidden ?  "100%"  :"74%" }}
+            transition={{ duration: 0.6 }}
             className=" h-full absolute -right-3 lg:-right-6 flex items-center "
           >
             <Carousel
@@ -151,12 +152,12 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                             </p>
                           </div>
                           <div className="flex flex-row justify-start items-start px-4">
-                            <p className="text-primary-main text-lg lg:text-xl line-clamp-2 xl:line-clamp-3 font-bold">
+                            <p className="text-primary-main text-base md:text-lg line-clamp-3 md:line-clamp-2 font-bold">
                               {data?.title}
                             </p>
                             <ArrowUpRight width={32} height={32} />
                           </div>
-                          <div className="text-primary-main font-normal px-4 mt-2 line-clamp-2 lg:line-clamp-3">
+                          <div className="text-primary-main text-sm px-4 mt-2 line-clamp-2 lg:line-clamp-3">
                             {parse(data.desc)}
                           </div>
                         </div>
