@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { bannerProps } from "@/api";
+import AutoPlay from "embla-carousel-autoplay";
 
 type BannerLandingProps = {
   bannerList: bannerProps[];
@@ -33,7 +34,12 @@ export default function BannerLanding({ bannerList }: BannerLandingProps) {
   };
   return (
     <div className="w-full relative h-fit">
-      <Carousel className="w-full h-fit z-[2]" setApi={setCarouselApi}>
+      <Carousel
+        className="w-full h-fit z-[2]"
+        setApi={setCarouselApi}
+        opts={{ loop: true }}
+        plugins={[AutoPlay({ playOnInit: true, delay: 3600 })]}
+      >
         <CarouselContent>
           {bannerList.map((data, index) => (
             <CarouselItem key={index + "banner"}>
@@ -51,15 +57,15 @@ export default function BannerLanding({ bannerList }: BannerLandingProps) {
       <div className="w-full flex flex-row justify-between px-2 absolute top-0 h-full items-center pointer-events-none">
         <Button
           onClick={handlePrevious}
-          className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+          className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] duration-300 hover:bg-primary-700 hover:text-white group"
         >
-          <ChevronLeft />
+          <ChevronLeft className="group-hover:rotate-[360deg] duration-300" />
         </Button>
         <Button
           onClick={handleNext}
-          className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3]"
+          className="p-2 bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] duration-300 hover:bg-primary-700 hover:text-white group"
         >
-          <ChevronRight />
+          <ChevronRight className="group-hover:rotate-[360deg] duration-300" />
         </Button>
       </div>
     </div>

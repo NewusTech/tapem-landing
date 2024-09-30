@@ -50,7 +50,7 @@ export default function RegulationPage() {
               value={value}
               className={`bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
             >
-              <AccordionTrigger className="bg-primary-main text-white rounded-xl px-4 sm:px-10">
+              <AccordionTrigger className="bg-primary-main text-white rounded-xl px-4 sm:px-10 duration-300 hover:bg-primary-soft">
                 <p className={`${isOpen ? "" : "line-clamp-3"} text-left`}>
                   {regulation.title}
                   <br/>

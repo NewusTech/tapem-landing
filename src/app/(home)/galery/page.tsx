@@ -9,11 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 export default function Galery() {
   const [galery, setGalery] = useState<galeryProps[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const getDataGalery = async () => {
     const response = await galeryListQuery();
@@ -32,36 +34,63 @@ export default function Galery() {
         {galery.length > 1 &&
           galery.map((data, index) => (
             <Dialog key={index + "galery"}>
-              <DialogTrigger className="w-full min-h-[13rem] sm:h-[10rem] lg:h-[13rem] xl:h-[15rem] relative flex flex-col bg-cover overflow-hidden rounded-xl">
-                {data.mediaLink ? (
-                  <div className="w-full h-full object-cover bg-center absolute">
-                    <video
-                      className="md:w-full md:h-full object-cover rounded-sm"
-                      width={650}
-                      height={310}
-                      autoPlay
-                      src={data.mediaLink}
-                      muted
-                      loop
-                    >
-                      <source src={data.mediaLink} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ) : (
-                  <Image
-                    src={data.image ?? "/assets/images/no-image.png"}
-                    alt={data.title}
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-cover bg-center absolute"
+              <div data-aos="flip-up" data-aos-duration={300 * index}>
+                <DialogTrigger
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(null)}
+                  className={cn(
+                    "w-full min-h-[13rem] sm:h-[10rem] lg:h-[13rem] xl:h-[15rem] relative flex flex-col bg-cover overflow-hidden rounded-xl duration-300 ease-out",
+                    activeIndex !== null &&
+                      activeIndex !== index &&
+                      "blur-sm scale-[0.98] brightness-75"
+                  )}
+                >
+                  {data.mediaLink ? (
+                    <div className="w-full h-full object-cover bg-center absolute">
+                      <video
+                        className="md:w-full md:h-full object-cover rounded-sm"
+                        width={650}
+                        height={310}
+                        autoPlay
+                        src={data.mediaLink}
+                        muted
+                        loop
+                      >
+                        <source src={data.mediaLink} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  ) : (
+                    <Image
+                      src={data.image ?? "/assets/images/no-image.png"}
+                      alt={data.title}
+                      width={300}
+                      height={300}
+                      className="w-full h-full object-cover bg-center absolute"
+                      data-aos="flip-up"
+                      data-aos-duration={300 * index}
+                    />
+                  )}
+                  <div
+                    className={cn(
+                      "bg-gradient-to-b from-primary-main/30 to-primary-soft/60 w-full h-full absolute md:scale-y-0 bottom-0 origin-bottom duration-300",
+                      activeIndex !== null &&
+                        activeIndex === index &&
+                        "md:scale-y-100"
+                    )}
                   />
-                )}
-                <div className="bg-gradient-to-b from-primary-main/30 to-primary-soft/60 w-full h-full absolute" />
-                <p className="font-semibold mt-auto text-center text-white z-[2] mb-4 w-full">
-                  {data.title}
-                </p>
-              </DialogTrigger>
+                  <p
+                    className={cn(
+                      "font-semibold mt-auto text-center text-white z-[2] mb-4 w-full duration-300 delay-75 md:translate-y-16",
+                      activeIndex !== null &&
+                        activeIndex === index &&
+                        "md:translate-y-0"
+                    )}
+                  >
+                    {data.title}
+                  </p>
+                </DialogTrigger>
+              </div>
               <DialogContent className="px-4 bg-transparent border-transparent [&>button]:hidden  w-full max-w-[900px]">
                 <DialogHeader className="hidden">
                   <DialogTitle>Galeri</DialogTitle>

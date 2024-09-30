@@ -6,7 +6,7 @@ import {
   ChevronRight,
   Newspaper,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import {
   Carousel,
@@ -18,7 +18,7 @@ import parse from "html-react-parser";
 import Link from "next/link";
 import Image from "next/image";
 import { newsProps } from "@/api";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 type BeritaLandingProps = {
@@ -30,6 +30,9 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
     null
   );
   const [isHidden, setIsHidden] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const lettersRef = useRef<(HTMLSpanElement | null)[]>([]);
 
   // Fungsi untuk next slide
   const handleNextWeb = () => {
@@ -82,45 +85,94 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
     };
   }, [caroselApiWeb, setIsHidden]);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    // Tambahkan event listener untuk menghapus kelas setelah animasi
+    lettersRef.current.forEach((letter, index) => {
+      if (letter) {
+        letter.classList.add("fall");
+        letter.style.animationDelay = `${index * 0.05}s`;
+        letter.addEventListener(
+          "animationend",
+          () => {
+            letter.classList.remove("fall");
+          },
+          { once: true }
+        );
+      }
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   return (
     <>
-      <div className="p-8 hidden md:flex flex-col text-primary-main container">
+      <div
+        className="p-8 hidden md:flex flex-col text-primary-main container"
+        data-aos="fade-left"
+      >
         <p className="text-2xl font-bold">Berita</p>
         <div className="flex flex-row mt-10 relative">
           <motion.div
             animate={{ width: isHidden ? "100%" : "60%" }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, type: "spring" }}
             className="flex flex-col items-start justify-center gap-6 bg-gradient-to-b from-primary-soft to-primary-700 p-10 h-[35rem] rounded-2xl overflow-hidden"
           >
             <motion.div
-             animate={{ x: isHidden ? -900 : 20 }}
-             transition={{ duration: 0.6 }}
+              animate={{ x: isHidden ? -900 : 20 }}
+              transition={{ duration: 0.6, type: "spring" }}
             >
-            <div className="flex flex-col items-center gap-4">
-              <div className="bg-white p-6 w-fit h-fit rounded-full">
-                <Newspaper />
+              <div className="flex flex-col items-center gap-4">
+                <div className="bg-white p-6 w-fit h-fit rounded-full group hover:transform hover:scale-x-100 duration-300">
+                  <Newspaper className="group-hover:transform group-hover:-scale-x-100 duration-300" />
+                </div>
+                <p className="text-white w-[12rem] text-center">
+                  Berita Terkait Tentang Tata Pemerintahan Lampung Utara
+                </p>
               </div>
-              <p className="text-white w-[12rem] text-center">
-                Berita Terkait Tentang Tata Pemerintahan Lampung Utara
-              </p>
-            </div>
-            <Link href={"/news/"}>
-              <Button className="w-fit bg-white text-black rounded-full mt-10 duration-150 hover:bg-gray-200 focus:shadow-sm">
-                Lihat Selengkapnya..
-              </Button>
-            </Link>
+              <Link href={"/news/"} className="group">
+                <Button
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  className="w-fit bg-white text-black rounded-full mt-10 duration-300 hover:bg-gray-200 focus:shadow-sm"
+                >
+                  <span className="animated-text">
+                    {"Lihat Selengkapnya".split("").map((letter, index) => {
+                      if (letter === " ") {
+                        return (
+                          <span key={index} className="space">
+                            &nbsp;
+                          </span>
+                        );
+                      }
+                      return (
+                        <span
+                          key={index}
+                          ref={(el) => {
+                            lettersRef.current[index] = el;
+                          }}
+                          className="letter"
+                        >
+                          {letter}
+                        </span>
+                      );
+                    })}
+                  </span>
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
           <motion.div
-            animate={{ width: isHidden ?  "100%"  :"74%" }}
-            transition={{ duration: 0.6 }}
+            animate={{ width: isHidden ? "100%" : "74%" }}
+            transition={{ duration: 0.6, type: "spring" }}
             className=" h-full absolute -right-3 lg:-right-6 flex items-center "
           >
             <Carousel
               opts={{
                 align: "start",
               }}
-              className={`${isHidden? "w-[96%]" : "w-full md:w-[95%] lg:w-[90%] xl:w-[95%] 2xl:w-full"}`}
+              className={`${isHidden ? "w-[96%]" : "w-full md:w-[95%] lg:w-[90%] xl:w-[95%] 2xl:w-full"}`}
               setApi={setCaroselApiWeb}
             >
               <CarouselContent>
@@ -129,17 +181,24 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                   newsList.map((data, index) => (
                     <CarouselItem
                       key={index + "berita"}
-                      className={`${isHidden? "md:basis-[45%] lg:basis-[32%]":"md:basis-[65%] lg:basis-[45%]"} 2xl:basis-[32%] py-5`}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onMouseLeave={() => setActiveIndex(null)}
+                      className={cn(
+                        `${isHidden ? "md:basis-[45%] lg:basis-[32%]" : "md:basis-[65%] lg:basis-[45%]"} 2xl:basis-[32%] py-5 duration-300 group`,
+                        activeIndex !== null &&
+                          activeIndex !== index &&
+                          "scale-[0.98]"
+                      )}
                     >
                       <Link href={`/news/${data.slug}`}>
                         <div className="max-w-[25rem] h-[25rem] bg-white rounded-xl overflow-hidden shadow-lg">
-                          <div className="w-full h-[50%] bg-gray-400">
+                          <div className="w-full h-[50%] bg-gray-400 overflow-hidden">
                             <Image
                               src={data?.image}
                               alt="img"
                               width={400}
                               height={400}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover group-hover:scale-[1.1] duration-300"
                             />
                           </div>
                           <div className="flex flex-row w-full justify-between items-center px-4 py-2">
@@ -167,25 +226,33 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
               </CarouselContent>
             </Carousel>
           </motion.div>
-          <motion.div 
-          animate={{ width: isHidden ?  "100%"  : "78%" , height:isHidden ? "15%" : "40%" }}
-          className={`flex flex-row justify-between px-8 absolute bottom-0 right-0 items-center pointer-events-none`}>
+          <motion.div
+            animate={{
+              width: isHidden ? "100%" : "78%",
+              height: isHidden ? "15%" : "40%",
+            }}
+            transition={{ duration: 0.6, type: "spring" }}
+            className={`flex flex-row justify-between px-8 absolute bottom-0 right-0 items-center pointer-events-none`}
+          >
             <Button
-              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
+              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100 duration-300 hover:bg-primary-700 hover:text-white group"
               onClick={handlePreviousWeb}
             >
-              <ChevronLeft />
+              <ChevronLeft className="group-hover:rotate-[360deg] duration-300" />
             </Button>
             <Button
-              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100"
+              className="p-4 w-fit h-fit bg-white text-primary-main rounded-full pointer-events-auto shadow-md z-[3] disabled:bg-primary-200 disabled:text-white disabled:opacity-100 duration-300 hover:bg-primary-700 hover:text-white group"
               onClick={handleNextWeb}
             >
-              <ChevronRight />
+              <ChevronRight className="group-hover:rotate-[360deg] duration-300" />
             </Button>
           </motion.div>
         </div>
       </div>
-      <div className="flex flex-col md:hidden py-6 items-center justify-center">
+      <div
+        data-aos="fade-left"
+        className="flex flex-col md:hidden py-6 items-center justify-center"
+      >
         <p className="text-primary-main mb-4 text-xl font-bold">Berita</p>
         <p className="text-primary-main font-semibold text-center">
           Berita Terkait Tentang Tata Pemerintahan Lampung Utara

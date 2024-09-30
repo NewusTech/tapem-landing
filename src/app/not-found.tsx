@@ -1,7 +1,5 @@
 import { newsListQuery } from "@/api";
-import CardBerita, {
-  CardBeritaSekeleton,
-} from "@/components/berita/cardBerita";
+import NotFoundNews from "@/components/notfound/notFoundNews";
 import React from "react";
 
 export default async function notFound() {
@@ -12,17 +10,10 @@ export default async function notFound() {
       <h2 className="text-center text-xl mb-2">
         Opps... Sepertinya halaman yang anda cari tidak ditemukan
       </h2>
-      <a href="/" className="text-primary-main font-bold text-center mb-[5rem]">Kembali Kehalaman Utama</a>
-      <h3 className="text-primary-main font-bold">Berita Terbaru</h3>
-      <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4 mt-10">
-        {newsList?.data.map((data, index) => (
-          <CardBerita key={data.slug} data={data} />
-        ))}
-        {!newsList &&
-          Array.from({ length: 16 }).map((_, index) => (
-            <CardBeritaSekeleton key={index + "berita sekeleton"} />
-          ))}
-      </div>
+      <a href="/" className="text-primary-main font-bold text-center mb-[5rem]">
+        Kembali Kehalaman Utama
+      </a>
+      <NotFoundNews newsList={newsList} />
     </section>
   );
 }

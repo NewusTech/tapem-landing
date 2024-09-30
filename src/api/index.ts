@@ -62,7 +62,7 @@ export async function newsDetailsQuery(slug: string) {
   const response = await fetcherWithoutAuth(
     `${SERVER_URL}/artikel/get/${slug}`
   );
-  return response.data as newsProps;
+  return response?.data as newsProps;
 }
 export type aplikasiProps = {
   id: number;

@@ -1,13 +1,11 @@
 import { newsDetailsQuery, newsListQuery } from "@/api";
-import CardBerita from "@/components/berita/cardBerita";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import parse from "html-react-parser";
 import { formatDate } from "@/lib/utils";
 import MediaHeader from "@/components/news/mediaHeader";
-import "@/assets/css/index.css"
+import "@/assets/css/index.css";
+import MoreNews from "@/components/news/moreNews";
 
 export default async function DetailBerita({
   params,
@@ -35,19 +33,7 @@ export default async function DetailBerita({
         <div className="mt-6 text-sm">{parse(newsDetails.desc)}</div>
       </section>
       {/* berita lainnya */}
-      <section className="container mt-[6rem]">
-        <div className="flex flex-row items-center">
-          <p className="text-xl md:text-2xl font-bold w-[95%] md:w-[35%]">
-            Berita Lainnya
-          </p>
-          <div className="h-[2px] bg-gray-300 w-[50%] md:w-full ml-4" />
-        </div>
-        <div className="grid place-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
-          {moreNews?.data
-            .slice(0, 4)
-            .map((data, index) => <CardBerita key={data.slug} data={data} />)}
-        </div>
-      </section>
+      <MoreNews moreNews={moreNews} />
     </section>
   );
 }

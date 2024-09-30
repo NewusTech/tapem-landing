@@ -2,8 +2,9 @@
 
 import { aplikasiProps, mediaBannerProps } from "@/api";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 type MediaLandingProps = {
   aplikasiList: aplikasiProps[];
@@ -13,13 +14,16 @@ export default function MediaLanding({
   aplikasiList,
   mediaBannerData,
 }: MediaLandingProps) {
+  const isLg = useMediaQuery("(min-width: 1024px)");
   return (
     <div className="w-full bg-primary-main flex flex-col z-[3] pb-16 relative">
-      <div className="flex flex-row gap-2 sm:gap-5 justify-center absolute left-0 -top-10 sm:-top-8 w-full overflow-hidden px-1 sm:px-5">
+      <div className="flex flex-row gap-2 sm:gap-5 justify-center absolute left-0 -top-10 sm:-top-8 w-full px-1 sm:px-5">
         {aplikasiList.slice(0, 3).map((data, index) => (
-          <Link
-            href={data.link}
+          <motion.a
+            whileHover={{ y: -10 }}
             key={index + "media"}
+            href={data.link}
+            target="_blank"
             className="bg-white rounded-xl shadow-sm text-primary-main flex flex-col sm:flex-row gap-4 items-center p-2 px-4 sm:p-4 md:w-[17rem]  lg:w-[17rem] xl:w-[20rem] h-fit sm:h-[4rem] overflow-hidden"
           >
             <div className="w-[1.5rem] md:w-[3rem] h-[1.5rem] md:h-[3rem] bg-primary-200 rounded-full overflow-hidden">
@@ -34,12 +38,16 @@ export default function MediaLanding({
             <p className="font-medium text-base sm:text-xl line-clamp-1">
               {data.name}
             </p>
-          </Link>
+          </motion.a>
         ))}
       </div>
 
-      <div className="w-full h-auto flex flex-col lg:flex-row-reverse mt-12 sm:mt-0 text-white items-start container sm:pt-[5rem]">
-        <div className="w-full h-auto mt-6 lg:mt-0 lg:ml-auto overflow-hidden rounded-xl">
+      <div className="w-full h-auto flex flex-col lg:flex-row-reverse mt-12 sm:mt-0 text-white items-start container sm:pt-[5rem] relative">
+        <motion.div
+          whileHover={{ scale: isLg ? 2 : 1.02, x: isLg ? "-52%" : 0 }}
+          transition={{ duration: 0.5, type: "spring" }}
+          className="w-full h-auto mt-6 lg:mt-0 lg:ml-auto overflow-hidden rounded-xl"
+        >
           {mediaBannerData?.length > 0 ? (
             <video
               className="md:w-full md:h-full object-cover rounded-sm"
@@ -63,7 +71,7 @@ export default function MediaLanding({
               className="w-full h-full"
             />
           )}
-        </div>
+        </motion.div>
         <div className="flex flex-col w-full text-left sm:text-start mt-6 mr-0 md:mr-10">
           <p className="font-bold text-xl">
             {mediaBannerData?.length > 0

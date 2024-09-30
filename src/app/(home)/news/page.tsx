@@ -17,8 +17,9 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useSearchParams } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import parse from "html-react-parser";
+import Aos from "aos";
 
 export default function News() {
   const searchParams = useSearchParams();
@@ -29,6 +30,7 @@ export default function News() {
   const [currentPage, setCurrentPage] = useState(
     newsList?.pagination.page || 1
   );
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useMemo(async () => {
     const response = await newsListQuery(search || "");
@@ -69,7 +71,8 @@ export default function News() {
     return paginationItems;
   };
 
-  if(newsList && newsList.data.length <= 0) return notFound()
+
+  if (newsList && newsList.data.length <= 0) return notFound();
 
   return (
     <section className="w-full container pb-10 px-4 sm:px-10 sm:py-6">
@@ -77,7 +80,10 @@ export default function News() {
         Berita Utama
       </h1>
       {!newsList ? (
-        <div className="w-full h-[17rem] bg-white rounded-xl overflow-hidden shadow-lg hidden sm:flex sm:flex-row">
+        <div
+          className="w-full h-[17rem] bg-white rounded-xl overflow-hidden shadow-lg hidden sm:flex sm:flex-row"
+          data-aos="fade-up"
+        >
           <div className="w-[40%] h-full] bg-gray-400 animate-pulse"></div>
           <div className="flex flex-col py-4 px-6 w-full">
             <div className="flex flex-row w-full items-center px-4 py-2">
@@ -91,15 +97,18 @@ export default function News() {
           </div>
         </div>
       ) : (
-        <Link href={`/news/${newsList.data[0].slug}`}>
-          <div className="w-full h-[17rem] bg-white rounded-xl overflow-hidden shadow-lg hidden sm:flex sm:flex-row">
-            <div className="w-[40%] h-full] bg-gray-400">
+        <Link href={`/news/${newsList.data[0].slug}`} className="group">
+          <div
+            className="w-full h-[17rem] bg-white rounded-xl overflow-hidden shadow-lg hidden sm:flex sm:flex-row"
+            data-aos="fade-up"
+          >
+            <div className="w-[40%] h-full] bg-gray-400 overflow-hidden">
               <Image
                 src={newsList?.data[0].image || ""}
                 alt="img"
                 width={400}
                 height={400}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-[1.1] duration-300"
               />
             </div>
             <div className="flex flex-col py-4 px-6 w-full">
@@ -132,7 +141,13 @@ export default function News() {
       )}
       <div className="grid place-items-center justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
         {newsList?.data.map((data, index) => (
-          <CardBerita key={data.slug} data={data} />
+          <CardBerita
+            key={data.slug}
+            index={index}
+            data={data}
+            setActiveIndex={setActiveIndex}
+            activeIndex={activeIndex}
+          />
         ))}
         {!newsList &&
           Array.from({ length: 16 }).map((_, index) => (
