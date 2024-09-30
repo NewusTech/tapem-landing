@@ -35,7 +35,7 @@ export default function FaqLanding({ faqList }: FaqLandingProps) {
         className="mt-12 space-y-2"
         onValueChange={handleToggle}
       >
-        {faqList?.map((faq) => {
+        {faqList?.map((faq, index) => {
           const value = `faq-${faq.id}`;
           const isOpen = openItem === value;
 
@@ -44,6 +44,7 @@ export default function FaqLanding({ faqList }: FaqLandingProps) {
               key={faq.question}
               value={value}
               className={`bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
+              data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
             >
               <AccordionTrigger className="bg-primary-main text-white rounded-xl px-4 sm:px-10">
                 <p className={`${isOpen ? "" : "line-clamp-1"} text-left`}>

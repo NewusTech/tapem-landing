@@ -5,8 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { DotButton, useDotButton } from "../embla/EmblaCaroselDotButton";
-import { cn } from "@/lib/utils";
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -17,6 +16,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type MediaLandingProps = {
   personil: personilListProps[];
@@ -79,13 +79,18 @@ export default function StrukturOrganisasi({ personil }: MediaLandingProps) {
     <div
       className="bg-primary-main px-10 py-5 flex flex-col gap-6"
       ref={observerRef}
+        data-aos="fade-right"
     >
       <p className="text-2xl text-white font-semibold">Struktur Organisasi</p>
-      <div className="embla overflow-hidden" ref={emblaRef}>
-        <div className="embla__container flex">
-          {personil.map((data) => (
-            <Dialog key={data.id + "personil"}>
-              <DialogTrigger className="embla__slide h-fit w-full md:w-[50%] lg:w-[29%] flex-shrink-0 flex flex-col items-center gap-6 mr-4 sm:mr-[2rem] bg-white overflow-hidden rounded-xl">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {personil.map((data, index) => (
+            <Dialog key={index + "x"}>
+              <DialogTrigger
+                className={cn(
+                  "h-fit w-full md:w-[50%] lg:w-[29%] flex-shrink-0 flex flex-col items-center gap-6 mr-4 sm:mr-[2rem] bg-white overflow-hidden rounded-xl duration-300"
+                )}
+              >
                 <div className="w-full h-[20rem] bg-rose-200">
                   <Image
                     src={data.image ?? "/assets/images/no-image.png"}

@@ -44,7 +44,7 @@ export default function LayoutComponent({
         </label>
         <DropdownMenuSection />
       </div>
-      {children}
+      <div className="overflow-hidden">{children}</div>
     </main>
   );
 }

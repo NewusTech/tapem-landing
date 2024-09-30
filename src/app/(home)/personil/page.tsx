@@ -24,7 +24,10 @@ export default async function Personil() {
       <div className="w-full grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-4 justify-between px-10">
         {personil?.map((data, index) => (
           <Dialog key={data.id + "personil"}>
-            <DialogTrigger className="w-full h-auto flex flex-col md:flex-row justify-evenly items-center gap-x-4 duration-300 bg-white hover:bg-primary-main text-primary-main hover:text-white drop-shadow-md rounded-xl p-4 border-[0.5px]">
+            <DialogTrigger
+              data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
+              className="w-full h-auto flex flex-col md:flex-row justify-evenly items-center gap-x-4 duration-300 bg-white hover:bg-primary-main text-primary-main hover:text-white drop-shadow-md rounded-xl p-4 border-[0.5px]"
+            >
               <Avatar className="sm:w-[160px] w-[90px] sm:h-[160px] h-[90px]">
                 <AvatarImage
                   src={data.image ?? "/assets/images/no-image.png"}

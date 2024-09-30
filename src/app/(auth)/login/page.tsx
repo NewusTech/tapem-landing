@@ -125,7 +125,7 @@ const LoginPage = () => {
           </span>
         )}
       </div>
-      <div className="flex flex-wrap gap-y-2 justify-between">
+      {/* <div className="flex flex-wrap gap-y-2 justify-between">
         <Link href="/" className="text-primaryy underline text-sm">
           Lupa kata sandi?
         </Link>
@@ -135,7 +135,7 @@ const LoginPage = () => {
             Daftar?
           </Link>
         </p>
-      </div>
+      </div> */}
       <div className="flex justify-center">
         <Button
           type="submit"
@@ -145,12 +145,12 @@ const LoginPage = () => {
           {isSubmitting ? <LoaderCircle className="animate-spin" /> : "Masuk"}
         </Button>
       </div>
-      <p className="text-center text-xs text-primaryy font-light">
+      {/* <p className="text-center text-xs text-primaryy font-light">
         Dengan mendaftar, Anda menyetujui{" "}
         <span className="font-semibold">Syarat & Ketentuan</span> kami dan Anda{" "}
         <br /> telah membaca{" "}
         <span className="font-semibold">Kebijakan Privasi</span> kami.
-      </p>
+      </p> */}
     </form>
   );
 };
