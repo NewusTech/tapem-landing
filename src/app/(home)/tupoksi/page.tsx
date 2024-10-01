@@ -1,6 +1,7 @@
 import {
   personilListProps,
   personilListQuery,
+  strukturOrganisasiQuery,
   tugasPokokFungsiQuery,
 } from "@/api";
 import React from "react";
@@ -25,6 +26,7 @@ export const dynamic = "force-dynamic";
 export default async function Profile() {
   const tupoksi = await tugasPokokFungsiQuery();
   const personil = await personilListQuery();
+  const strukturFile = await strukturOrganisasiQuery()
 
   const groupByLevel = (data: personilListProps[]) => {
     return data.reduce((acc: any, person) => {
@@ -60,7 +62,7 @@ export default async function Profile() {
           {parse(tupoksi?.fungsiutama || "")}
         </div>
       </div>
-      <StrukturOrganisasi groupedPersonil={groupedPersonil} />
+      <StrukturOrganisasi groupedPersonil={groupedPersonil} strukturFile={strukturFile} />
     </section>
   );
 }

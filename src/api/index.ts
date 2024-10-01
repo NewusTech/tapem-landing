@@ -240,6 +240,24 @@ export async function lppdListQuery() {
   const response = await fetcherWithoutAuth(`${SERVER_URL}/lppd/get?limit=100`);
   return response.data as lppdListProps[];
 }
+export type StrukturOrganisasiProps = {
+  id: number;
+  name: string;
+  file: string;
+};
+export async function strukturOrganisasiQuery() {
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/struktur/get`);
+  return response.data as StrukturOrganisasiProps;
+}
+export type SocialMediaProps = {
+  id: number;
+  name: string;
+  link: string;
+};
+export async function socialMediaQuery() {
+  const response = await fetcherWithoutAuth(`${SERVER_URL}/socialmedia/get`);
+  return response.data as SocialMediaProps[];
+}
 
 /// POST
 

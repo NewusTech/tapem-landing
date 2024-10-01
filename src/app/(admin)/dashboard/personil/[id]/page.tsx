@@ -214,7 +214,7 @@ export default function PersonilEditPage({
             )}
           </label>
           <label className="flex flex-col gap-y-2">
-            <span className="font-medium text-primary-700">Riwayat Pendidikan Terakhir</span>
+            <span className="font-medium text-primary-700">Riwayat Pendidikan (pisahkan dengan ;)</span>
             <input
               type="text"
               className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"
@@ -228,7 +228,7 @@ export default function PersonilEditPage({
             )}
           </label>
           <label className="flex flex-col gap-y-2">
-            <span className="font-medium text-primary-700">Riwayat Jabatan Terakhir</span>
+            <span className="font-medium text-primary-700">Riwayat Jabatan (pisahkan dengan ;)</span>
             <input
               type="text"
               className="rounded-full border border-gray-400 focus:outline focus:border-primary-soft outline-primary-soft h-8 py-5 px-3 duration-150"

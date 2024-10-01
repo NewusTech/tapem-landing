@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import { AppWindow, Contact, Images, Info, LayoutDashboard, ListCollapse, Newspaper, PanelsTopLeft, UserPen } from "lucide-react";
+import { AppWindow, Contact, Images, Info, LayoutDashboard, ListCollapse, Newspaper, PanelsTopLeft, Share2, UserPen } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import SidbarItem from "./sidbarItem";
@@ -69,6 +69,10 @@ export default function SideBar() {
           label: "Jabatan",
           link: "/dashboard/position",
         },
+        {
+          label: "File Struktur Organisasi",
+          link: "/dashboard/organizational-structure",
+        },
       ],
     },
     {
@@ -111,9 +115,14 @@ export default function SideBar() {
       icon: <ListCollapse />,
       link: "/dashboard/faq",
     },
+    {
+      label: "Social Media",
+      icon: <Share2 />,
+      link: "/dashboard/social-media",
+    },
   ];
   return (
-    <aside className="w-fit sm:w-[30%] flex flex-col my-10 mx-6 overflow-y-auto overflow-x-hidden scrollbar-thin">
+    <aside className="w-fit sm:w-[30%] flex flex-col my-10 px-2 md:px-0 md:mx-6 overflow-y-auto overflow-x-hidden scrollbar-thin">
       <div className="hidden sm:flex flex-row gap-4 justify-center items-center">
         <div className="w-[64px] h-auto">
           <Image

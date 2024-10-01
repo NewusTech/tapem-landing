@@ -183,7 +183,8 @@ export type faqFormData = z.infer<typeof faq>;
 export const lppd = z
   .object({
     tanggalPublish: z
-      .string({ message: "Tanggal Publish tidak boleh kosong!" }).date(),
+      .string({ message: "Tanggal Publish tidak boleh kosong!" })
+      .date(),
     kategori: z
       .string({ message: "Kategori tidak boleh kosong!" })
       .min(1, { message: "Kategori tidak boleh kosong!" }),
@@ -207,3 +208,28 @@ export const lppd = z
   .required();
 // Convert Zod schema to TypeScript type
 export type lppdFormData = z.infer<typeof lppd>;
+
+export const strukturOrganisasi = z
+  .object({
+    name: z
+      .string({ message: "Nama File tidak boleh kosong!" })
+      .min(1, { message: "Nama tidak boleh kosong!" }),
+    file: z.string().optional().readonly(),
+    id: z.string().optional().readonly()
+  })
+  .required();
+// Convert Zod schema to TypeScript type
+export type strukturOrganisasiFormData = z.infer<typeof strukturOrganisasi>;
+
+export const socialMedia = z
+  .object({
+    name: z
+      .string({ message: "Nama File tidak boleh kosong!" })
+      .min(1, { message: "Nama tidak boleh kosong!" }),
+    link: z
+      .string({ message: "Link File tidak boleh kosong!" })
+      .min(1, { message: "Link tidak boleh kosong!" }),
+  })
+  .required();
+// Convert Zod schema to TypeScript type
+export type socialMediaFormData = z.infer<typeof socialMedia>;
