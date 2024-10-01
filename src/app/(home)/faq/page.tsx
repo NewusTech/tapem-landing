@@ -1,26 +1,31 @@
 "use client";
 
 import { faqListQuery, faqProps } from "@/api";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 
 export default function FaqPage() {
-    const [openItem, setOpenItem] = useState(null);
-    const [dataFaq,setDataFaq] = useState<faqProps[]>([])
+  const [openItem, setOpenItem] = useState(null);
+  const [dataFaq, setDataFaq] = useState<faqProps[]>([]);
 
-    const handleToggle = (value: any) => {
-      setOpenItem(openItem === value ? null : value);
-    };
+  const handleToggle = (value: any) => {
+    setOpenItem(openItem === value ? null : value);
+  };
 
-    const getDataFaq = async()=>{
-        const response = await faqListQuery();
-        setDataFaq(response)
-    }
+  const getDataFaq = async () => {
+    const response = await faqListQuery();
+    setDataFaq(response);
+  };
 
-    useEffect(()=>{
-        getDataFaq()
-    },[])
+  useEffect(() => {
+    getDataFaq();
+  }, []);
 
   return (
     <section className="py-4 md:py-10">
@@ -37,7 +42,7 @@ export default function FaqPage() {
         className="mt-6 md:mt-12 space-y-2 mx-4 sm:mx-10 "
         onValueChange={handleToggle}
       >
-        {dataFaq?.map((faq:any) => {
+        {dataFaq?.map((faq, index) => {
           const value = `faq-${faq.id}`;
           const isOpen = openItem === value;
 
@@ -47,13 +52,17 @@ export default function FaqPage() {
               value={value}
               className={`bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
             >
-              <AccordionTrigger className="bg-primary-main text-white rounded-xl px-4 sm:px-10">
-                <p className={`${isOpen ? "" : "line-clamp-1"} text-left`}>{faq.question}</p>
-              </AccordionTrigger>
+              <div data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}>
+                <AccordionTrigger className="bg-primary-main text-white rounded-xl px-4 sm:px-10">
+                  <p className={`${isOpen ? "" : "line-clamp-1"} text-left`}>
+                    {faq.question}
+                  </p>
+                </AccordionTrigger>
+              </div>
               <AccordionContent
                 className={`px-4 py-2 bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
               >
-                 {parse(faq.answer)}
+                {parse(faq.answer)}
               </AccordionContent>
             </AccordionItem>
           );

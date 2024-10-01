@@ -44,7 +44,7 @@ export default function MediaLanding({
 
       <div className="w-full h-auto flex flex-col lg:flex-row-reverse mt-12 sm:mt-0 text-white items-start container sm:pt-[5rem] relative">
         <motion.div
-          whileHover={{ scale: isLg ? 2 : 1.02, x: isLg ? "-52%" : 0 }}
+          whileHover={{ scale: isLg ? 1.5 : 1.02, x: isLg ? "-53%" : 0 }}
           transition={{ duration: 0.5, type: "spring" }}
           className="w-full h-auto mt-6 lg:mt-0 lg:ml-auto overflow-hidden rounded-xl"
         >
