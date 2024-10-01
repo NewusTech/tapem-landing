@@ -29,7 +29,7 @@ export default function MobileSidebarItem({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="block sm:hidden">
+        <button className="block sm:hidden w-[24px] h-[24px]">
           <Menu />
         </button>
       </SheetTrigger>

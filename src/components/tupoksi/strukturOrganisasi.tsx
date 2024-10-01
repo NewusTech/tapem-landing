@@ -10,18 +10,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { personilListProps } from "@/api";
+import { personilListProps, StrukturOrganisasiProps } from "@/api";
 import Image from "next/image";
 import { Download, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-type StrukturOrganisasiProps = {
+type StrukturOrganisasiComponentProps = {
   groupedPersonil: any[];
+  strukturFile : StrukturOrganisasiProps
 };
 export default function StrukturOrganisasi({
   groupedPersonil,
-}: StrukturOrganisasiProps) {
+  strukturFile
+}: StrukturOrganisasiComponentProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
@@ -30,7 +32,7 @@ export default function StrukturOrganisasi({
         Struktur Organisasi
       </p>
       <a
-        href="#"
+        href={strukturFile.file}
         target="_blank"
         className="ml-auto mr-10 duration-300 text-primary-main font-bold hover:text-primary-700 flex flex-row gap-x-4 items-center group mt-6 md:mt-0"
       >
