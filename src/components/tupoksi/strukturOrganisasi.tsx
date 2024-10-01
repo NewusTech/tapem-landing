@@ -12,33 +12,33 @@ import {
 } from "../ui/dialog";
 import { personilListProps, StrukturOrganisasiProps } from "@/api";
 import Image from "next/image";
-import { Download, X } from "lucide-react";
+import { Download, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 type StrukturOrganisasiComponentProps = {
   groupedPersonil: any[];
-  strukturFile : StrukturOrganisasiProps
+  strukturFile: StrukturOrganisasiProps;
 };
 export default function StrukturOrganisasi({
   groupedPersonil,
-  strukturFile
+  strukturFile,
 }: StrukturOrganisasiComponentProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
     <div className="flex flex-col items-center">
-      <p className="text-xl font-bold pb-1 border-b-2 border-primary-main mt-16">
+      <p className="text-xl font-bold pb-1 border-b-2 border-primary-main mt-16 flex flex-row gap-x-2 justify-center items-center">
         Struktur Organisasi
+        <a
+          href={strukturFile.file}
+          target="_blank"
+          className="duration-300 text-primary-main font-bold hover:text-primary-700 flex flex-row gap-x-4 items-center text-sm"
+        >
+          <FileText size={18}/>
+          <Download size={18}/>
+        </a>
       </p>
-      <a
-        href={strukturFile.file}
-        target="_blank"
-        className="ml-auto mr-10 duration-300 text-primary-main font-bold hover:text-primary-700 flex flex-row gap-x-4 items-center group mt-6 md:mt-0"
-      >
-        Download Struktur Organisasi{" "}
-        <Download className="duration-300 md:opacity-0 group-hover:opacity-100" />
-      </a>
       <div className="w-full flex flex-col items-center gap-4 px-10 mt-12">
         {Object.keys(groupedPersonil)
           .sort((a: any, b: any) => a - b) // Sort levels from top to bottom
@@ -146,7 +146,8 @@ export default function StrukturOrganisasi({
                                 <span className="hidden md:inline-block">
                                   :
                                 </span>{" "}
-                                {person.positionHistory?.split(";").pop() || "-"}
+                                {person.positionHistory?.split(";").pop() ||
+                                  "-"}
                               </p>
                             </div>
                             <div className="flex flex-col sm:flex-row border-b sm:border-b-0 pb-2 sm:pb-0 gap-y-2 w-full justify-left items-center">
@@ -157,10 +158,16 @@ export default function StrukturOrganisasi({
                                 <span className="hidden md:inline-block">
                                   :
                                 </span>{" "}
-                                {person.educationHistory?.split(";").pop() || "-"}
+                                {person.educationHistory?.split(";").pop() ||
+                                  "-"}
                               </p>
                             </div>
-                            <Link href={`/personil/${person.id}`} className="w-full text-center underline mt-4">Lihat Detail</Link>
+                            <Link
+                              href={`/personil/${person.id}`}
+                              className="w-full text-center underline mt-4"
+                            >
+                              Lihat Detail
+                            </Link>
                           </div>
                         </div>
                       </div>
