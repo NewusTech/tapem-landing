@@ -44,13 +44,14 @@ export default function FaqLanding({ faqList }: FaqLandingProps) {
               key={faq.question}
               value={value}
               className={`bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
-              data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
             >
-              <AccordionTrigger className="bg-primary-main text-white rounded-xl px-4 sm:px-10">
-                <p className={`${isOpen ? "" : "line-clamp-1"} text-left`}>
-                  {faq.question}
-                </p>
-              </AccordionTrigger>
+              <div data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}>
+                <AccordionTrigger className="bg-primary-main text-white rounded-xl px-4 sm:px-10">
+                  <p className={`${isOpen ? "" : "line-clamp-1"} text-left`}>
+                    {faq.question}
+                  </p>
+                </AccordionTrigger>
+              </div>
               <AccordionContent
                 className={`px-4 py-2 bg-transparent ${isOpen ? "bg-gray-100" : ""}`}
               >

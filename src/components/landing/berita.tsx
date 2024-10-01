@@ -108,11 +108,10 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
   };
   return (
     <>
-      <div
-        className="p-8 hidden md:flex flex-col text-primary-main container"
-        data-aos="fade-left"
-      >
-        <p className="text-2xl font-bold">Berita</p>
+      <div className="p-8 hidden md:flex flex-col text-primary-main container">
+        <p data-aos="fade-up" className="text-2xl font-bold">
+          Berita
+        </p>
         <div className="flex flex-row mt-10 relative">
           <motion.div
             animate={{ width: isHidden ? "100%" : "60%" }}
@@ -123,7 +122,10 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
               animate={{ x: isHidden ? -900 : 20 }}
               transition={{ duration: 0.6, type: "spring" }}
             >
-              <div className="flex flex-col items-center gap-4">
+              <div
+                className="flex flex-col items-center gap-4"
+                data-aos="fade-right"
+              >
                 <div className="bg-white p-6 w-fit h-fit rounded-full group hover:transform hover:scale-x-100 duration-300">
                   <Newspaper className="group-hover:transform group-hover:-scale-x-100 duration-300" />
                 </div>
@@ -131,7 +133,7 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                   Berita Terkait Tentang Tata Pemerintahan Lampung Utara
                 </p>
               </div>
-              <Link href={"/news/"} className="group">
+              <Link href={"/news/"} className="group" data-aos="fade-up">
                 <Button
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -190,37 +192,42 @@ export default function BeritaLanding({ newsList }: BeritaLandingProps) {
                           "scale-[0.98]"
                       )}
                     >
-                      <Link href={`/news/${data.slug}`}>
-                        <div className="max-w-[25rem] h-[25rem] bg-white rounded-xl overflow-hidden shadow-lg">
-                          <div className="w-full h-[50%] bg-gray-400 overflow-hidden">
-                            <Image
-                              src={data?.image}
-                              alt="img"
-                              width={400}
-                              height={400}
-                              className="w-full h-full object-cover group-hover:scale-[1.1] duration-300"
-                            />
+                      <div
+                        data-aos="fade-right"
+                        data-aos-duration={500 * index}
+                      >
+                        <Link href={`/news/${data.slug}`}>
+                          <div className="max-w-[25rem] h-[25rem] bg-white rounded-xl overflow-hidden shadow-lg">
+                            <div className="w-full h-[50%] bg-gray-400 overflow-hidden">
+                              <Image
+                                src={data?.image}
+                                alt="img"
+                                width={400}
+                                height={400}
+                                className="w-full h-full object-cover group-hover:scale-[1.1] duration-300"
+                              />
+                            </div>
+                            <div className="flex flex-row w-full justify-between items-center px-4 py-2">
+                              <p className="bg-primary-main rounded-full p-1 w-full text-sm text-white text-center mr-2">
+                                {data?.Kategoriartikel.title}
+                              </p>
+                              <p className="text-primary-main text-right w-full">
+                                {data?.createdAt &&
+                                  formatDate(new Date(data?.createdAt))}
+                              </p>
+                            </div>
+                            <div className="flex flex-row justify-start items-start px-4">
+                              <p className="text-primary-main text-base md:text-lg line-clamp-3 md:line-clamp-2 font-bold">
+                                {data?.title}
+                              </p>
+                              <ArrowUpRight width={32} height={32} />
+                            </div>
+                            <div className="text-primary-main text-sm px-4 mt-2 line-clamp-2 lg:line-clamp-3">
+                              {parse(data.desc)}
+                            </div>
                           </div>
-                          <div className="flex flex-row w-full justify-between items-center px-4 py-2">
-                            <p className="bg-primary-main rounded-full p-1 w-full text-sm text-white text-center mr-2">
-                              {data?.Kategoriartikel.title}
-                            </p>
-                            <p className="text-primary-main text-right w-full">
-                              {data?.createdAt &&
-                                formatDate(new Date(data?.createdAt))}
-                            </p>
-                          </div>
-                          <div className="flex flex-row justify-start items-start px-4">
-                            <p className="text-primary-main text-base md:text-lg line-clamp-3 md:line-clamp-2 font-bold">
-                              {data?.title}
-                            </p>
-                            <ArrowUpRight width={32} height={32} />
-                          </div>
-                          <div className="text-primary-main text-sm px-4 mt-2 line-clamp-2 lg:line-clamp-3">
-                            {parse(data.desc)}
-                          </div>
-                        </div>
-                      </Link>
+                        </Link>
+                      </div>
                     </CarouselItem>
                   ))}
               </CarouselContent>
