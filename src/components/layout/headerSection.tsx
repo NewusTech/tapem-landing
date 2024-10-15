@@ -42,7 +42,7 @@ export default function HeaderSection() {
         </Link>
         <div className="flex flex-col gap-1 sm:gap-2 justify-center text-white items-start ml-4 md:ml-10">
           <p className="text-sm sm:text-xl md:text-2xl font-bold">
-            TATA PEMERINTAHAN
+            SISTEM INFORMASI TATA MAP
           </p>
           <p className="text-sm sm:text-base md:textlg">
             KABUPATEN LAMPUNG UTARA
