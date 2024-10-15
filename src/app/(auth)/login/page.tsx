@@ -79,9 +79,9 @@ const LoginPage = () => {
         />
       </div>
       <div className="flex flex-col items-center">
-        <h5 className="uppercase text-primaryy font-semibold">sitapem</h5>
+        <h5 className="uppercase text-primaryy font-semibold">sitmap</h5>
         <p className="uppercase text-primaryy font-light w-8/12 text-center text-sm">
-          sistem informasi tata pemerintahan
+          sistem informasi tata map
         </p>
       </div>
       <div className="space-y-2 w-full">
