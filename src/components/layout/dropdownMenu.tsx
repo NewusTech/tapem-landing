@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -23,8 +23,10 @@ import { usePathname } from "next/navigation";
 export default function DropdownMenuSection() {
   const pathname = usePathname();
 
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+
   return (
-    <DropdownMenu>
+    <DropdownMenu key={pathname}>
       <DropdownMenuTrigger>
         <Menu className="text-primary-main" />
       </DropdownMenuTrigger>
@@ -48,7 +50,7 @@ export default function DropdownMenuSection() {
                   {data.child.map((child) => (
                     <DropdownMenuItem key={child.title}>
                       <Link
-                      href={child.link}
+                        href={child.link}
                         className={cn([
                           "uppercase text-primary-main",
                           pathname === child.link && "font-bold",
